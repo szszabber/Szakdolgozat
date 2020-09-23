@@ -11,12 +11,7 @@ public class MainScene : MonoBehaviour
     public void BackToMain(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
     }
-
-    public void BackToNews()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-    }
-
+    //Gráf scene betöltése
     public void LoadGraph()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

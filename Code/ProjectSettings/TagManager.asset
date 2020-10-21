@@ -6,7 +6,7 @@ TagManager:
   tags:
   - cluecanv
   - concCanv
-  - ButtonTag
+  - ClueButton
   layers:
   - Default
   - TransparentFX

@@ -11305,7 +11305,7 @@ PrefabInstance:
     - target: {fileID: 1410450994456964241, guid: 83d0630c0a061b543b8b2010282176be,
         type: 3}
       propertyPath: m_TagString
-      value: ButtonTag
+      value: ClueButton
       objectReference: {fileID: 0}
     - target: {fileID: 1410450994456964241, guid: 83d0630c0a061b543b8b2010282176be,
         type: 3}
@@ -11370,12 +11370,12 @@ PrefabInstance:
     - target: {fileID: 3673888753529298682, guid: 83d0630c0a061b543b8b2010282176be,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 24.999998
+      value: 20.2
       objectReference: {fileID: 0}
     - target: {fileID: 3673888753529298682, guid: 83d0630c0a061b543b8b2010282176be,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 66.999985
+      value: -191
       objectReference: {fileID: 0}
     - target: {fileID: 3673888753529298682, guid: 83d0630c0a061b543b8b2010282176be,
         type: 3}

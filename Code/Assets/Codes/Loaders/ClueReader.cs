@@ -13,39 +13,31 @@ public class ClueReader : MonoBehaviour
 {
     public TextAsset xmlRawFile;
 
-    //public GameObject button;
-    //private RectTransform graphContainer;
-
     void Start()
     {
         string data = xmlRawFile.text;
         ReadClues(data);
     }
 
-    //bool FedesbenVan(Vector3 vewctorA, Vector3 vectorB, Rect rectPrefab)
-    //{
-    //    Point positionA = new Point((int)vewctorA.x, (int)vewctorA.y);
-    //    Point positionB = new Position();
-    //    Rectangle rectA = new Rectangle(positionA, new Size(rectPrefab.Width, rectPrefab.Height)
-    //    Rectangle rectB = new Rectangle(positionB, new Size(rectPrefab.Width, rectPrefab.Height)
-
-    //    Rectangle.Intersect
-    //}
-
     bool FedesbenVan(GameObject gameObjectA, GameObject gameObjectB)
     {
+        if(gameObjectA.tag != "ClueButton")
+        {
+            return false;
+        }
+
         BoxCollider2D colliderA = gameObjectA.GetComponent<BoxCollider2D>();
         BoxCollider2D colliderB = gameObjectB.GetComponent<BoxCollider2D>();
 
-        float aMinX = colliderA.bounds.min.x;
-        float aMaxX = colliderA.bounds.max.x;
-        float aMinY = colliderA.bounds.min.y;
-        float aMaxY = colliderA.bounds.max.y;
+        float aMinX = gameObjectA.transform.position.x + colliderA.bounds.min.x;
+        float aMaxX = gameObjectA.transform.position.x + colliderA.bounds.max.x;
+        float aMinY = gameObjectA.transform.position.y + colliderA.bounds.min.y;
+        float aMaxY = gameObjectA.transform.position.y + colliderA.bounds.max.y;
 
-        float bMinX = colliderB.bounds.min.x;
-        float bMaxX = colliderB.bounds.max.x;
-        float bMinY = colliderB.bounds.min.y;
-        float bMaxY = colliderB.bounds.max.y;
+        float bMinX = gameObjectB.transform.position.x + colliderB.bounds.min.x;
+        float bMaxX = gameObjectB.transform.position.x + colliderB.bounds.max.x;
+        float bMinY = gameObjectB.transform.position.y + colliderB.bounds.min.y;
+        float bMaxY = gameObjectB.transform.position.y + colliderB.bounds.max.y;
 
         // Ha B bal felső sarka benne van A-ban
         if (bMinX >= aMinX && bMinX <= aMaxX && bMinY >= aMinY && bMinY <= aMaxY)
@@ -74,13 +66,14 @@ public class ClueReader : MonoBehaviour
 
     public GameObject GenerateNewClueButton(GameObject prefabClueButton)
     {        
-        int minX = -200;
-        int maxX = 250;
-        int minY = 200;
-        int maxY = -80;
+        int minX = -400;
+        int maxX = 400;
+        int minY = 300;
+        int maxY = -300;
         Vector3 spawnPosition = new Vector3();
 
         GameObject newButton = Instantiate(prefabClueButton, spawnPosition, Quaternion.identity) as GameObject;
+        newButton.transform.SetParent(null);
         RectTransform prefabRectTransform = (prefabClueButton.transform as RectTransform);
         Rect prefabRect = prefabRectTransform.rect;
         Transform clueCanvasTransform = GameObject.FindGameObjectWithTag("cluecanv").transform;
@@ -88,12 +81,11 @@ public class ClueReader : MonoBehaviour
         // addig generálunk egy újabb pozíciót, amíg az jó helyre nem kerül
         while (vanAtfedes)
         {
-            float yPos = Random.Range(minY, maxY);
             float xPos = Random.Range(minX, maxX);
+            float yPos = Random.Range(minY, maxY);
             newButton.transform.position = new Vector3(xPos, yPos, 0f);
 
             int i = 0;
-            //while (i < clueCanvasTransform.childCount && ! FedesbenVan(clueCanvasTransform.GetChild(i).position, spawnPosition, prefabRect))
             while (i < clueCanvasTransform.childCount && ! FedesbenVan(clueCanvasTransform.GetChild(i).gameObject, newButton))
             {                
                 i++;
@@ -101,7 +93,6 @@ public class ClueReader : MonoBehaviour
 
             vanAtfedes = i < clueCanvasTransform.childCount;
         }
-
 
         return newButton;
     }

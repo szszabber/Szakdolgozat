@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 7d2663994b039d04883e150ab6500715
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Eastman Trial
+  fontNames:
+  - Eastman Trial
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0abbb035055ec9a4bafc67762f43e6c9, type: 3}
+  - {fileID: 12800000, guid: d8331d5a9f12060418354b7991d2a429, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

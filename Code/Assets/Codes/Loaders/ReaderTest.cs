@@ -13,6 +13,8 @@ public class ReaderTest : MonoBehaviour
 {
     public TextAsset xmlRawFile;
 
+    private List<GameObject> clueButtons = new List<GameObject>();
+
     void Start()
     {
         string data = xmlRawFile.text;
@@ -50,10 +52,6 @@ public class ReaderTest : MonoBehaviour
 
     public GameObject GenerateNewClueButton(GameObject prefabClueButton)
     {
-        int minX = -150;
-        int maxX = 130;
-        int minY = -200;
-        int maxY = 200;
         Vector3 spawnPosition = new Vector3();
 
         GameObject newButton = Instantiate(prefabClueButton, spawnPosition, Quaternion.identity) as GameObject;
@@ -65,6 +63,10 @@ public class ReaderTest : MonoBehaviour
         Transform clueCanvasTransform = GameObject.FindGameObjectWithTag("cluecanv").transform;
         bool vanAtfedes = true;
 
+        int minX = -150;
+        int maxX = 130;
+        int minY = -150;
+        int maxY = 150;
         // addig generálunk egy újabb pozíciót, amíg az jó helyre nem kerül
         while (vanAtfedes)
         {
@@ -73,12 +75,13 @@ public class ReaderTest : MonoBehaviour
             newButton.transform.position = new Vector3(xPos, yPos, 0f);
 
             int i = 0;
-            while (i < clueCanvasTransform.childCount && !FedesbenVan(clueCanvasTransform.GetChild(i).gameObject, newButton))
+            //while (i < clueCanvasTransform.childCount && !FedesbenVan(clueCanvasTransform.GetChild(i).gameObject, newButton))
+            while (i < clueButtons.Count && !FedesbenVan(clueButtons[i], newButton))
             {
                 i++;
             }
 
-            vanAtfedes = i < clueCanvasTransform.childCount;
+            vanAtfedes = i < clueButtons.Count && clueButtons.Count != 0;
         }
         return newButton;
     }
@@ -96,9 +99,18 @@ public class ReaderTest : MonoBehaviour
             XElement clue = clues[i];
 
             GameObject newButton = GenerateNewClueButton(prefabButton);
-            newButton.transform.SetParent(GameObject.FindGameObjectWithTag("cluecanv").transform, false);
+
+            // newButton.transform.SetParent(GameObject.FindGameObjectWithTag("cluecanv").transform, false);
+            clueButtons.Add(newButton);
+
             Text buttonText = (Text)newButton.GetComponentInChildren(typeof(Text));
             buttonText.text = clue.Element("ClueTitle").Value;
+            //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().Render();
+        }
+
+        foreach (var button in clueButtons)
+        {
+            button.transform.SetParent(GameObject.FindGameObjectWithTag("cluecanv").transform, false);
         }
     }
 }

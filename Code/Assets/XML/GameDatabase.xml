@@ -89,42 +89,42 @@
   <Conclusions> <!--Child_2-->
 
     <Conclusion ID="13">
-      <ConclusionDescription>Lopott katonai levelek</ConclusionDescription>
+      <ConclusionTitle>Lopott katonai levelek</ConclusionTitle>
     </Conclusion>
 
     <Conclusion ID="14">
-      <ConclusionDescription>Notesz visszaszerzése</ConclusionDescription>
+      <ConclusionTitle>Notesz visszaszerzése</ConclusionTitle>
     </Conclusion>
 
     <Conclusion ID="15">
-      <ConclusionDescription>Magyarázatlan jelenlét</ConclusionDescription>
+      <ConclusionTitle>Magyarázatlan jelenlét</ConclusionTitle>
     </Conclusion>
 
     <!---->
     <Conclusion ID="16">
-      <ConclusionDescription>Reménytelen féltékenység</ConclusionDescription>
+      <ConclusionTitle>Reménytelen féltékenység</ConclusionTitle>
     </Conclusion>
 
     <Conclusion ID="17">
-      <ConclusionDescription>Ártalmatlan flört</ConclusionDescription>
+      <ConclusionTitle>Ártalmatlan flört</ConclusionTitle>
     </Conclusion>
 
     <!---->
     <Conclusion ID="18">
-      <ConclusionDescription>A Dohányos tasak bizonyítja a bűnösséget</ConclusionDescription>
+      <ConclusionTitle>A Dohányos tasak bizonyítja a bűnösséget</ConclusionTitle>
     </Conclusion>
 
     <Conclusion ID="19">
-      <ConclusionDescription>A Dohányos tasak nem bizonyítja a bűnösséget</ConclusionDescription>
+      <ConclusionTitle>A Dohányos tasak nem bizonyítja a bűnösséget</ConclusionTitle>
     </Conclusion>
 
     <!---->
     <Conclusion ID="20">
-      <ConclusionDescription>Szerencsés lövés</ConclusionDescription>
+      <ConclusionTitle>Szerencsés lövés</ConclusionTitle>
     </Conclusion>
 
     <Conclusion ID="21">
-      <ConclusionDescription>Képzettség szükséges</ConclusionDescription>
+      <ConclusionTitle>Képzettség szükséges</ConclusionTitle>
     </Conclusion>
 
   </Conclusions> <!--Child_2 end-->
@@ -134,19 +134,19 @@
   <Motivations> <!--Child_3-->
     
     <Motivation ID="22">
-      <MotivationDescription>Miller motivációja a gyilkosságra</MotivationDescription>
+      <MotivationTitle>Miller motivációja a gyilkosságra</MotivationTitle>
     </Motivation>
 
     <Motivation ID="23">
-      <MotivationDescription>Miller ártatlan</MotivationDescription>
+      <MotivationTitle>Miller ártatlan</MotivationTitle>
     </Motivation>
 
     <Motivation ID="24">
-      <MotivationDescription>Ryan motivációja a gyilkosságra</MotivationDescription>
+      <MotivationTitle>Ryan motivációja a gyilkosságra</MotivationTitle>
     </Motivation>
 
     <Motivation ID="25">
-      <MotivationDescription>Ryan ártatlan</MotivationDescription>
+      <MotivationTitle>Ryan ártatlan</MotivationTitle>
     </Motivation>
     
   </Motivations> <!--Child_3 end-->
@@ -156,15 +156,15 @@
   <FinalDeductions> <!--Child_4-->
     
     <FinalDeduction ID="26">
-      <FinalDeductionDescription>John Miller bűnös</FinalDeductionDescription>
+      <FinalDeductionTitle>John Miller bűnös</FinalDeductionTitle>
     </FinalDeduction>
 
     <FinalDeduction ID="27">
-      <FinalDeductionDescription>James Ryan bűnös</FinalDeductionDescription>
+      <FinalDeductionTitle>James Ryan bűnös</FinalDeductionTitle>
     </FinalDeduction>
 
     <FinalDeduction ID="28">
-      <FinalDeductionDescription>Daniel Johnson bűnös</FinalDeductionDescription>
+      <FinalDeductionTitle>Daniel Johnson bűnös</FinalDeductionTitle>
     </FinalDeduction>
     
   </FinalDeductions> <!--Child_4 end-->

@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class FixPositionedClues : MonoBehaviour
 {
     public TextAsset xmlRawFile;
+    
     void Start()
     {
         string data = xmlRawFile.text;
@@ -28,8 +29,8 @@ public class FixPositionedClues : MonoBehaviour
             XElement clue = clues[i];
 
             //GameObject newButton = GenerateNewClueButton(prefabButton);
-            
-            GameObject newButton = Instantiate(prefabButton, new Vector3(0, -110+i*22, 0), Quaternion.identity);
+            GameObject newButton = Instantiate(prefabButton, new Vector3(0, -110 + i * 22, 0), Quaternion.identity);
+
             newButton.transform.SetParent(GameObject.FindGameObjectWithTag("cluecanv").transform, false);
             Text buttonText = (Text)newButton.GetComponentInChildren(typeof(Text));
             buttonText.text = clue.Element("ClueTitle").Value;

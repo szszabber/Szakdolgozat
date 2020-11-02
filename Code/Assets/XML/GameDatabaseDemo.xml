@@ -92,72 +92,88 @@
 
     <!--konklúziók-->
     <Conclusion ID="13">
-      <ConclusionDescription>Lopott katonai levelek</ConclusionDescription>
+      <ConclusionTitle>Lopott katonai levelek</ConclusionTitle>
+      <ConclusionDescription>A dobozt valószínüleg a tartalma miatt lopták el. Kérdés, hogy kinek kellettek ezek a levelek?</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="14">
-      <ConclusionDescription>Notesz visszaszerzése</ConclusionDescription>
+      <ConclusionTitle>Notesz és a levelek visszaszerzése</ConclusionTitle>
+      <ConclusionDescription>Miller a Noteszt és apja leveleit kereste. Ez igazolja, hogy mit kereshetett ott a helyszínen. De ha ő keresi akkor ellophatta?</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="15">
-      <ConclusionDescription>Magyarázatlan jelenlét</ConclusionDescription>
+      <ConclusionTitle>Magyarázatlan jelenlét</ConclusionTitle>
+      <ConclusionDescription></ConclusionDescription>
     </Conclusion>
 
     <!---->
     <Conclusion ID="16">
-      <ConclusionDescription>Reménytelen féltékenység</ConclusionDescription>
+      <ConclusionTitle>Reménytelen féltékenység</ConclusionTitle>
+      <ConclusionDescription>Ryan szerelmes volt Mrs. Jacksonba, és a féltékenység kényszerítette ki belőle a bűnös tettet.</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="17">
-      <ConclusionDescription>Ártalmatlan flört</ConclusionDescription>
+      <ConclusionTitle>Ártalmatlan flört</ConclusionTitle>
+      <ConclusionDescription>Ryan és Mrs. Jackson között romantikus, ám ártalmatlan levelés zajlott. Ez nem adhatott okot neki gyilkosságra.</ConclusionDescription>
     </Conclusion>
 
     <!---->
     <Conclusion ID="18">
-      <ConclusionDescription>A Dohányos tasak bizonyítja a bűnösséget</ConclusionDescription>
+      <ConclusionTitle>A Dohányos tasak bizonyítja a bűnösséget</ConclusionTitle>
+      <ConclusionDescription>Daniel Johnson ismerte David Jacksont, és állítása szerint elhagyta a dohányos tasakját. A helyszínen talált tasakon az ő monogramja állhatott.</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="19">
-      <ConclusionDescription>A Dohányos tasak nem bizonyítja a bűnösséget</ConclusionDescription>
+      <ConclusionTitle>A Dohányos tasak nem bizonyítja a bűnösséget</ConclusionTitle>
+      <ConclusionDescription></ConclusionDescription>
     </Conclusion>
 
     <!---->
     <Conclusion ID="20">
-      <ConclusionDescription>Szerencsés lövés</ConclusionDescription>
+      <ConclusionTitle>Szerencsés lövés</ConclusionTitle>
+      <ConclusionDescription>Megvan az esély arra, hogy az elkövető szerencsésen célzott és sütötte el a fegyvert, ezzel okozva az áldozat halálát.</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="21">
-      <ConclusionDescription>Képzettség szükséges</ConclusionDescription>
+      <ConclusionTitle>Képzettség szükséges</ConclusionTitle>
+      <ConclusionDescription>Egy fegyver használatához, és a pontos célzáshoz katonai kiképzés szükséges. Az elkövető valószínűleg egy képzett lövész volt.</ConclusionDescription>
     </Conclusion>
 
     <!--Motivációk-->
     <Conclusion ID="22">
-      <ConclusionDescription>Miller motivációja a gyilkosságra</ConclusionDescription>
+      <ConclusionTitle>Miller motivációja a gyilkosságra</ConclusionTitle>
+      <ConclusionDescription></ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="23">
-      <ConclusionDescription>Miller ártatlan</ConclusionDescription>
+      <ConclusionTitle>Miller ártatlan</ConclusionTitle>
+      <ConclusionDescription></ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="24">
-      <ConclusionDescription>Ryan motivációja a gyilkosságra</ConclusionDescription>
+      <ConclusionTitle>Ryan motivációja a gyilkosságra</ConclusionTitle>
+      <ConclusionDescription></ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="25">
-      <ConclusionDescription>Ryan ártatlan</ConclusionDescription>
+      <ConclusionTitle>Ryan ártatlan</ConclusionTitle>
+      <ConclusionDescription></ConclusionDescription>
     </Conclusion>
 
     <!--Végső következtetések / bűnösök-->
     <Conclusion ID="26">
-      <ConclusionDescription>John Miller bűnös</ConclusionDescription>
+      <ConclusionTitle>John Miller bűnös</ConclusionTitle>
+      <ConclusionDescription></ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="27">
-      <ConclusionDescription>James Ryan bűnös</ConclusionDescription>
+      <ConclusionTitle>James Ryan bűnös</ConclusionTitle>
+      <ConclusionDescription></ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="28">
-      <ConclusionDescription>Daniel Johnson bűnös</ConclusionDescription>
+      <ConclusionTitle>Daniel Johnson bűnös</ConclusionTitle>
+      <ConclusionDescription></ConclusionDescription>
     </Conclusion>
     
   </Conclusions>

@@ -14,6 +14,7 @@ public class ReaderTest : MonoBehaviour
     public TextAsset xmlRawFile;
 
     private List<GameObject> clueButtons = new List<GameObject>();
+    float spacing = 0.1f;
 
     void Start()
     {
@@ -34,14 +35,31 @@ public class ReaderTest : MonoBehaviour
         Rect rectA = CalculateRect(rectTransformA);
         Rect rectB = CalculateRect(rectTransformB);
 
+        // AddPaddingToRect(rectA)
+        // AddPaddingToRect(rectA)
+
         return rectA.Overlaps(rectB, true);
     }
+
+    //public static void AddPadding(Vector3[] corners)
+    //{
+    //    corners[0].x -= 10;
+    //    corners[0].y -= 10;
+    //    corners[1].x -= 10;
+    //    corners[1].y += 10;
+    //    corners[2].x += 10;
+    //    corners[2].y += 10;
+    //    corners[3].x += 10;
+    //    corners[3].y -= 10;
+    //}
 
     public static Rect CalculateRect(RectTransform rectTransform)
     {
         //először a recttransform 4 sarkát lekérdezzük worldspace-ben
         Vector3[] corners = new Vector3[4];
         rectTransform.GetWorldCorners(corners);
+
+        // AddPadding(corners);
 
         //kiszámítjuk a szélességét és magasságát
         Vector2 size = new Vector2(corners[3].x - corners[0].x, corners[1].y - corners[0].y);
@@ -54,7 +72,7 @@ public class ReaderTest : MonoBehaviour
     {
         Vector3 spawnPosition = new Vector3();
 
-        GameObject newButton = Instantiate(prefabClueButton, spawnPosition, Quaternion.identity) as GameObject;
+        GameObject newButton = Instantiate(prefabClueButton, spawnPosition+(spawnPosition*spacing), Quaternion.identity) as GameObject;
         newButton.transform.SetParent(null);
 
         RectTransform prefabRectTransform = (prefabClueButton.transform as RectTransform);
@@ -63,10 +81,10 @@ public class ReaderTest : MonoBehaviour
         Transform clueCanvasTransform = GameObject.FindGameObjectWithTag("cluecanv").transform;
         bool vanAtfedes = true;
 
-        int minX = -150;
-        int maxX = 130;
-        int minY = -150;
-        int maxY = 150;
+        int minX = -220;
+        int maxX = 250;
+        int minY = -100;
+        int maxY = 100;
         // addig generálunk egy újabb pozíciót, amíg az jó helyre nem kerül
         while (vanAtfedes)
         {

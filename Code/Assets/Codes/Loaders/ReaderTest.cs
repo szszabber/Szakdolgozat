@@ -14,7 +14,6 @@ public class ReaderTest : MonoBehaviour
     public TextAsset xmlRawFile;
 
     private List<GameObject> clueButtons = new List<GameObject>();
-    float spacing = 0.1f;
 
     void Start()
     {
@@ -35,23 +34,23 @@ public class ReaderTest : MonoBehaviour
         Rect rectA = CalculateRect(rectTransformA);
         Rect rectB = CalculateRect(rectTransformB);
 
-        // AddPaddingToRect(rectA)
-        // AddPaddingToRect(rectA)
 
         return rectA.Overlaps(rectB, true);
     }
 
-    //public static void AddPadding(Vector3[] corners)
-    //{
-    //    corners[0].x -= 10;
-    //    corners[0].y -= 10;
-    //    corners[1].x -= 10;
-    //    corners[1].y += 10;
-    //    corners[2].x += 10;
-    //    corners[2].y += 10;
-    //    corners[3].x += 10;
-    //    corners[3].y -= 10;
-    //}
+    public static Vector3[] AddPaddingToRect(Vector3[] corners)
+    {
+        corners[0].x -= 5;
+        corners[0].y -= 5;
+        corners[1].x -= 5;
+        corners[1].y += 5;
+        corners[2].x += 5;
+        corners[2].y += 5;
+        corners[3].x += 5;
+        corners[3].y -= 5;
+
+        return corners;
+    }
 
     public static Rect CalculateRect(RectTransform rectTransform)
     {
@@ -59,7 +58,7 @@ public class ReaderTest : MonoBehaviour
         Vector3[] corners = new Vector3[4];
         rectTransform.GetWorldCorners(corners);
 
-        // AddPadding(corners);
+        corners = AddPaddingToRect(corners);
 
         //kiszámítjuk a szélességét és magasságát
         Vector2 size = new Vector2(corners[3].x - corners[0].x, corners[1].y - corners[0].y);
@@ -72,8 +71,9 @@ public class ReaderTest : MonoBehaviour
     {
         Vector3 spawnPosition = new Vector3();
 
-        GameObject newButton = Instantiate(prefabClueButton, spawnPosition+(spawnPosition*spacing), Quaternion.identity) as GameObject;
+        GameObject newButton = Instantiate(prefabClueButton, spawnPosition+(spawnPosition), Quaternion.identity) as GameObject;
         newButton.transform.SetParent(null);
+        
 
         RectTransform prefabRectTransform = (prefabClueButton.transform as RectTransform);
         //Rect prefabRect = prefabRectTransform.rect;
@@ -86,7 +86,8 @@ public class ReaderTest : MonoBehaviour
         int minY = -100;
         int maxY = 100;
         // addig generálunk egy újabb pozíciót, amíg az jó helyre nem kerül
-        while (vanAtfedes)
+        int tryCount = 0;
+        while (vanAtfedes && tryCount < 100000)
         {
             float xPos = Random.Range(minX, maxX);
             float yPos = Random.Range(minY, maxY);
@@ -100,7 +101,15 @@ public class ReaderTest : MonoBehaviour
             }
 
             vanAtfedes = i < clueButtons.Count && clueButtons.Count != 0;
+
+            ++tryCount;
         }
+
+        if(tryCount == 100000)
+        {
+            return null;
+        }
+
         return newButton;
     }
 
@@ -110,13 +119,21 @@ public class ReaderTest : MonoBehaviour
 
         List<XElement> clues = xmlDoc.Root.Element("Clues").Elements("Clue").ToList();
 
-        GameObject prefabButton = GameObject.Find("ClueButton");
+        GameObject prefabButton = GameObject.Find("CluePrefabButton");
+        //GameObject prefabButton = GameObject.Find("ClueButton");
+
 
         for (int i = 0; i < clues.Count; i++)
         {
             XElement clue = clues[i];
 
             GameObject newButton = GenerateNewClueButton(prefabButton);
+
+            if(newButton == null)
+            {
+                clueButtons.Clear();
+                ReadClues(xmlFileAsText);
+            }
 
             // newButton.transform.SetParent(GameObject.FindGameObjectWithTag("cluecanv").transform, false);
             clueButtons.Add(newButton);

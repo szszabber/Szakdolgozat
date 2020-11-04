@@ -2,10 +2,8 @@
 
 <DatabaseContainer> <!--Root-->
   
-  <Clues> <!--Child_1-->
+  <Clues>
 
-    <!--John Miller nyomai-->
-    <!--Ez a két nyom Daniel Johnson is tartozik-->
     <Clue ID="1">
       <ClueTitle>Hiányzó doboz</ClueTitle>
       <ClueDescription>A polcról eltünt egy doboz. Vajon mi lehetett benne?</ClueDescription>
@@ -17,7 +15,6 @@
     </Clue>
     <!--Ennek a két nyomnak a konlkúziója: Lopott katonai levelek-->
 
-    <!---->
     <Clue ID="3">
       <ClueTitle>Notesz hevert a földön</ClueTitle>
       <ClueDescription>Egy bőrkötésű notesz hevert a földön. A borítóján a J.M. monogram állt.</ClueDescription>
@@ -29,8 +26,6 @@
     </Clue>
     <!--Ennek a két nyomnak a konlkúziója: Notesz visszaszerzése-->
 
-    <!--James Ryan nyomai-->
-    <!---->
     <Clue ID="5">
       <ClueTitle>Lábnyom a helyszínen</ClueTitle>
       <ClueDescription>James csizmája pontosan beleillett a lábnyomba.</ClueDescription>
@@ -42,7 +37,6 @@
     </Clue>
     <!--Ennek a két nyomnak a konlkúziója: Magyarázatlan jelenlét-->
 
-    <!---->
     <Clue ID="7">
       <ClueTitle>Szerelmes levelek</ClueTitle>
       <ClueDescription>David Jackson felesége, Mrs. Jackson szerelmes leveleket írt egy bizonyos James-nek.</ClueDescription>
@@ -55,8 +49,6 @@
     <!--Ennek a két nyomnak a konlkúziója: Reménytelen féltékenység-->
     <!--Ennek a két nyomnak a konlkúziója: Ártalmatlan flört-->
 
-    <!--Daniel Jackson nyomai-->
-    <!---->
     <Clue ID="9">
       <ClueTitle>Dohányos tasak D.J. monogrammal</ClueTitle>
       <ClueDescription>A D.J. monogram lehet David Jackson de az is lehet, hogy valaki másé.</ClueDescription>
@@ -69,7 +61,6 @@
     <!--Ennek a két nyomnak a konlkúziója: A Dohányos tasak bizonyítja a bűnösséget-->
     <!--Ennek a két nyomnak a konlkúziója: A Dohányos tasak nem bizonyítja a bűnösséget-->
 
-    <!--Különálló nyom, ami szükséges a gyilkos megtalálásához-->
     <Clue ID="11">
       <ClueTitle>Képzett lövész</ClueTitle>
       <ClueDescription>Egy ilyen fegyvert csak egy tapasztalt lövész tud ilyen pontossággal használni.</ClueDescription>
@@ -82,95 +73,100 @@
     <!--Ennek a két nyomnak a konlkúziója: Szerencsés lövés-->
     <!--Ennek a két nyomnak a konlkúziója: Képzettség szükséges-->
     
-  </Clues> <!--Cild_1 end-->
+  </Clues>
   
-  <!---->
-  
-  <Conclusions> <!--Child_2-->
+  <Conclusions>
 
     <Conclusion ID="13">
       <ConclusionTitle>Lopott katonai levelek</ConclusionTitle>
+      <ConclusionDescription>A dobozt valószínüleg a tartalma miatt lopták el. Kérdés, hogy kinek kellettek ezek a levelek?</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="14">
-      <ConclusionTitle>Notesz visszaszerzése</ConclusionTitle>
+      <ConclusionTitle>Notesz és a levelek visszaszerzése</ConclusionTitle>
+      <ConclusionDescription>Miller a Noteszt és apja leveleit kereste. Ez igazolja, hogy mit kereshetett ott a helyszínen. De ha ő keresi akkor ellophatta?</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="15">
       <ConclusionTitle>Magyarázatlan jelenlét</ConclusionTitle>
+      <ConclusionDescription>Ryan cipője pontosan beleillett a lábnyomba ami az udvaron volt. Ez bizonyítja, hogy ott volt, de a Mrs. Jackson tagadja ezt.</ConclusionDescription>
     </Conclusion>
 
-    <!---->
     <Conclusion ID="16">
       <ConclusionTitle>Reménytelen féltékenység</ConclusionTitle>
+      <ConclusionDescription>Ryan szerelmes volt Mrs. Jacksonba, és a féltékenység kényszerítette ki belőle a bűnös tettet.</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="17">
       <ConclusionTitle>Ártalmatlan flört</ConclusionTitle>
+      <ConclusionDescription>Ryan és Mrs. Jackson között romantikus, ám ártalmatlan levelés zajlott. Ez nem adhatott okot neki gyilkosságra.</ConclusionDescription>
     </Conclusion>
 
-    <!---->
     <Conclusion ID="18">
       <ConclusionTitle>A Dohányos tasak bizonyítja a bűnösséget</ConclusionTitle>
+      <ConclusionDescription>Daniel Johnson ismerte David Jacksont, és állítása szerint elhagyta a dohányos tasakját. A helyszínen talált tasakon az ő monogramja állhatott.</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="19">
-      <ConclusionTitle>A Dohányos tasak nem bizonyítja a bűnösséget</ConclusionTitle>
+      <ConclusionTitle>A Dohányos tasak bizonyítja a látogatást</ConclusionTitle>
+      <ConclusionDescription>Johnson elismerte, hogy meglátogatta David Jacksont, de ez nem feltétlen jelenti azt, hogy meggyilkolta.</ConclusionDescription>
     </Conclusion>
 
-    <!---->
     <Conclusion ID="20">
       <ConclusionTitle>Szerencsés lövés</ConclusionTitle>
+      <ConclusionDescription>Megvan az esély arra, hogy az elkövető szerencsésen célzott és sütötte el a fegyvert, ezzel okozva az áldozat halálát.</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="21">
       <ConclusionTitle>Képzettség szükséges</ConclusionTitle>
+      <ConclusionDescription>Egy fegyver használatához, és a pontos célzáshoz katonai kiképzés szükséges. Az elkövető valószínűleg egy képzett lövész volt.</ConclusionDescription>
     </Conclusion>
 
-  </Conclusions> <!--Child_2 end-->
+  </Conclusions>
   
-  <!---->
-
-  <Motivations> <!--Child_3-->
+  <Motivations>
     
     <Motivation ID="22">
       <MotivationTitle>Miller motivációja a gyilkosságra</MotivationTitle>
+      <MotivationDescription>Millert rajta kaphatta David Jackson, hogy vissza akarja szerezni a leveleket és a noteszt. Ez lehett motiváció Millernek David Jackon megölésére.</MotivationDescription>
     </Motivation>
 
     <Motivation ID="23">
       <MotivationTitle>Miller ártatlan</MotivationTitle>
+      <MotivationDescription>Miller a körülmények áldozata. Egyáltalán nem illik a képbe, sem fizikai sem pszichológiai szempontból.</MotivationDescription>
     </Motivation>
 
     <Motivation ID="24">
       <MotivationTitle>Ryan motivációja a gyilkosságra</MotivationTitle>
+      <MotivationDescription>Ryan viszonya Mrs. Jacksonnal motivációt adott a gyilkosságra.</MotivationDescription>
     </Motivation>
 
     <Motivation ID="25">
       <MotivationTitle>Ryan ártatlan</MotivationTitle>
+      <MotivationDescription>Ryan jelenléte a helyszínen egyértelműen a viszánya utal Mrs. Jacksonnal és, hogy esetleg kertészként dolgozott a háznál.</MotivationDescription>
     </Motivation>
     
-  </Motivations> <!--Child_3 end-->
-  
-  <!---->
+  </Motivations>
 
   <FinalDeductions> <!--Child_4-->
     
     <FinalDeduction ID="26">
       <FinalDeductionTitle>John Miller bűnös</FinalDeductionTitle>
+      <FinalDeductioDescription>John Miller ölte meg Daniel Jacksont, miközben rajta kapta, hogy visszaszerzi a papirokat.</FinalDeductioDescription>
     </FinalDeduction>
 
     <FinalDeduction ID="27">
       <FinalDeductionTitle>James Ryan bűnös</FinalDeductionTitle>
+      <FinalDeductioDescription>James Ryan reménytelen féltékenységből végzett Daniel Jacksonnal.</FinalDeductioDescription>
     </FinalDeduction>
 
     <FinalDeduction ID="28">
       <FinalDeductionTitle>Daniel Johnson bűnös</FinalDeductionTitle>
+      <FinalDeductioDescription>Daniel Johnson ölte meg David Jacksont. Ő egy volt katona, akit kiképeztek fegyverhasználatra, és a dohányos tasakját a helyszínen találták.</FinalDeductioDescription>
     </FinalDeduction>
     
-  </FinalDeductions> <!--Child_4 end-->
+  </FinalDeductions> 
 
-  <!---->
-  <!--Ezek adják meg a következtetéseket-->
   <CluePairs>
     <CluePair pID="1" input1ID="1" input2ID="2" outputID="13"/>
     
@@ -188,8 +184,6 @@
     <CluePair pID="9" input1ID="11" input2ID="12" outputID="21"/>
   </CluePairs>
   
-  <!---->
-  <!--Ezek adják meg a motivációkat-->
   <ConclusionPairs>
     <ConclusionPair cID="1" concInput1ID="13" concInput2ID="14" motivationOutput="22"/>
     <ConclusionPair cID="2" concInput1ID="13" concInput2ID="14" motivationOutput="23"/>
@@ -198,17 +192,13 @@
     <ConclusionPair cID="4" concInput1ID="15" concInput2ID="17" motivationOutput="25"/>
   </ConclusionPairs>
   
-  <!---->
-  <!--Ezek adják megy a gyilkost-->
-  <GuiltPairs>
-    <GuiltyPerson gID="1" guiltInput1="20" gulitInput2="22" guiltOutput="26"/>
-    <GuiltyPerson gID="2" guiltInput1="20" gulitInput2="24" guiltOutput="27"/>
-    <GuiltyPerson gID="3" guiltInput1="13" gulitInput2="21" guiltInput3="18" guiltOutput="28"/>
-  </GuiltPairs>
-  
-  <!---->
+  <FinalDeductionPairs>
+    <FinalDeductionGuiltyPerson gID="1" guiltInput1="20" gulitInput2="22" guiltOutput="26"/>
+    <FinalDeductionGuiltyPerson gID="2" guiltInput1="20" gulitInput2="24" guiltOutput="27"/>
+    <FinalDeductionGuiltyPerson gID="3" guiltInput1="18" gulitInput2="21" guiltOutput="28"/>
+  </FinalDeductionPairs>
 
-  <SherlockQuotes> <!--Child_5-->
+  <SherlockQuotes>
 
     <SherlockQuote ID="1">
       <SherlockQuoteDescription>Maga a hallgatás mestere, Watson, ezért olyan izgalmas magával beszélgetni.</SherlockQuoteDescription>
@@ -242,6 +232,6 @@
       <SherlockQuoteDescription>Ha a lehetetlent kizártuk, ami marad, az az igazság, akármilyen valószínűtlen legyen is.</SherlockQuoteDescription>
     </SherlockQuote>
     
-  </SherlockQuotes> <!--Child_5 end-->
+  </SherlockQuotes>
 
 </DatabaseContainer> <!--Root end-->

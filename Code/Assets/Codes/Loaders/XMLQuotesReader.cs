@@ -5,6 +5,9 @@ using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Runtime;
+using System.Xml.Linq;
+//using System;
+
 public class XMLQuotesReader : MonoBehaviour
 {
     public GameObject Text;

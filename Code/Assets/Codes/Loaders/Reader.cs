@@ -1,0 +1,227 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.IO;
+using System.Xml;
+using System.Drawing;
+using System.Xml.Linq;
+using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Linq;
+using System;
+
+public class Reader : MonoBehaviour
+{
+    public TextAsset xmlRawFile;
+
+    private List<GameObject> clueButtons = new List<GameObject>();
+
+    void Start()
+    {
+        string data = xmlRawFile.text;
+        
+        ReadClues(data);
+
+        ReadConclusions(data);
+
+        ReadMotivations(data);
+
+        ReadFinalDeductions(data);
+
+        //ReadRelations(data);
+
+        GenerateClueButtons();
+    }
+
+    public void ReadClues(string xmlFileAsText)
+    {
+        XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
+
+        IEnumerable<XElement> clues = xmlDoc.Root.Element("Clues").Elements("Clue");
+
+        foreach (XElement clueXelement in clues)
+        {
+            int id = Convert.ToInt32(clueXelement.Attribute("ID").Value);
+            string title = clueXelement.Element("ClueTitle").Value;
+            string description = clueXelement.Element("ClueDescription").Value;
+            Clue clue = new Clue(id, title, description);
+            Data.Clues.Add(clue);
+        }
+    }
+
+    private void ReadConclusions(string xmlFileAsText)
+    {
+        XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
+
+        IEnumerable<XElement> conclusions = xmlDoc.Root.Element("Conclusions").Elements("Conclusion").ToList();
+
+        foreach (XElement conclusionXelement in conclusions)
+        {
+            int id = Convert.ToInt32(conclusionXelement.Attribute("ID").Value);
+            string title = conclusionXelement.Element("ConclusionTitle").Value;
+            string description = conclusionXelement.Element("ConclusionDescription").Value;
+            Conclusion conclusion = new Conclusion(id, title, description);
+            Data.Conclusions.Add(conclusion);
+        }
+    }
+
+    private void ReadMotivations(string xmlFileAsText)
+    {
+        XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
+
+        IEnumerable<XElement> motivations = xmlDoc.Root.Element("Motivations").Elements("Motivation").ToList();
+
+        foreach  (XElement motivationXelement in motivations)
+        {
+            int id = Convert.ToInt32(motivationXelement.Attribute("ID").Value);
+            string title = motivationXelement.Element("MotivationTitle").Value;
+            string description = motivationXelement.Element("MotivationDescription").Value;
+            Motivation motivation = new Motivation(id, title, description);
+            Data.Motivations.Add(motivation);
+        }
+    }
+
+    private void ReadFinalDeductions(string xmlFileAsText)
+    {
+        XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
+
+        IEnumerable<XElement> finalDeductions = xmlDoc.Root.Element("FinalDeductions").Elements("FinalDeduction").ToList();
+
+        foreach (XElement finalDeductionXelement in finalDeductions)
+        {
+            int id = Convert.ToInt32(finalDeductionXelement.Attribute("ID").Value);
+            string title = finalDeductionXelement.Element("FinalDeductionTitle").Value;
+            string description = finalDeductionXelement.Element("FinalDeductioDescription").Value;
+            FinalDeduction finalDeduction = new FinalDeduction(id, title, description);
+            Data.FinalDeductions.Add(finalDeduction);
+        }
+    }
+
+    private void ReadRelations(string xmlFileAsText)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void GenerateClueButtons()
+    {
+        GameObject prefabButton = GameObject.Find("CluePrefabButton");
+        //GameObject prefabButton = GameObject.Find("ClueButton");
+
+        for (int i = 0; i < Data.Clues.Count; i++)
+        {
+            Clue clue = Data.Clues[i];
+
+            GameObject newButton = GenerateNewClueButton(prefabButton);
+
+            if (newButton == null)
+            {
+                clueButtons.Clear();
+                GenerateClueButtons();
+            }
+
+            // newButton.transform.SetParent(GameObject.FindGameObjectWithTag("cluecanv").transform, false);
+            clueButtons.Add(newButton);
+
+            Text buttonText = (Text)newButton.GetComponentInChildren(typeof(Text));
+            buttonText.text = clue.Title;
+            //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().Render();
+        }
+
+        foreach (var button in clueButtons)
+        {
+            button.transform.SetParent(GameObject.FindGameObjectWithTag("cluecanv").transform, false);
+        }
+    }
+
+    public static bool FedesbenVan(GameObject gameObjectA, GameObject gameObjectB)
+    {
+        if (gameObjectA.tag != "ClueButton")
+        {
+            return false;
+        }
+
+        RectTransform rectTransformA = gameObjectA.transform as RectTransform;
+        RectTransform rectTransformB = gameObjectB.transform as RectTransform;
+
+        Rect rectA = CalculateRect(rectTransformA);
+        Rect rectB = CalculateRect(rectTransformB);
+
+
+        return rectA.Overlaps(rectB, true);
+    }
+
+    public static Vector3[] AddPaddingToRect(Vector3[] corners)
+    {
+        corners[0].x -= 5;
+        corners[0].y -= 5;
+        corners[1].x -= 5;
+        corners[1].y += 5;
+        corners[2].x += 5;
+        corners[2].y += 5;
+        corners[3].x += 5;
+        corners[3].y -= 5;
+
+        return corners;
+    }
+
+    public static Rect CalculateRect(RectTransform rectTransform)
+    {
+        //először a recttransform 4 sarkát lekérdezzük worldspace-ben
+        Vector3[] corners = new Vector3[4];
+        rectTransform.GetWorldCorners(corners);
+
+        corners = AddPaddingToRect(corners);
+
+        //kiszámítjuk a szélességét és magasságát
+        Vector2 size = new Vector2(corners[3].x - corners[0].x, corners[1].y - corners[0].y);
+
+        //létrehozunk egy Rect-et az adatokból. Corners[0] a bal alsó, Corners[1] a bal felső, Corners[2] a jobb felső, Corners[3] a jobb alsó sarok
+        return new Rect(corners[1], size);
+    }
+
+    public GameObject GenerateNewClueButton(GameObject prefabClueButton)
+    {
+        Vector3 spawnPosition = new Vector3();
+
+        GameObject newButton = Instantiate(prefabClueButton, spawnPosition+(spawnPosition), Quaternion.identity) as GameObject;
+        newButton.transform.SetParent(null);
+        
+
+        RectTransform prefabRectTransform = (prefabClueButton.transform as RectTransform);
+        //Rect prefabRect = prefabRectTransform.rect;
+
+        Transform clueCanvasTransform = GameObject.FindGameObjectWithTag("cluecanv").transform;
+        bool vanAtfedes = true;
+
+        int minX = -220;
+        int maxX = 250;
+        int minY = -100;
+        int maxY = 100;
+        // addig generálunk egy újabb pozíciót, amíg az jó helyre nem kerül
+        int tryCount = 0;
+        while (vanAtfedes && tryCount < 100000)
+        {
+            float xPos = UnityEngine.Random.Range(minX, maxX);
+            float yPos = UnityEngine.Random.Range(minY, maxY);
+            newButton.transform.position = new Vector3(xPos, yPos, 0f);
+
+            int i = 0;
+            //while (i < clueCanvasTransform.childCount && !FedesbenVan(clueCanvasTransform.GetChild(i).gameObject, newButton))
+            while (i < clueButtons.Count && !FedesbenVan(clueButtons[i], newButton))
+            {
+                i++;
+            }
+
+            vanAtfedes = i < clueButtons.Count && clueButtons.Count != 0;
+
+            ++tryCount;
+        }
+
+        if(tryCount == 100000)
+        {
+            return null;
+        }
+
+        return newButton;
+    }
+
+}

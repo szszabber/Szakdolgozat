@@ -611,7 +611,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 4b6a879fbe3c9c7489fbd09592641e7e, type: 3}
+    m_Font: {fileID: 12800000, guid: af4e54cd6fe035c498e8e06e2b4317be, type: 3}
     m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 1
@@ -2496,29 +2496,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 287510395}
-  - component: {fileID: 287510394}
   - component: {fileID: 287510396}
-  - component: {fileID: 287510397}
   m_Layer: 0
-  m_Name: ClueReader
+  m_Name: Reader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &287510394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287510393}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 321411202010f864ea49f8b16970dac2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xmlRawFile: {fileID: 4900000, guid: 9c33b7841fc61934595aa7742144c4b2, type: 3}
 --- !u!4 &287510395
 Transform:
   m_ObjectHideFlags: 0
@@ -2543,19 +2528,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b5eee03f156ef6439558038fa644885, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xmlRawFile: {fileID: 4900000, guid: 9c33b7841fc61934595aa7742144c4b2, type: 3}
---- !u!114 &287510397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287510393}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ebeec9a783e6aa4dafe4920c38545ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   xmlRawFile: {fileID: 4900000, guid: 9c33b7841fc61934595aa7742144c4b2, type: 3}

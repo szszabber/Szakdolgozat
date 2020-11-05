@@ -103,7 +103,7 @@
 
     <Conclusion ID="15">
       <ConclusionTitle>Magyarázatlan jelenlét</ConclusionTitle>
-      <ConclusionDescription></ConclusionDescription>
+      <ConclusionDescription>Ryan cipője pontosan beleillett a lábnyomba ami az udvaron volt. Ez bizonyítja, hogy ott volt, de a Mrs. Jackson tagadja ezt.</ConclusionDescription>
     </Conclusion>
 
     <!---->
@@ -124,8 +124,8 @@
     </Conclusion>
 
     <Conclusion ID="19">
-      <ConclusionTitle>A Dohányos tasak nem bizonyítja a bűnösséget</ConclusionTitle>
-      <ConclusionDescription></ConclusionDescription>
+      <ConclusionTitle>A Dohányos tasak bizonyítja a látogatást</ConclusionTitle>
+      <ConclusionDescription>Johnson elismerte, hogy meglátogatta David Jacksont, de ez nem feltétlen jelenti azt, hogy meggyilkolta.</ConclusionDescription>
     </Conclusion>
 
     <!---->
@@ -142,38 +142,38 @@
     <!--Motivációk-->
     <Conclusion ID="22">
       <ConclusionTitle>Miller motivációja a gyilkosságra</ConclusionTitle>
-      <ConclusionDescription></ConclusionDescription>
+      <ConclusionDescription>Millert rajta kaphatta David Jackson, hogy vissza akarja szerezni a leveleket és a noteszt. Ez lehett motiváció Millernek David Jackon megölésére.</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="23">
       <ConclusionTitle>Miller ártatlan</ConclusionTitle>
-      <ConclusionDescription></ConclusionDescription>
+      <ConclusionDescription>Miller a körülmények áldozata. Egyáltalán nem illik a képbe, sem fizikai sem pszichológiai szempontból.</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="24">
       <ConclusionTitle>Ryan motivációja a gyilkosságra</ConclusionTitle>
-      <ConclusionDescription></ConclusionDescription>
+      <ConclusionDescription>Ryan viszonya Mrs. Jacksonnal motivációt adott a gyilkosságra.</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="25">
       <ConclusionTitle>Ryan ártatlan</ConclusionTitle>
-      <ConclusionDescription></ConclusionDescription>
+      <ConclusionDescription>Ryan jelenléte a helyszínen egyértelműen a viszánya utal Mrs. Jacksonnal és, hogy esetleg kertészként dolgozott a háznál.</ConclusionDescription>
     </Conclusion>
 
     <!--Végső következtetések / bűnösök-->
     <Conclusion ID="26">
       <ConclusionTitle>John Miller bűnös</ConclusionTitle>
-      <ConclusionDescription></ConclusionDescription>
+      <ConclusionDescription>John Miller ölte meg Daniel Jacksont, miközben rajta kapta, hogy visszaszerzi a papirokat.</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="27">
       <ConclusionTitle>James Ryan bűnös</ConclusionTitle>
-      <ConclusionDescription></ConclusionDescription>
+      <ConclusionDescription>James Ryan reménytelen féltékenységből végzett Daniel Jacksonnal.</ConclusionDescription>
     </Conclusion>
 
     <Conclusion ID="28">
       <ConclusionTitle>Daniel Johnson bűnös</ConclusionTitle>
-      <ConclusionDescription></ConclusionDescription>
+      <ConclusionDescription>Daniel Johnson ölte meg David Jacksont. Ő egy volt katona, akit kiképeztek fegyverhasználatra, és a dohányos tasakját a helyszínen találták.</ConclusionDescription>
     </Conclusion>
     
   </Conclusions>

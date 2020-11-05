@@ -12,11 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/GameStoryScene.unity
     guid: 163d0e866f43e684c9b7eabd574311ef
   - enabled: 1
+    path: Assets/Scenes/InterviewScene.unity
+    guid: b30fc7657141bb045963a06bce630630
+  - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: f25e10094c9ccba45a3ba3f37116001d
-  - enabled: 0
-    path: Assets/Scenes/OtherScenes/GraphScene.unity
-    guid: c9fddc55862aa7a4eb728287e746c8ab
   - enabled: 1
     path: Assets/Scenes/GameEndScenes/WinScene.unity
     guid: 7ef2c7e385337664f94e7168ff4507e2

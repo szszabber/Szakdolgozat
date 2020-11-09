@@ -13,7 +13,7 @@ public class Reader : MonoBehaviour
 {
     public TextAsset xmlRawFile;
 
-    private List<GameObject> clueButtons = new List<GameObject>();
+    private List<GameObject> clueButtons;
 
     void Start()
     {
@@ -27,7 +27,11 @@ public class Reader : MonoBehaviour
 
         ReadFinalDeductions(data);
 
-        //ReadRelations(data);
+        ReadClueRelations(data);
+
+        ReadConclusionRelations(data);
+
+        ReadFinalDeductionsRelations(data);
 
         GenerateClueButtons();
     }
@@ -96,13 +100,76 @@ public class Reader : MonoBehaviour
         }
     }
 
-    private void ReadRelations(string xmlFileAsText)
+    private void ReadClueRelations(string xmlFileAsText)
     {
-        throw new System.NotImplementedException();
+        XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
+
+        IEnumerable<XElement> clueRelations = xmlDoc.Root.Element("CluePairs").Elements("CluePair").ToList();
+
+        foreach (XElement clueRelationXelement in clueRelations)
+        {
+            int id = Convert.ToInt32(clueRelationXelement.Attribute("pID").Value);
+            int clueInput1Id = Convert.ToInt32(clueRelationXelement.Attribute("input1ID").Value);
+            int clueInput2Id = Convert.ToInt32(clueRelationXelement.Attribute("input2ID").Value);
+            int conclusionOutputId = Convert.ToInt32(clueRelationXelement.Attribute("outputID").Value);
+
+            InvestigationItem clueInput1 = Data.Clues.Find(clue => clue.Id == clueInput1Id);
+            InvestigationItem clueInput2 = Data.Clues.Find(clue => clue.Id == clueInput2Id);
+            InvestigationItem conclusionOutput = Data.Clues.Find(clue => clue.Id == conclusionOutputId);
+            
+            Relation clueRelation = new Relation(id, clueInput1, clueInput2, conclusionOutput);
+            Data.ClueRelations.Add(clueRelation);
+        }
+    }
+
+    private void ReadConclusionRelations(string xmlFileAsText)
+    {
+        XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
+
+        IEnumerable<XElement> conclusionRelations = xmlDoc.Root.Element("ConclusionPairs").Elements("ConclusionPair").ToList();
+
+        foreach (var conclsionRelationXelement in conclusionRelations)
+        {
+            int id = Convert.ToInt32(conclsionRelationXelement.Attribute("cID").Value);
+            int conclusionInput1Id = Convert.ToInt32(conclsionRelationXelement.Attribute("concInput1ID").Value);
+            int conclusionInput2Id = Convert.ToInt32(conclsionRelationXelement.Attribute("concInput2ID").Value);
+            int motivationOutputId = Convert.ToInt32(conclsionRelationXelement.Attribute("motivationOutput").Value);
+
+            InvestigationItem conclusionInput1 = Data.Conclusions.Find(conclusion => conclusion.Id == conclusionInput1Id);
+            InvestigationItem conclusionInput2 = Data.Conclusions.Find(conclusion => conclusion.Id == conclusionInput2Id);
+            InvestigationItem motivationOutput = Data.Conclusions.Find(conclusion => conclusion.Id == motivationOutputId);
+
+            Relation conclusionRelation = new Relation(id, conclusionInput1, conclusionInput2, motivationOutput);
+            Data.ConclusionRelations.Add(conclusionRelation);
+        }
+    }
+
+    private void ReadFinalDeductionsRelations(string xmlFileAsText)
+    {
+        XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
+
+        IEnumerable<XElement> finalDeductionRelations = xmlDoc.Root.Element("FinalDeductionPairs").Elements("FinalDeductionGuiltyPerson").ToList();
+
+        foreach (var finalDeductionRelationsXelement in finalDeductionRelations)
+        {
+            int id = Convert.ToInt32(finalDeductionRelationsXelement.Attribute("gID").Value);
+            int guiltInput1Id = Convert.ToInt32(finalDeductionRelationsXelement.Attribute("guiltInput1").Value);
+            int guiltInput2Id = Convert.ToInt32(finalDeductionRelationsXelement.Attribute("guiltInput2").Value);
+            int guiltOutputId = Convert.ToInt32(finalDeductionRelationsXelement.Attribute("guiltOutput").Value);
+
+            InvestigationItem guiltInput1 = Data.FinalDeductions.Find(finalDeduction => finalDeduction.Id == guiltInput1Id);
+            InvestigationItem guiltInput2 = Data.FinalDeductions.Find(finalDeduction => finalDeduction.Id == guiltInput2Id);
+            InvestigationItem guiltOutput = Data.FinalDeductions.Find(finalDeduction => finalDeduction.Id == guiltOutputId);
+
+            Relation finalDeductionRelation = new Relation(id, guiltInput1, guiltInput2, guiltOutput);
+            Data.FinalDeductionRelations.Add(finalDeductionRelation);
+        }
     }
 
     private void GenerateClueButtons()
     {
+        clueButtons = new List<GameObject>();
+
         GameObject prefabButton = GameObject.Find("CluePrefabButton");
         //GameObject prefabButton = GameObject.Find("ClueButton");
 

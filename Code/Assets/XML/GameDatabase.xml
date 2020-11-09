@@ -193,9 +193,9 @@
   </ConclusionPairs>
   
   <FinalDeductionPairs>
-    <FinalDeductionGuiltyPerson gID="1" guiltInput1="20" gulitInput2="22" guiltOutput="26"/>
-    <FinalDeductionGuiltyPerson gID="2" guiltInput1="20" gulitInput2="24" guiltOutput="27"/>
-    <FinalDeductionGuiltyPerson gID="3" guiltInput1="18" gulitInput2="21" guiltOutput="28"/>
+    <FinalDeductionGuiltyPerson gID="1" guiltInput1="20" guiltInput2="22" guiltOutput="26"/>
+    <FinalDeductionGuiltyPerson gID="2" guiltInput1="20" guiltInput2="24" guiltOutput="27"/>
+    <FinalDeductionGuiltyPerson gID="3" guiltInput1="18" guiltInput2="21" guiltOutput="28"/>
   </FinalDeductionPairs>
 
   <SherlockQuotes>

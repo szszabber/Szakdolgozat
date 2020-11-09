@@ -7869,7 +7869,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 74a0fddce7bf9644390ed5c5d3d45e0b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fe8dc67dabe8152468d609b6b6e1c889, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.2
   m_Pitch: 1
@@ -12498,6 +12498,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1273906904}
     m_Modifications:
+    - target: {fileID: 5645878307012873760, guid: c878399ce0f1c95469be38da9cf4d3e0,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5645878307012873760, guid: c878399ce0f1c95469be38da9cf4d3e0,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.54901963
+      objectReference: {fileID: 0}
+    - target: {fileID: 5645878307012873760, guid: c878399ce0f1c95469be38da9cf4d3e0,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5645878307012873760, guid: c878399ce0f1c95469be38da9cf4d3e0,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5645878307012873760, guid: c878399ce0f1c95469be38da9cf4d3e0,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.64705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 5645878307012873760, guid: c878399ce0f1c95469be38da9cf4d3e0,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6457534783282596893, guid: c878399ce0f1c95469be38da9cf4d3e0,
         type: 3}
       propertyPath: m_Name

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using UnityEngine.UIElements;
 
 public class Reader : MonoBehaviour
 {
@@ -15,10 +16,14 @@ public class Reader : MonoBehaviour
 
     private List<GameObject> clueButtons;
 
+    public Clue selectedClue1;
+
+    public Clue selectedClue2;
+
     void Start()
     {
         string data = xmlRawFile.text;
-        
+
         ReadClues(data);
 
         ReadConclusions(data);
@@ -74,7 +79,7 @@ public class Reader : MonoBehaviour
 
         IEnumerable<XElement> motivations = xmlDoc.Root.Element("Motivations").Elements("Motivation").ToList();
 
-        foreach  (XElement motivationXelement in motivations)
+        foreach (XElement motivationXelement in motivations)
         {
             int id = Convert.ToInt32(motivationXelement.Attribute("ID").Value);
             string title = motivationXelement.Element("MotivationTitle").Value;
@@ -116,7 +121,7 @@ public class Reader : MonoBehaviour
             InvestigationItem clueInput1 = Data.Clues.Find(clue => clue.Id == clueInput1Id);
             InvestigationItem clueInput2 = Data.Clues.Find(clue => clue.Id == clueInput2Id);
             InvestigationItem conclusionOutput = Data.Clues.Find(clue => clue.Id == conclusionOutputId);
-            
+
             Relation clueRelation = new Relation(id, clueInput1, clueInput2, conclusionOutput);
             Data.ClueRelations.Add(clueRelation);
         }
@@ -173,6 +178,9 @@ public class Reader : MonoBehaviour
         GameObject prefabButton = GameObject.Find("CluePrefabButton");
         //GameObject prefabButton = GameObject.Find("ClueButton");
 
+        UnityEngine.UI.Button plusButton = GameObject.Find("PlusButton").GetComponent<UnityEngine.UI.Button>();
+        plusButton.onClick.AddListener(HandlePlusButtonClick);
+
         for (int i = 0; i < Data.Clues.Count; i++)
         {
             Clue clue = Data.Clues[i];
@@ -187,6 +195,9 @@ public class Reader : MonoBehaviour
 
             // newButton.transform.SetParent(GameObject.FindGameObjectWithTag("cluecanv").transform, false);
             clueButtons.Add(newButton);
+            UnityEngine.UI.Button button = newButton.GetComponent<UnityEngine.UI.Button>();
+            //button.onClick.AddListener(HandleClueButtonClick);
+            button.onClick.AddListener(() => HandleClueButtonClick(button));
 
             Text buttonText = (Text)newButton.GetComponentInChildren(typeof(Text));
             buttonText.text = clue.Title;
@@ -249,9 +260,9 @@ public class Reader : MonoBehaviour
     {
         Vector3 spawnPosition = new Vector3();
 
-        GameObject newButton = Instantiate(prefabClueButton, spawnPosition+(spawnPosition), Quaternion.identity) as GameObject;
+        GameObject newButton = Instantiate(prefabClueButton, spawnPosition + (spawnPosition), Quaternion.identity) as GameObject;
         newButton.transform.SetParent(null);
-        
+
 
         RectTransform prefabRectTransform = (prefabClueButton.transform as RectTransform);
         //Rect prefabRect = prefabRectTransform.rect;
@@ -283,7 +294,7 @@ public class Reader : MonoBehaviour
             ++tryCount;
         }
 
-        if(tryCount == 100000)
+        if (tryCount == 100000)
         {
             return null;
         }
@@ -291,4 +302,54 @@ public class Reader : MonoBehaviour
         return newButton;
     }
 
+    public void HandleClueButtonClick(UnityEngine.UI.Button button)
+    {
+        Text panel1Text = (Text)GameObject.Find("SelectedClueDescPanel1").GetComponentInChildren(typeof(Text));
+        Text panel2Text = (Text)GameObject.Find("SelectedClueDescPanel2").GetComponentInChildren(typeof(Text));
+
+        Text buttonText = (Text)button.GetComponentInChildren(typeof(Text));
+        Clue clue = Data.Clues.Find(c => c.Title == buttonText.text);
+
+
+        if (selectedClue1 == null)
+        {
+            selectedClue1 = clue;
+            panel1Text.text = clue.Desription;
+        }
+        else if (selectedClue2 == null && selectedClue1 != clue)
+        {
+            selectedClue2 = clue;
+            panel2Text.text = clue.Desription;
+        }
+        else
+        {
+            selectedClue1 = clue;
+            panel1Text.text = clue.Desription;
+            selectedClue2 = null;
+            panel2Text.text = "";
+        }
+    }
+
+    public void HandlePlusButtonClick()
+    {
+        Text panel1Text = (Text)GameObject.Find("SelectedClueDescPanel1").GetComponentInChildren(typeof(Text));
+        Text panel2Text = (Text)GameObject.Find("SelectedClueDescPanel2").GetComponentInChildren(typeof(Text));
+
+        if (selectedClue1 == null || selectedClue2 == null)
+        {
+            return;
+        }
+
+        Relation relation = Data.ClueRelations.Find(crelation => crelation.Input1 == selectedClue1 || crelation.Input2 == selectedClue1);
+
+        if (relation != null && (selectedClue2 == relation.Input1 || selectedClue2 == relation.Input2))
+        {
+            Data.ChoosenRelations.Add(relation);
+        }
+
+        selectedClue1 = null;
+        panel1Text.text = "";
+        selectedClue2 = null;
+        panel2Text.text = "";
+    }
 }

@@ -20,6 +20,10 @@ public class Reader : MonoBehaviour
 
     public Clue selectedClue2;
 
+    public UnityEngine.UI.Button selectedButton1;
+
+    public UnityEngine.UI.Button selectedButton2;
+
     void Start()
     {
         string data = xmlRawFile.text;
@@ -212,6 +216,7 @@ public class Reader : MonoBehaviour
 
     public static bool FedesbenVan(GameObject gameObjectA, GameObject gameObjectB)
     {
+        // Ha a megtalált GameObject nem ClueButton tag-el van ellátva akkor false-t ad vissza
         if (gameObjectA.tag != "ClueButton")
         {
             return false;
@@ -223,12 +228,14 @@ public class Reader : MonoBehaviour
         Rect rectA = CalculateRect(rectTransformA);
         Rect rectB = CalculateRect(rectTransformB);
 
-
+        // Megvizsgáljuk, hogy a két gameObject generálás után fedésben van e
         return rectA.Overlaps(rectB, true);
     }
-
+ 
     public static Vector3[] AddPaddingToRect(Vector3[] corners)
     {
+        // Kibővítem a clueButton-ok szélességét és magasságát, hogy a generálásnál, ne kerüljenek közvetlen egymás mellé
+
         corners[0].x -= 5;
         corners[0].y -= 5;
         corners[1].x -= 5;
@@ -304,29 +311,35 @@ public class Reader : MonoBehaviour
 
     public void HandleClueButtonClick(UnityEngine.UI.Button button)
     {
+        // Alsó két panel text komponense
         Text panel1Text = (Text)GameObject.Find("SelectedClueDescPanel1").GetComponentInChildren(typeof(Text));
         Text panel2Text = (Text)GameObject.Find("SelectedClueDescPanel2").GetComponentInChildren(typeof(Text));
 
+        // ClueButton Text komponense
         Text buttonText = (Text)button.GetComponentInChildren(typeof(Text));
         Clue clue = Data.Clues.Find(c => c.Title == buttonText.text);
 
-
+        // Mikor kerül az első panelre és mikor a másodikra a Clue leírása
         if (selectedClue1 == null)
         {
             selectedClue1 = clue;
             panel1Text.text = clue.Desription;
+            selectedButton1 = button;
         }
         else if (selectedClue2 == null && selectedClue1 != clue)
         {
             selectedClue2 = clue;
             panel2Text.text = clue.Desription;
+            selectedButton2 = button;
         }
         else
         {
             selectedClue1 = clue;
             panel1Text.text = clue.Desription;
+            selectedButton1 = button;
             selectedClue2 = null;
             panel2Text.text = "";
+            selectedButton2 = null;
         }
     }
 
@@ -334,6 +347,8 @@ public class Reader : MonoBehaviour
     {
         Text panel1Text = (Text)GameObject.Find("SelectedClueDescPanel1").GetComponentInChildren(typeof(Text));
         Text panel2Text = (Text)GameObject.Find("SelectedClueDescPanel2").GetComponentInChildren(typeof(Text));
+        Text notPairText = (Text)GameObject.FindGameObjectWithTag("TextTag").GetComponentInChildren(typeof(Text));
+
 
         if (selectedClue1 == null || selectedClue2 == null)
         {
@@ -345,11 +360,20 @@ public class Reader : MonoBehaviour
         if (relation != null && (selectedClue2 == relation.Input1 || selectedClue2 == relation.Input2))
         {
             Data.ChoosenRelations.Add(relation);
+            selectedButton1.gameObject.SetActive(false);
+            selectedButton2.gameObject.SetActive(false);  
+        }
+        else
+        {
+            //Letöltött Toast Unity pack a hibaüzenet megjelenítésére (akkor kell megjeleníteni, ha nincs párban a két kiválasztott nyom)
+            Toast.Instance.Show("A kiválasztott nyomok nem alkotnak párt!", 2f);
         }
 
         selectedClue1 = null;
         panel1Text.text = "";
+        selectedButton1 = null;
         selectedClue2 = null;
         panel2Text.text = "";
+        selectedButton2 = null;
     }
 }

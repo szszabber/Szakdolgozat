@@ -9,12 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class Reader : MonoBehaviour
 {
     public TextAsset xmlRawFile;
 
-    private List<GameObject> clueButtons;
+    private List<GameObject> clueButtons = new List<GameObject>();
 
     public Clue selectedClue1;
 
@@ -24,9 +25,11 @@ public class Reader : MonoBehaviour
 
     public UnityEngine.UI.Button selectedButton2;
 
-    void Start()
+    public void Start()
     {
         string data = xmlRawFile.text;
+
+        Clear();
 
         ReadClues(data);
 
@@ -43,6 +46,35 @@ public class Reader : MonoBehaviour
         ReadFinalDeductionsRelations(data);
 
         GenerateClueButtons();
+    }
+
+    private void Clear()
+    {
+        clueButtons.Clear();
+
+        selectedButton1 = null;
+
+        selectedButton2 = null;
+
+        selectedClue1 = null;
+
+        selectedClue2 = null;
+
+        Data.Clues.Clear();
+
+        Data.Conclusions.Clear();
+
+        Data.Motivations.Clear();
+
+        Data.FinalDeductions.Clear();
+
+        Data.ClueRelations.Clear();
+
+        Data.ConclusionRelations.Clear();
+
+        Data.FinalDeductionRelations.Clear();
+
+        Data.ChoosenRelations.Clear();
     }
 
     public void ReadClues(string xmlFileAsText)
@@ -177,7 +209,7 @@ public class Reader : MonoBehaviour
 
     private void GenerateClueButtons()
     {
-        clueButtons = new List<GameObject>();
+        
 
         GameObject prefabButton = GameObject.Find("CluePrefabButton");
         //GameObject prefabButton = GameObject.Find("ClueButton");

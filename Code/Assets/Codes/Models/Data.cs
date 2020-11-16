@@ -19,6 +19,4 @@ public static class Data
     public static List<Relation> FinalDeductionRelations { get; set; } = new List<Relation>();
 
     public static List<Relation> ChoosenRelations { get; set; } = new List<Relation>();
-
-    public static List<Quote> Quotes { get; set; } = new List<Quote>();
 }

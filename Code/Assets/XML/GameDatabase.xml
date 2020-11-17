@@ -16,7 +16,7 @@
     <!--Ennek a két nyomnak a konlkúziója: Lopott katonai levelek-->
 
     <Clue ID="3">
-      <ClueTitle>Notesz hevert a földön</ClueTitle>
+      <ClueTitle>Monogrammos notesz hevert a földön</ClueTitle>
       <ClueDescription>Egy bőrkötésű notesz hevert a földön. A borítóján a J.M. monogram állt.</ClueDescription>
     </Clue>
 
@@ -27,7 +27,7 @@
     <!--Ennek a két nyomnak a konlkúziója: Notesz visszaszerzése-->
 
     <Clue ID="5">
-      <ClueTitle>Lábnyom a helyszínen</ClueTitle>
+      <ClueTitle>Ismeretlen lábnyom a helyszínen</ClueTitle>
       <ClueDescription>James csizmája pontosan beleillett a lábnyomba.</ClueDescription>
     </Clue>
     
@@ -56,7 +56,7 @@
 
     <Clue ID="10">
       <ClueTitle>David Jackson nem dohányzott</ClueTitle>
-      <ClueDescription>David Jackson évekkel ezelőtt leszokott a doháyzásról. Lehet, hogy régről maradt meg a tasak, de az is lehet, hogy nem.</ClueDescription>
+      <ClueDescription>David Jackson évekkel ezelőtt leszokott a dohányzásról. Lehet, hogy régről maradt meg a tasak, de az is lehet, hogy nem.</ClueDescription>
     </Clue>
     <!--Ennek a két nyomnak a konlkúziója: A Dohányos tasak bizonyítja a bűnösséget-->
     <!--Ennek a két nyomnak a konlkúziója: A Dohányos tasak nem bizonyítja a bűnösséget-->

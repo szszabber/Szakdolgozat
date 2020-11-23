@@ -10,10 +10,11 @@ using UnityEngine.UI;
 public class GraphDrawer : MonoBehaviour
 {
     [SerializeField]
-    private Sprite nagyitoSprite;    
+    private Sprite nagyitoSprite;
     private RectTransform graphContainer;
 
     private List<GameObject> conclusionButtons = new List<GameObject>();
+    private List<GameObject> motivationButtons = new List<GameObject>();
 
     public void Awake()
     {
@@ -73,7 +74,7 @@ public class GraphDrawer : MonoBehaviour
         for (int i = 0; i < Data.ChoosenClueRelations.Count; i++)
         {
 
-            float xPosition = 50f;
+            float xPosition = -230f;
             float yPosition = ySize + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
@@ -92,12 +93,34 @@ public class GraphDrawer : MonoBehaviour
             Text buttonText = (Text)newConcButton.GetComponentInChildren(typeof(Text));
             buttonText.text = title;
         }
-        
+
     }
 
     private void DrawMotivations()
     {
-        throw new NotImplementedException();
+        float ySize = 20f;
+        GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
+
+        for (int i = 0; i < Data.ChoosenConclusionRelations.Count; i++)
+        {
+            float xPosition = 0f;
+            float yPosition = ySize + i * ySize;
+            Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
+
+            string title = Data.ChoosenConclusionRelations[i].Output.Title;
+
+            GameObject newMotivationButton = CreateNode(prefabConclusionButton, spawnPos);
+            if (newMotivationButton == null)
+            {
+                motivationButtons.Clear();
+                DrawMotivations();
+            }
+            motivationButtons.Add(newMotivationButton);
+            Text buttonText = (Text)newMotivationButton.GetComponentInChildren(typeof(Text));
+            buttonText.text = title;
+        }
+
+
     }
 
     private void DrawFinalDeductions()

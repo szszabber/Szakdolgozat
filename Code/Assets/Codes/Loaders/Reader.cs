@@ -425,11 +425,21 @@ public class Reader : MonoBehaviour
         }
 
         // A listából kikeressük azt a kapcsolatot, amiben szerepel a lenyomott clue
-        Relation relation = Data.ClueRelations.Find(crelation => crelation.Input1 == selectedClue1 || crelation.Input2 == selectedClue1);
+        Relation clueRelation = Data.ClueRelations.Find(crelation => crelation.Input1 == selectedClue1 || crelation.Input2 == selectedClue1);
 
-        if (relation != null && (selectedClue2 == relation.Input1 || selectedClue2 == relation.Input2))
+        if (clueRelation != null && (selectedClue2 == clueRelation.Input1 || selectedClue2 == clueRelation.Input2))
         {
-            Data.ChoosenClueRelations.Add(relation);
+            Relation conclusionRelation = Data.ConclusionRelations.Find(cRelation => cRelation.Input1 == clueRelation.Output || cRelation.Input2 == clueRelation.Output);
+            if (conclusionRelation != null)
+            {
+                Relation previousClueRelation = Data.ChoosenClueRelations.Find(clueRel => clueRel.Output == conclusionRelation.Input1 || clueRel.Output == conclusionRelation.Input2);
+                if (previousClueRelation != null)
+                {
+                    Data.ChoosenConclusionRelations.Add(conclusionRelation);
+                }
+            }
+
+            Data.ChoosenClueRelations.Add(clueRelation);
 
             //A sikeresen párba állított nyomok eltűnnek a képernyőről
             selectedButton1.gameObject.SetActive(false);

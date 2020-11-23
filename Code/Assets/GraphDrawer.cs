@@ -1,4 +1,5 @@
 ﻿using CodeMonkey.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,52 +10,107 @@ using UnityEngine.UI;
 public class GraphDrawer : MonoBehaviour
 {
     [SerializeField]
-    private Sprite nagyitoSprite;
-    //ide kell majd a párosításból jövő konklúziónak bekerülnie
-    private Text conclusionText;
+    private Sprite nagyitoSprite;    
     private RectTransform graphContainer;
+
+    private List<GameObject> conclusionButtons = new List<GameObject>();
 
     public void Awake()
     {
-
         GameObject grapContainerGO = GameObject.Find("GraphContainer");
         graphContainer = grapContainerGO.GetComponent<RectTransform>();
-        CreateCircle(new Vector2(200, 200));
-        List<int> valueList = new List<int>() { 30, 20, 50, 80, 30, 50, 30, 30 };
-        ShowGraph(valueList);
+
+        ShowGraph();
     }
 
-    private GameObject CreateCircle(Vector2 anchoredPosition)
+    //private GameObject CreateCircle(Vector2 anchoredPosition, string title)
+    //{
+    //    GameObject gameObject = new GameObject("Nagyito", typeof(Image));
+    //    gameObject.transform.SetParent(graphContainer, false);
+    //    gameObject.GetComponent<Image>().sprite = nagyitoSprite;
+    //    RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+    //    rectTransform.anchoredPosition = anchoredPosition;
+    //    rectTransform.sizeDelta = new Vector2(40, 40);
+    //    rectTransform.anchorMin = new Vector2(0, 0);
+    //    rectTransform.anchorMax = new Vector2(0, 0);
+    //    return gameObject;
+    //}
+
+    //private void ShowGraph()
+    //{
+    //    float graphHeight = graphContainer.sizeDelta.y;
+    //    float yMaximum = 100f;
+    //    float xSize = 50f;
+
+    //    GameObject lastCircleGameObject = null;
+    //    for (int i = 0; i < valueList.Count; i++)
+    //    {
+    //        float xPosition = xSize + i * xSize;
+    //        float yPosition = (valueList[i] / yMaximum) * graphHeight;
+    //        GameObject circleGameObject = CreateCircle(new Vector2(xPosition, yPosition));
+    //        if (lastCircleGameObject != null)
+    //        {
+    //            CreateDotConnection(lastCircleGameObject.GetComponent<RectTransform>().anchoredPosition, circleGameObject.GetComponent<RectTransform>().anchoredPosition);
+    //        }
+    //        lastCircleGameObject = circleGameObject;
+    //    }
+    //}
+
+    private void ShowGraph()
     {
-        GameObject gameObject = new GameObject("Nagyito", typeof(Image));
-        gameObject.transform.SetParent(graphContainer, false);
-        gameObject.GetComponent<Image>().sprite = nagyitoSprite;
-        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = anchoredPosition;
-        rectTransform.sizeDelta = new Vector2(50, 50);
-        rectTransform.anchorMin = new Vector2(0, 0);
-        rectTransform.anchorMax = new Vector2(0, 0);
-        return gameObject;
+        DrawConclusions();
+        DrawMotivations();
+        DrawFinalDeductions();
     }
 
-    private void ShowGraph(List<int> valueList)
+    private void DrawConclusions()
     {
         float graphHeight = graphContainer.sizeDelta.y;
-        float yMaximum = 100f;
-        float xSize = 50f;
+        float ySize = 20f;
 
-        GameObject lastCircleGameObject = null;
-        for (int i = 0; i < valueList.Count; i++)
+        GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
+
+        for (int i = 0; i < Data.ChoosenClueRelations.Count; i++)
         {
-            float xPosition = xSize + i * xSize;
-            float yPosition = (valueList[i] / yMaximum) * graphHeight;
-            GameObject circleGameObject = CreateCircle(new Vector2(xPosition, yPosition));
-            if (lastCircleGameObject != null)
+
+            float xPosition = 50f;
+            float yPosition = ySize + i * ySize;
+            Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
+
+            string title = Data.ChoosenClueRelations[i].Output.Title;
+            //Vector2 anchoredPosition = new Vector2(xPosition, yPosition);
+            //GameObject circleGameObject = CreateCircle(anchoredPosition, title);    
+
+            GameObject newConcButton = CreateNode(prefabConclusionButton, spawnPos);
+
+            if (newConcButton == null)
             {
-                CreateDotConnection(lastCircleGameObject.GetComponent<RectTransform>().anchoredPosition, circleGameObject.GetComponent<RectTransform>().anchoredPosition);
+                conclusionButtons.Clear();
+                DrawConclusions();
             }
-            lastCircleGameObject = circleGameObject;
+            conclusionButtons.Add(newConcButton);
+            Text buttonText = (Text)newConcButton.GetComponentInChildren(typeof(Text));
+            buttonText.text = title;
         }
+        
+    }
+
+    private void DrawMotivations()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void DrawFinalDeductions()
+    {
+        throw new NotImplementedException();
+    }
+
+    private GameObject CreateNode(GameObject prefabConclusionButton, Vector3 spawnPos)
+    {
+        GameObject conclusionButton = Instantiate(prefabConclusionButton, spawnPos, Quaternion.identity);
+        conclusionButton.transform.SetParent(GameObject.FindGameObjectWithTag("concCanv").transform, false);
+
+        return conclusionButton;
     }
 
     private void CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB)

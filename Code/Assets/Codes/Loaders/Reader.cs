@@ -10,6 +10,7 @@ using System.Linq;
 using System;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 public class Reader : MonoBehaviour
 {
@@ -72,9 +73,9 @@ public class Reader : MonoBehaviour
 
         Data.ConclusionRelations.Clear();
 
-        Data.FinalDeductionRelations.Clear();
+        Data.MotivationRelations.Clear();
 
-        Data.ChoosenRelations.Clear();
+        Data.ChoosenClueRelations.Clear();
     }
 
     public void ReadClues(string xmlFileAsText)
@@ -156,7 +157,7 @@ public class Reader : MonoBehaviour
 
             InvestigationItem clueInput1 = Data.Clues.Find(clue => clue.Id == clueInput1Id);
             InvestigationItem clueInput2 = Data.Clues.Find(clue => clue.Id == clueInput2Id);
-            InvestigationItem conclusionOutput = Data.Clues.Find(clue => clue.Id == conclusionOutputId);
+            InvestigationItem conclusionOutput = Data.Conclusions.Find(conclusion => conclusion.Id == conclusionOutputId);
 
             Relation clueRelation = new Relation(id, clueInput1, clueInput2, conclusionOutput);
             Data.ClueRelations.Add(clueRelation);
@@ -178,7 +179,7 @@ public class Reader : MonoBehaviour
 
             InvestigationItem conclusionInput1 = Data.Conclusions.Find(conclusion => conclusion.Id == conclusionInput1Id);
             InvestigationItem conclusionInput2 = Data.Conclusions.Find(conclusion => conclusion.Id == conclusionInput2Id);
-            InvestigationItem motivationOutput = Data.Conclusions.Find(conclusion => conclusion.Id == motivationOutputId);
+            InvestigationItem motivationOutput = Data.Motivations.Find(motivation => motivation.Id == motivationOutputId);
 
             Relation conclusionRelation = new Relation(id, conclusionInput1, conclusionInput2, motivationOutput);
             Data.ConclusionRelations.Add(conclusionRelation);
@@ -198,12 +199,12 @@ public class Reader : MonoBehaviour
             int guiltInput2Id = Convert.ToInt32(finalDeductionRelationsXelement.Attribute("guiltInput2").Value);
             int guiltOutputId = Convert.ToInt32(finalDeductionRelationsXelement.Attribute("guiltOutput").Value);
 
-            InvestigationItem guiltInput1 = Data.FinalDeductions.Find(finalDeduction => finalDeduction.Id == guiltInput1Id);
-            InvestigationItem guiltInput2 = Data.FinalDeductions.Find(finalDeduction => finalDeduction.Id == guiltInput2Id);
+            InvestigationItem guiltInput1 = Data.Motivations.Find(motivation => motivation.Id == guiltInput1Id);
+            InvestigationItem guiltInput2 = Data.Motivations.Find(motivation => motivation.Id == guiltInput2Id);
             InvestigationItem guiltOutput = Data.FinalDeductions.Find(finalDeduction => finalDeduction.Id == guiltOutputId);
 
             Relation finalDeductionRelation = new Relation(id, guiltInput1, guiltInput2, guiltOutput);
-            Data.FinalDeductionRelations.Add(finalDeductionRelation);
+            Data.MotivationRelations.Add(finalDeductionRelation);
         }
     }
 
@@ -212,6 +213,7 @@ public class Reader : MonoBehaviour
         GameObject prefabButton = GameObject.Find("CluePrefabButton");
 
         UnityEngine.UI.Button plusButton = GameObject.Find("PlusButton").GetComponent<UnityEngine.UI.Button>();
+        plusButton.onClick.RemoveAllListeners();
         plusButton.onClick.AddListener(HandlePlusButtonClick);
 
         for (int i = 0; i < Data.Clues.Count; i++)
@@ -279,16 +281,16 @@ public class Reader : MonoBehaviour
 
     public static Rect CalculateRect(RectTransform rectTransform)
     {
-        //először a recttransform 4 sarkát lekérdezzük worldspace-ben
+        //a recttransform 4 sarkát lekérdezem worldspace-ben
         Vector3[] corners = new Vector3[4];
         rectTransform.GetWorldCorners(corners);
 
         corners = AddPaddingToRect(corners);
 
-        //kiszámítjuk a szélességét és magasságát
-        Vector2 size = new Vector2(corners[3].x - corners[0].x, corners[1].y - corners[0].y);
+        //kiszámítom a szélességét és magasságát
+        Vector2 size = new Vector2(corners[3].x - corners[0].x, corners[1].y - corners[0].y); //Corners[0] a bal alsó, Corners[1] a bal felső, Corners[2] a jobb felső, Corners[3] a jobb alsó sarok
 
-        //létrehozunk egy Rect-et az adatokból. Corners[0] a bal alsó, Corners[1] a bal felső, Corners[2] a jobb felső, Corners[3] a jobb alsó sarok
+        //létrehozok egy Rect-et. 
         return new Rect(corners[1], size);
     }
 
@@ -306,10 +308,10 @@ public class Reader : MonoBehaviour
         Transform clueCanvasTransform = GameObject.FindGameObjectWithTag("cluecanv").transform;
         bool vanAtfedes = true;
 
-        int minX = -250;
-        int maxX = 250;
-        int minY = -90;
-        int maxY = 90;
+        int minX = -210;
+        int maxX = 210;
+        int minY = -100;
+        int maxY = 100;
 
         // addig generálunk egy újabb pozíciót, amíg az jó helyre nem kerül
         int tryCount = 0;
@@ -374,13 +376,25 @@ public class Reader : MonoBehaviour
             panel1TitleText.text = "";
             selectedButton1 = null;
         }
-        else if(selectedClue2==clue && selectedClue1 == null)
+        else if (selectedClue2 == clue && selectedClue1 != null)
         {
             selectedClue2 = null;
             panel2DescText.text = "";
             panel2TitleText.text = "";
             selectedButton2 = null;
         }
+        //else if(selectedClue1 != null && selectedClue2 != null)
+        //{
+        //    selectedClue1 = clue;
+        //    panel1DescText.text = clue.Desription;
+        //    panel1TitleText.text = clue.Title;
+        //    selectedButton1 = button;
+
+        //    selectedClue2 = null;
+        //    panel2DescText.text = "";
+        //    panel2TitleText.text = "";
+        //    selectedButton2 = null;
+        //}
         else
         {
             selectedClue1 = clue;
@@ -415,7 +429,7 @@ public class Reader : MonoBehaviour
 
         if (relation != null && (selectedClue2 == relation.Input1 || selectedClue2 == relation.Input2))
         {
-            Data.ChoosenRelations.Add(relation);
+            Data.ChoosenClueRelations.Add(relation);
 
             //A sikeresen párba állított nyomok eltűnnek a képernyőről
             selectedButton1.gameObject.SetActive(false);
@@ -423,6 +437,9 @@ public class Reader : MonoBehaviour
 
             //Toast Unity pack a pop up üzenet megjelenítésére (akkor jelenik meg, ha sikeres a párosítás)
             Toast.Instance.Show("Sikeres párosítás!\nA konklúzió felkerült a gráfra!", 2f, Toast.ToastColor.Green);
+
+            //GraphDrawer graphDrawer = (GraphDrawer)FindObjectOfType<GraphDrawer>();
+            //graphDrawer.Awake();
         }
         else
         {

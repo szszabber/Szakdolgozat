@@ -17,10 +17,25 @@ public class GraphDrawer : MonoBehaviour
     private List<GameObject> motivationButtons = new List<GameObject>();
     private List<GameObject> finalDeductionnButtons = new List<GameObject>();
 
+    private List<GameObject> connections = new List<GameObject>();
+
+    private Dictionary<GameObject, Relation> buttonsToRelations = new Dictionary<GameObject, Relation>();
+
     public void Awake()
     {
         GameObject grapContainerGO = GameObject.Find("GraphContainer");
+        if(grapContainerGO == null)
+        {
+            return;
+        }
+
         graphContainer = grapContainerGO.GetComponent<RectTransform>();
+
+        connections.Clear();
+        buttonsToRelations.Clear();
+        conclusionButtons.Clear();
+        motivationButtons.Clear();
+        finalDeductionnButtons.Clear();
 
         ShowGraph();
     }
@@ -63,11 +78,36 @@ public class GraphDrawer : MonoBehaviour
         DrawConclusions();
         DrawMotivations();
         DrawFinalDeductions();
+
+        DrawConnectionsBetweenConclusionsAndMotivations();
+        //DrawConnectionsBetweenMotivationsAndFinalDeductions();
+    }
+
+    private void DrawConnectionsBetweenMotivationsAndFinalDeductions()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void DrawConnectionsBetweenConclusionsAndMotivations()
+    {
+        foreach (var motivationButton in motivationButtons)
+        {
+            Relation relation = buttonsToRelations[motivationButton];
+            List<GameObject> relatedConclusionButtons = conclusionButtons
+                .FindAll(concButton => buttonsToRelations[concButton].Output == relation.Input1 || buttonsToRelations[concButton].Output == relation.Input2)
+                .ToList();
+
+            foreach (var conclusionButton in relatedConclusionButtons)
+            {
+                CreateDotConnection(conclusionButton.GetComponent<RectTransform>().anchoredPosition, motivationButton.GetComponent<RectTransform>().anchoredPosition);
+            }
+            
+        }
     }
 
     private void DrawConclusions()
     {
-        float graphHeight = graphContainer.sizeDelta.y;
+        //float graphHeight = graphContainer.sizeDelta.y;
         float ySize = 20f;
 
         GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
@@ -93,8 +133,10 @@ public class GraphDrawer : MonoBehaviour
             conclusionButtons.Add(newConcButton);
             Text buttonText = (Text)newConcButton.GetComponentInChildren(typeof(Text));
             buttonText.text = title;
-        }
 
+            buttonsToRelations.Add(newConcButton, Data.ChoosenClueRelations[i]);
+            //buttonsToRelations[newConcButton] = Data.ChoosenClueRelations[i];
+        }
     }
 
     private void DrawMotivations()
@@ -119,9 +161,9 @@ public class GraphDrawer : MonoBehaviour
             motivationButtons.Add(newMotivationButton);
             Text buttonText = (Text)newMotivationButton.GetComponentInChildren(typeof(Text));
             buttonText.text = title;
+
+            buttonsToRelations.Add(newMotivationButton, Data.ChoosenConclusionRelations[i]);
         }
-
-
     }
 
     private void DrawFinalDeductions()
@@ -146,6 +188,8 @@ public class GraphDrawer : MonoBehaviour
             finalDeductionnButtons.Add(newFinalDeductionButton);
             Text buttonText = (Text)newFinalDeductionButton.GetComponentInChildren(typeof(Text));
             buttonText.text = title;
+
+            buttonsToRelations.Add(newFinalDeductionButton, Data.ChoosenMotivationRelations[i]);
         }
     }
 
@@ -153,6 +197,12 @@ public class GraphDrawer : MonoBehaviour
     {
         GameObject conclusionButton = Instantiate(prefabConclusionButton, spawnPos, Quaternion.identity);
         conclusionButton.transform.SetParent(GameObject.FindGameObjectWithTag("concCanv").transform, false);
+
+        RectTransform rectTransform = conclusionButton.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = conclusionButton.GetComponent<RectTransform>().anchoredPosition;
+        //rectTransform.sizeDelta = new Vector2(40, 40);
+        //rectTransform.anchorMin = new Vector2(0, 0);
+        //rectTransform.anchorMax = new Vector2(0, 0);
 
         return conclusionButton;
     }
@@ -170,5 +220,7 @@ public class GraphDrawer : MonoBehaviour
         rectTransform.sizeDelta = new Vector2(distance, 3f);
         rectTransform.anchoredPosition = dotPositionA + dir * distance * .5f;
         rectTransform.localEulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVectorFloat(dir));
+
+        connections.Add(gameObject);
     }
 }

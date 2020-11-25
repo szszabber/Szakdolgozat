@@ -435,6 +435,11 @@ public class Reader : MonoBehaviour
                 Relation previousClueRelation = Data.ChoosenClueRelations.Find(clueRel => clueRel.Output == conclusionRelation.Input1 || clueRel.Output == conclusionRelation.Input2);
                 if (previousClueRelation != null)
                 {
+                    Relation motivationRelation = Data.MotivationRelations.Find(motivationRel => motivationRel.Input1 == conclusionRelation.Output || motivationRel.Input2 == conclusionRelation.Output);
+                    if (motivationRelation != null)
+                    {
+                        Data.ChoosenMotivationRelations.Add(motivationRelation);
+                    }
                     Data.ChoosenConclusionRelations.Add(conclusionRelation);
                 }
             }

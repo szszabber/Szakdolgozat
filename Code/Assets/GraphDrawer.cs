@@ -15,6 +15,7 @@ public class GraphDrawer : MonoBehaviour
 
     private List<GameObject> conclusionButtons = new List<GameObject>();
     private List<GameObject> motivationButtons = new List<GameObject>();
+    private List<GameObject> finalDeductionnButtons = new List<GameObject>();
 
     public void Awake()
     {
@@ -125,7 +126,27 @@ public class GraphDrawer : MonoBehaviour
 
     private void DrawFinalDeductions()
     {
-        throw new NotImplementedException();
+        float ySize = 20f;
+        GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
+
+        for (int i = 0; i < Data.ChoosenMotivationRelations.Count; i++)
+        {
+            float xPosition = 230f;
+            float yPosition = ySize + i * ySize;
+            Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
+
+            string title = Data.ChoosenMotivationRelations[i].Output.Title;
+
+            GameObject newFinalDeductionButton = CreateNode(prefabConclusionButton, spawnPos);
+            if (newFinalDeductionButton == null)
+            {
+                finalDeductionnButtons.Clear();
+                DrawMotivations();
+            }
+            finalDeductionnButtons.Add(newFinalDeductionButton);
+            Text buttonText = (Text)newFinalDeductionButton.GetComponentInChildren(typeof(Text));
+            buttonText.text = title;
+        }
     }
 
     private GameObject CreateNode(GameObject prefabConclusionButton, Vector3 spawnPos)

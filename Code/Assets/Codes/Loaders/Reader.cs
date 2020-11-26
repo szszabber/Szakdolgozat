@@ -76,6 +76,10 @@ public class Reader : MonoBehaviour
         Data.MotivationRelations.Clear();
 
         Data.ChoosenClueRelations.Clear();
+
+        Data.ChoosenConclusionRelations.Clear();
+
+        Data.ChoosenMotivationRelations.Clear();
     }
 
     public void ReadClues(string xmlFileAsText)

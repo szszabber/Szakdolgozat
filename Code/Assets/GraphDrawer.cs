@@ -92,7 +92,7 @@ public class GraphDrawer : MonoBehaviour
         {
             Relation relation = buttonsToRelations[motivationButton];
             List<GameObject> relatedConclusionButtons = conclusionButtons
-                .FindAll(concButton => buttonsToRelations[concButton].Output == relation.Input1 || buttonsToRelations[concButton].Output == relation.Input2)
+                .FindAll(concButton => buttonsToRelations[concButton].Output1 == relation.Input1 || buttonsToRelations[concButton].Output1 == relation.Input2)
                 .ToList();
 
             foreach (var conclusionButton in relatedConclusionButtons)
@@ -108,7 +108,7 @@ public class GraphDrawer : MonoBehaviour
         {
             Relation relation = buttonsToRelations[finalDeductionButton];
             List<GameObject> relatedMotivationButtons = motivationButtons
-                .FindAll(motivationButton => buttonsToRelations[motivationButton].Output == relation.Input1 || buttonsToRelations[motivationButton].Output == relation.Input2)
+                .FindAll(motivationButton => buttonsToRelations[motivationButton].Output1 == relation.Input1 || buttonsToRelations[motivationButton].Output1 == relation.Input2)
                 .ToList();
 
             foreach (var motivationButton in relatedMotivationButtons)
@@ -124,7 +124,7 @@ public class GraphDrawer : MonoBehaviour
         {
             Relation relation = buttonsToRelations[finalDeductionButton];
             List<GameObject> relatedConclusionButtons = conclusionButtons
-                .FindAll(concButton => buttonsToRelations[concButton].Output == relation.Input1 || buttonsToRelations[concButton].Output == relation.Input2)
+                .FindAll(concButton => buttonsToRelations[concButton].Output1 == relation.Input1 || buttonsToRelations[concButton].Output1 == relation.Input2)
                 .ToList();
 
             foreach (var conclusionButton in relatedConclusionButtons)
@@ -148,7 +148,7 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = (ySize -200f) + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            string title = Data.ChoosenClueRelations[i].Output.Title;
+            string title = Data.ChoosenClueRelations[i].Output1.Title;
             //Vector2 anchoredPosition = new Vector2(xPosition, yPosition);
             //GameObject circleGameObject = CreateCircle(anchoredPosition, title);    
 
@@ -179,14 +179,14 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = ySize + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            string title = Data.ChoosenConclusionRelations[i].Output.Title;
+            string title = Data.ChoosenConclusionRelations[i].Output1.Title;
 
             GameObject newMotivationButton = CreateNode(prefabConclusionButton, spawnPos);
             if (newMotivationButton == null)
             {
                 foreach (var relation in buttonsToRelations)
                 {
-                    if (relation.Value.Input1 is Conclusion && relation.Value.Output is Motivation)
+                    if (relation.Value.Input1 is Conclusion && relation.Value.Output1 is Motivation)
                     {
                         buttonsToRelations.Remove(relation.Key);
                     }
@@ -213,14 +213,14 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = ySize + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            string title = Data.ChoosenMotivationRelations[i].Output.Title;
+            string title = Data.ChoosenMotivationRelations[i].Output1.Title;
 
             GameObject newFinalDeductionButton = CreateNode(prefabConclusionButton, spawnPos);
             if (newFinalDeductionButton == null)
             {
                 foreach (var relation in buttonsToRelations)
                 {
-                    if (relation.Value.Input1 is Motivation && relation.Value.Output is FinalDeduction)
+                    if (relation.Value.Input1 is Motivation && relation.Value.Output1 is FinalDeduction)
                     {
                         buttonsToRelations.Remove(relation.Key);
                     }
@@ -249,7 +249,7 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = (ySize - 100f) + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            string title = Data.ChoosenConclusionToFinalDeductionRelations[i].Output.Title;
+            string title = Data.ChoosenConclusionToFinalDeductionRelations[i].Output1.Title;
             //Vector2 anchoredPosition = new Vector2(xPosition, yPosition);
             //GameObject circleGameObject = CreateCircle(anchoredPosition, title);    
 
@@ -259,7 +259,7 @@ public class GraphDrawer : MonoBehaviour
             {
                 foreach (var relation in buttonsToRelations)
                 {
-                    if (relation.Value.Input1 is Conclusion && relation.Value.Output is FinalDeduction)
+                    if (relation.Value.Input1 is Conclusion && relation.Value.Output1 is FinalDeduction)
                     {
                         buttonsToRelations.Remove(relation.Key);
                     }

@@ -10,13 +10,16 @@ public class Relation
 
     public InvestigationItem Input2 { get; private set; }
 
-    public InvestigationItem Output { get; private set; }
+    public InvestigationItem Output1 { get; private set; }
 
-    public Relation(int id, InvestigationItem input1, InvestigationItem input2, InvestigationItem output)
+    public InvestigationItem Output2 { get; private set; }
+
+    public Relation(int id, InvestigationItem input1, InvestigationItem input2, InvestigationItem output1, InvestigationItem output2 = null)
     {
         Id = id;
         Input1 = input1;
         Input2 = input2;
-        Output = output;
+        Output1 = output1;
+        Output2 = output2;
     }
 }

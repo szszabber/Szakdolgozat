@@ -44,7 +44,9 @@ public class Reader : MonoBehaviour
 
         ReadConclusionRelations(data);
 
-        ReadFinalDeductionsRelations(data);
+        ReadFinalDeductionMotivationRelations(data);
+
+        ReadFinalDeductionConclusionRelations(data);
 
         GenerateClueButtons();
     }
@@ -190,25 +192,47 @@ public class Reader : MonoBehaviour
         }
     }
 
-    private void ReadFinalDeductionsRelations(string xmlFileAsText)
+    private void ReadFinalDeductionMotivationRelations(string xmlFileAsText)
     {
         XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
 
-        IEnumerable<XElement> finalDeductionRelations = xmlDoc.Root.Element("FinalDeductionPairs").Elements("FinalDeductionGuiltyPerson").ToList();
+        IEnumerable<XElement> finalDeductionMotivationRelations = xmlDoc.Root.Element("FinalDeductionMotivationPairs").Elements("FinalDeductionGuiltyPerson").ToList();
 
-        foreach (var finalDeductionRelationsXelement in finalDeductionRelations)
+        foreach (var finalDeductionMotivationRelationsXelement in finalDeductionMotivationRelations)
         {
-            int id = Convert.ToInt32(finalDeductionRelationsXelement.Attribute("gID").Value);
-            int guiltInput1Id = Convert.ToInt32(finalDeductionRelationsXelement.Attribute("guiltInput1").Value);
-            int guiltInput2Id = Convert.ToInt32(finalDeductionRelationsXelement.Attribute("guiltInput2").Value);
-            int guiltOutputId = Convert.ToInt32(finalDeductionRelationsXelement.Attribute("guiltOutput").Value);
+            int id = Convert.ToInt32(finalDeductionMotivationRelationsXelement.Attribute("gID").Value);
+            int guiltInput1Id = Convert.ToInt32(finalDeductionMotivationRelationsXelement.Attribute("guiltInput1").Value);
+            int guiltInput2Id = Convert.ToInt32(finalDeductionMotivationRelationsXelement.Attribute("guiltInput2").Value);
+            int guiltOutputId = Convert.ToInt32(finalDeductionMotivationRelationsXelement.Attribute("guiltOutput").Value);
 
             InvestigationItem guiltInput1 = Data.Motivations.Find(motivation => motivation.Id == guiltInput1Id);
             InvestigationItem guiltInput2 = Data.Motivations.Find(motivation => motivation.Id == guiltInput2Id);
             InvestigationItem guiltOutput = Data.FinalDeductions.Find(finalDeduction => finalDeduction.Id == guiltOutputId);
 
-            Relation finalDeductionRelation = new Relation(id, guiltInput1, guiltInput2, guiltOutput);
-            Data.MotivationRelations.Add(finalDeductionRelation);
+            Relation finalDeductionMotivationRelation = new Relation(id, guiltInput1, guiltInput2, guiltOutput);
+            Data.MotivationRelations.Add(finalDeductionMotivationRelation);
+        }
+    }
+
+    private void ReadFinalDeductionConclusionRelations(string xmlFileAsText)
+    {
+        XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
+
+        IEnumerable<XElement> finalDeductionConclusionRelations = xmlDoc.Root.Element("FinalDeductionConclusionPairs").Elements("FinalDeductionGuiltyPerson").ToList();
+
+        foreach (var finalDeductionConclusionRelationsXelement in finalDeductionConclusionRelations)
+        {
+            int id = Convert.ToInt32(finalDeductionConclusionRelationsXelement.Attribute("gID").Value);
+            int guiltInput1Id = Convert.ToInt32(finalDeductionConclusionRelationsXelement.Attribute("guiltInput1").Value);
+            int guiltInput2Id = Convert.ToInt32(finalDeductionConclusionRelationsXelement.Attribute("guiltInput2").Value);
+            int guiltOutputId = Convert.ToInt32(finalDeductionConclusionRelationsXelement.Attribute("guiltOutput").Value);
+
+            InvestigationItem guiltInput1 = Data.Conclusions.Find(conclusion => conclusion.Id == guiltInput1Id);
+            InvestigationItem guiltInput2 = Data.Conclusions.Find(conclusion => conclusion.Id == guiltInput2Id);
+            InvestigationItem guiltOutput = Data.FinalDeductions.Find(finalDeduction => finalDeduction.Id == guiltOutputId);
+
+            Relation finalDeductionConclusionRelation = new Relation(id, guiltInput1, guiltInput2, guiltOutput);
+            Data.ConclusionToFinalDeductionRelations.Add(finalDeductionConclusionRelation);
         }
     }
 
@@ -271,14 +295,14 @@ public class Reader : MonoBehaviour
     {
         // Kibővítem a clueButton-ok szélességét és magasságát, hogy a generálásnál, ne kerüljenek közvetlen egymás mellé
 
-        corners[0].x -= 5;
-        corners[0].y -= 5;
-        corners[1].x -= 5;
-        corners[1].y += 5;
-        corners[2].x += 5;
-        corners[2].y += 5;
-        corners[3].x += 5;
-        corners[3].y -= 5;
+        corners[0].x -= 2;
+        corners[0].y -= 2;
+        corners[1].x -= 2;
+        corners[1].y += 2;
+        corners[2].x += 2;
+        corners[2].y += 2;
+        corners[3].x += 2;
+        corners[3].y -= 2;
 
         return corners;
     }
@@ -314,8 +338,8 @@ public class Reader : MonoBehaviour
 
         int minX = -210;
         int maxX = 210;
-        int minY = -100;
-        int maxY = 100;
+        int minY = -130;
+        int maxY = 130;
 
         // addig generálunk egy újabb pozíciót, amíg az jó helyre nem kerül
         int tryCount = 0;
@@ -430,7 +454,6 @@ public class Reader : MonoBehaviour
 
         // A listából kikeressük azt a kapcsolatot, amiben szerepel a lenyomott clue
         Relation clueRelation = Data.ClueRelations.Find(crelation => crelation.Input1 == selectedClue1 || crelation.Input2 == selectedClue1);
-
         if (clueRelation != null && (selectedClue2 == clueRelation.Input1 || selectedClue2 == clueRelation.Input2))
         {
             Relation conclusionRelation = Data.ConclusionRelations.Find(cRelation => cRelation.Input1 == clueRelation.Output || cRelation.Input2 == clueRelation.Output);
@@ -444,8 +467,19 @@ public class Reader : MonoBehaviour
                     {
                         Data.ChoosenMotivationRelations.Add(motivationRelation);
                     }
+
                     Data.ChoosenConclusionRelations.Add(conclusionRelation);
                 }
+            }
+
+            Relation conclusionToFinalDeductionRelation = Data.ConclusionToFinalDeductionRelations.Find(concToFinalDed => concToFinalDed.Input1 == clueRelation.Output || concToFinalDed.Input2 == clueRelation.Output);
+            if (conclusionToFinalDeductionRelation != null)
+            {
+                Relation previousClueRelation = Data.ChoosenClueRelations.Find(clueRel => clueRel.Output == conclusionToFinalDeductionRelation.Input1 || clueRel.Output == conclusionToFinalDeductionRelation.Input2);
+                if (previousClueRelation != null)
+                {
+                    Data.ChoosenConclusionToFinalDeductionRelations.Add(conclusionToFinalDeductionRelation);
+                }     
             }
 
             Data.ChoosenClueRelations.Add(clueRelation);

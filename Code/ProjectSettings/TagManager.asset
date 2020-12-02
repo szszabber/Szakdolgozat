@@ -8,6 +8,7 @@ TagManager:
   - concCanv
   - ClueButton
   - TextTag
+  - GraphElementPanel
   layers:
   - Default
   - TransparentFX

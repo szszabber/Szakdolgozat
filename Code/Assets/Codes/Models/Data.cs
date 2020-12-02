@@ -18,10 +18,14 @@ public static class Data
 
     public static List<Relation> MotivationRelations { get; set; } = new List<Relation>();
 
+    public static List<Relation> ConclusionToFinalDeductionRelations { get; set; } = new List<Relation>();
+
     public static List<Relation> ChoosenClueRelations { get; set; } = new List<Relation>();
 
     public static List<Relation> ChoosenConclusionRelations { get; set; } = new List<Relation>();
 
     public static List<Relation> ChoosenMotivationRelations { get; set; } = new List<Relation>();
+
+    public static List<Relation> ChoosenConclusionToFinalDeductionRelations { get; set; } = new List<Relation>();
 
 }

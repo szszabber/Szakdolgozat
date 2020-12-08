@@ -1,75 +1,177 @@
-﻿
-
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
 
 public class BounceObject : MonoBehaviour
 {
-    public bool animPos = true;
-    public Vector3 posAmplitude = Vector3.one;
-    public Vector3 posSpeed = Vector3.one;
+    public float velocityMax = 100;
+    public float velocityMin = -100;
 
-    public bool animRot = true;
-    public Vector3 rotAmplitude = Vector3.one * 20;
-    public Vector3 rotSpeed = Vector3.one;
+    public float xMax;
+    public float yMax;
+    public float xMin;
+    public float yMin;
 
-    public bool animScale = false;
-    public Vector3 scaleAmplitude = Vector3.one * 0.1f;
-    public Vector3 scaleSpeed = Vector3.one;
+    private float x;
+    private float y;
+    private float movementSpeed = 2f;
 
-    private Vector3 origPos;
-    private Vector3 origRot;
-    private Vector3 origScale;
-
-    private float startAnimOffset = 0;
-
-
-    /**
-     * Awake
-     */
-    void Awake()
+    void Start()
     {
-        origPos = transform.position;
-        origRot = transform.eulerAngles;
-        origScale = transform.localScale;
-        startAnimOffset = Random.Range(0f, 540f);        // so that the xyz anims are already offset from each other since the start
-    }
 
-    /**
-     * Update
-     */
+        x = Random.Range(velocityMin, velocityMax);
+        y = Random.Range(velocityMin, velocityMax);
+
+    }
     void Update()
     {
-
-        /* position */
-        if (animPos)
+        if (transform.localPosition.x > xMax)
         {
-            Vector3 pos;
-            pos.x = origPos.x + posAmplitude.x * Mathf.Sin(posSpeed.x * Time.time + startAnimOffset);
-            pos.y = origPos.y + posAmplitude.y * Mathf.Sin(posSpeed.y * Time.time + startAnimOffset);
-            pos.z = origPos.z + posAmplitude.z * Mathf.Sin(posSpeed.z * Time.time + startAnimOffset);
-            transform.position = pos;
+            x = Random.Range(velocityMin, 0.0f); ;
+            movementSpeed = 0.0f;
+        }
+        if (transform.localPosition.x < xMin)
+        {
+            x = Random.Range(0.0f, velocityMax);
+            movementSpeed = 0.0f;
+        }
+        if (transform.localPosition.y > yMax)
+        {
+            y = Random.Range(velocityMin, 0.0f); ;
+            movementSpeed = 0.0f;
+        }
+        if (transform.localPosition.y < yMin)
+        {
+            y = Random.Range(0.0f, velocityMax);
+            movementSpeed = 0.0f;
         }
 
-        /* rotation */
-        if (animRot)
+        if (movementSpeed > 0.1f)
         {
-            Vector3 rot;
-            rot.x = origRot.x + rotAmplitude.x * Mathf.Sin(rotSpeed.x * Time.time + startAnimOffset);
-            rot.y = origRot.y + rotAmplitude.y * Mathf.Sin(rotSpeed.y * Time.time + startAnimOffset);
-            rot.z = origRot.z + rotAmplitude.z * Mathf.Sin(rotSpeed.z * Time.time + startAnimOffset);
-            transform.eulerAngles = rot;
+            x = Random.Range(velocityMin, velocityMax);
+            y = Random.Range(velocityMin, velocityMax);
+            movementSpeed = 0.02f;
         }
 
-        /* scale */
-        if (animScale)
-        {
-            Vector3 scale;
-            scale.x = origScale.x * (1 + scaleAmplitude.x * Mathf.Sin(scaleSpeed.x * Time.time + startAnimOffset));
-            scale.y = origScale.y * (1 + scaleAmplitude.y * Mathf.Sin(scaleSpeed.y * Time.time + startAnimOffset));
-            scale.z = origScale.z * (1 + scaleAmplitude.z * Mathf.Sin(scaleSpeed.z * Time.time + startAnimOffset));
-            transform.localScale = scale;
-        }
+        transform.localPosition = new Vector3(transform.localPosition.x + x, transform.localPosition.y + y, 0f);
     }
 }
+
+
+//using UnityEngine;
+//using System.Collections;
+
+//public class BounceObject : MonoBehaviour
+//{
+//    public bool animPos = true;
+//    public Vector3 posAmplitude = Vector3.one;
+//    public Vector3 posSpeed = Vector3.one;
+
+//    public bool animRot = true;
+//    public Vector3 rotAmplitude = Vector3.one * 20;
+//    public Vector3 rotSpeed = Vector3.one;
+
+//    public bool animScale = false;
+//    public Vector3 scaleAmplitude = Vector3.one * 0.1f;
+//    public Vector3 scaleSpeed = Vector3.one;
+
+//    private Vector3 origPos;
+//    private Vector3 origRot;
+//    private Vector3 origScale;
+
+//    private float startAnimOffset = 0;
+
+//    /**
+//     * Awake
+//     */
+//    void Awake()
+//    {
+//        origPos = transform.position;
+//        origRot = transform.eulerAngles;
+//        origScale = transform.localScale;
+//        startAnimOffset = Random.Range(0f, 540f);        // so that the xyz anims are already offset from each other since the start
+//    }
+
+//    /**
+//     * Update
+//     */
+//    void Update()
+//    {
+
+//        /* position */
+//        if (animPos)
+//        {
+//            Vector3 pos;
+//            pos.x = origPos.x + posAmplitude.x * Mathf.Sin(posSpeed.x * Time.time + startAnimOffset);
+//            pos.y = origPos.y + posAmplitude.y * Mathf.Sin(posSpeed.y * Time.time + startAnimOffset);
+//            pos.z = origPos.z + posAmplitude.z * Mathf.Sin(posSpeed.z * Time.time + startAnimOffset);
+//            transform.position = pos;
+//        }
+
+//        /* rotation */
+//        if (animRot)
+//        {
+//            Vector3 rot;
+//            rot.x = origRot.x + rotAmplitude.x * Mathf.Sin(rotSpeed.x * Time.time + startAnimOffset);
+//            rot.y = origRot.y + rotAmplitude.y * Mathf.Sin(rotSpeed.y * Time.time + startAnimOffset);
+//            rot.z = origRot.z + rotAmplitude.z * Mathf.Sin(rotSpeed.z * Time.time + startAnimOffset);
+//            transform.eulerAngles = rot;
+//        }
+
+//        /* scale */
+//        if (animScale)
+//        {
+//            Vector3 scale;
+//            scale.x = origScale.x * (1 + scaleAmplitude.x * Mathf.Sin(scaleSpeed.x * Time.time + startAnimOffset));
+//            scale.y = origScale.y * (1 + scaleAmplitude.y * Mathf.Sin(scaleSpeed.y * Time.time + startAnimOffset));
+//            scale.z = origScale.z * (1 + scaleAmplitude.z * Mathf.Sin(scaleSpeed.z * Time.time + startAnimOffset));
+//            transform.localScale = scale;
+//        }
+//    }
+//}
+
+
+//public class BounceObject : MonoBehaviour
+//{
+//    float MaxWaitTime = 0.1f;
+//    float MoveSpeed = 10f;
+
+//    public void Start()
+//    {
+//        StartCoroutine(BirdBrain());
+//    }
+
+//    public IEnumerator BirdBrain()
+//    {
+//        while (true)
+//        {
+//            yield return new WaitForSeconds(Random.value * MaxWaitTime);
+//            Vector3 localTarget;
+//            localTarget.x = (Random.value * 2 - 1) * Random.Range(-100, 100);
+//            localTarget.y = (Random.value * 2 - 1) * Random.Range(-50, 50);
+//            localTarget.z = 0f;  //(Random.value * 2 - 1) * Random.Range(-10, 10);
+//            Vector3 targetPosition = transform.position + localTarget;
+//            while (transform.position != targetPosition)
+//            {
+//                yield return null;
+//                transform.position = Vector3.MoveTowards(transform.position, targetPosition, MoveSpeed * Time.deltaTime);
+//            }
+//        }
+//    }
+//}
+//using UnityEngine;
+//using System.Collections;
+//using UnityEngine.AI;
+//using System.Collections.Generic;
+
+//public class BounceObject : MonoBehaviour
+//{
+
+//    public static Vector3 RandomPosition(this NavMeshAgent agent, float radius)
+//    {
+//        var randDirection = Random.insideUnitSphere * radius;
+//        randDirection += agent.transform.position;
+//        NavMeshHit navHit;
+//        NavMesh.SamplePosition(randDirection, out navHit, radius, -1);
+//        return navHit.position;
+//    }
+//}
 

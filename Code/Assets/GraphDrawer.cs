@@ -24,8 +24,9 @@ public class GraphDrawer : MonoBehaviour
 
     public void Awake()
     {
+
         GameObject grapContainerGO = GameObject.Find("GraphContainer");
-        if(grapContainerGO == null)
+        if (grapContainerGO == null)
         {
             return;
         }
@@ -85,7 +86,7 @@ public class GraphDrawer : MonoBehaviour
         DrawConnectionsBetweenMotivationsAndFinalDeductions();
         DrawConnectionsBetweenConclusionsAndFinalDeductions();
     }
-   
+
     private void DrawConnectionsBetweenConclusionsAndMotivations()
     {
         foreach (var motivationButton in motivationButtons)
@@ -98,7 +99,7 @@ public class GraphDrawer : MonoBehaviour
             foreach (var conclusionButton in relatedConclusionButtons)
             {
                 CreateDotConnection(conclusionButton.GetComponent<RectTransform>().anchoredPosition, motivationButton.GetComponent<RectTransform>().anchoredPosition);
-            }            
+            }
         }
     }
 
@@ -145,14 +146,33 @@ public class GraphDrawer : MonoBehaviour
         {
 
             float xPosition = -250f;
-            float yPosition = (ySize -200f) + i * ySize;
+            float yPosition = (ySize - 200f) + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            string title = Data.ChoosenClueRelations[i].Output1.Title;
+            GameObject newConcButton = CreateNode(prefabConclusionButton, spawnPos);
             //Vector2 anchoredPosition = new Vector2(xPosition, yPosition);
             //GameObject circleGameObject = CreateCircle(anchoredPosition, title);    
 
-            GameObject newConcButton = CreateNode(prefabConclusionButton, spawnPos);
+            string title;
+            if (Data.ChoosenClueRelations[i].Output2 == null)
+            {
+                title = Data.ChoosenClueRelations[i].Output1.Title;
+            }
+            else
+            {
+                Button newConcButtonClick = newConcButton.GetComponent<Button>();
+                newConcButtonClick.onClick.AddListener(HandleConcButtonClick);
+                if (Data.ChoosenClueRelations[i].SelectedOutput == null)
+                {
+                    title = "Válassz konklúziót!";
+                }
+                else
+                {
+                    title = Data.ChoosenClueRelations[i].SelectedOutput.Title;
+                }
+
+            }
+
 
             if (newConcButton == null)
             {
@@ -168,6 +188,30 @@ public class GraphDrawer : MonoBehaviour
         }
     }
 
+    private void HandleConcButtonClick()
+    {
+        GameObject graphCanvas = GameObject.Find("GraphCanvas");
+        GameObject choosingCanvas = graphCanvas.transform.Find("ChoosingCanvas").gameObject;
+        choosingCanvas.SetActive(true);
+
+        GameObject outputButton1 = GameObject.Find("ChoosingPrefabButton1");
+        GameObject outputButton2 = GameObject.Find("ChoosingPrefabButton2");
+
+        Text panel1DescText = (Text)GameObject.Find("TextDescPanel1").GetComponentInChildren(typeof(Text));
+        Text panel2DescText = (Text)GameObject.Find("TextDescPanel2").GetComponentInChildren(typeof(Text));
+
+        for (int i = 0; i < Data.ChoosenClueRelations.Count; i++)
+        {
+            Text buttonText1 = (Text)outputButton1.GetComponentInChildren(typeof(Text));
+            buttonText1.text = Data.ChoosenClueRelations[i].Output1.Title.ToString();
+            panel1DescText.text = Data.ChoosenClueRelations[i].Output1.Desription.ToString();
+
+            Text buttonText2 = (Text)outputButton2.GetComponentInChildren(typeof(Text));
+            buttonText2.text = Data.ChoosenClueRelations[i].Output2.Title.ToString();
+            panel2DescText.text = Data.ChoosenClueRelations[i].Output2.Desription.ToString();
+        }
+    }
+
     private void DrawMotivations()
     {
         float ySize = 50f;
@@ -180,8 +224,8 @@ public class GraphDrawer : MonoBehaviour
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
             string title = Data.ChoosenConclusionRelations[i].Output1.Title;
-
             GameObject newMotivationButton = CreateNode(prefabConclusionButton, spawnPos);
+
             if (newMotivationButton == null)
             {
                 foreach (var relation in buttonsToRelations)

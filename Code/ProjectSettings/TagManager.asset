@@ -9,6 +9,7 @@ TagManager:
   - ClueButton
   - TextTag
   - GraphElementPanel
+  - ChoosingCanvas
   layers:
   - Default
   - TransparentFX

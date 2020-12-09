@@ -460,10 +460,16 @@ public class Reader : MonoBehaviour
         Text panel1DescText = (Text)GameObject.Find("SelectedClueDescPanel1").GetComponentInChildren(typeof(Text));
         Text panel2DescText = (Text)GameObject.Find("SelectedClueDescPanel2").GetComponentInChildren(typeof(Text));
 
-        if (selectedClue1 == null || selectedClue2 == null)
+        if (selectedClue1 == null && selectedClue2 == null)
         {
             //Toast Unity pack a pop up üzenet megjelenítésére (akkor jelenik meg, ha nem választott ki semmit a felhasználó)
             Toast.Instance.Show("A párosításhoz nyomokat kell választani!", 1f, Toast.ToastColor.Dark);
+            return;
+        }
+        else if(selectedClue1 == null || selectedClue2 == null)
+        {
+            //Toast Unity pack a pop up üzenet megjelenítésére (akkor jelenik meg, ha csak egy nyomot választott ki a felhasználó)
+            Toast.Instance.Show("A párosításhoz két nyomot kell választani!", 1f, Toast.ToastColor.Dark);
             return;
         }
 

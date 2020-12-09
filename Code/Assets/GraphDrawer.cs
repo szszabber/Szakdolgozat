@@ -33,47 +33,16 @@ public class GraphDrawer : MonoBehaviour
 
         graphContainer = grapContainerGO.GetComponent<RectTransform>();
 
-        connections.Clear();
+        buttonsToRelations.ToList().ForEach(c => Destroy(c.Key));
         buttonsToRelations.Clear();
+
+        connections.Clear();
         conclusionButtons.Clear();
         motivationButtons.Clear();
         finalDeductionButtons.Clear();
 
         ShowGraph();
     }
-
-    //private GameObject CreateCircle(Vector2 anchoredPosition, string title)
-    //{
-    //    GameObject gameObject = new GameObject("Nagyito", typeof(Image));
-    //    gameObject.transform.SetParent(graphContainer, false);
-    //    gameObject.GetComponent<Image>().sprite = nagyitoSprite;
-    //    RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
-    //    rectTransform.anchoredPosition = anchoredPosition;
-    //    rectTransform.sizeDelta = new Vector2(40, 40);
-    //    rectTransform.anchorMin = new Vector2(0, 0);
-    //    rectTransform.anchorMax = new Vector2(0, 0);
-    //    return gameObject;
-    //}
-
-    //private void ShowGraph()
-    //{
-    //    float graphHeight = graphContainer.sizeDelta.y;
-    //    float yMaximum = 100f;
-    //    float xSize = 50f;
-
-    //    GameObject lastCircleGameObject = null;
-    //    for (int i = 0; i < valueList.Count; i++)
-    //    {
-    //        float xPosition = xSize + i * xSize;
-    //        float yPosition = (valueList[i] / yMaximum) * graphHeight;
-    //        GameObject circleGameObject = CreateCircle(new Vector2(xPosition, yPosition));
-    //        if (lastCircleGameObject != null)
-    //        {
-    //            CreateDotConnection(lastCircleGameObject.GetComponent<RectTransform>().anchoredPosition, circleGameObject.GetComponent<RectTransform>().anchoredPosition);
-    //        }
-    //        lastCircleGameObject = circleGameObject;
-    //    }
-    //}
 
     private void ShowGraph()
     {
@@ -137,7 +106,6 @@ public class GraphDrawer : MonoBehaviour
 
     private void DrawConclusions()
     {
-        //float graphHeight = graphContainer.sizeDelta.y;
         float ySize = 50f;
 
         GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
@@ -161,18 +129,18 @@ public class GraphDrawer : MonoBehaviour
             else
             {
                 Button newConcButtonClick = newConcButton.GetComponent<Button>();
-                newConcButtonClick.onClick.AddListener(HandleConcButtonClick);
+                Relation relationForSchosing = Data.ChoosenClueRelations[i];
+                newConcButtonClick.onClick.AddListener(() => HandleConcButtonClick(relationForSchosing));
                 if (Data.ChoosenClueRelations[i].SelectedOutput == null)
                 {
                     title = "Válassz konklúziót!";
+                    newConcButton.GetComponentInChildren<Text>().color = new Color(255, 255, 0);
                 }
                 else
                 {
                     title = Data.ChoosenClueRelations[i].SelectedOutput.Title;
                 }
-
             }
-
 
             if (newConcButton == null)
             {
@@ -188,28 +156,43 @@ public class GraphDrawer : MonoBehaviour
         }
     }
 
-    private void HandleConcButtonClick()
+    private void HandleConcButtonClick(Relation relation)
     {
         GameObject graphCanvas = GameObject.Find("GraphCanvas");
         GameObject choosingCanvas = graphCanvas.transform.Find("ChoosingCanvas").gameObject;
         choosingCanvas.SetActive(true);
 
         GameObject outputButton1 = GameObject.Find("ChoosingPrefabButton1");
+        Text buttonText1 = (Text)outputButton1.GetComponentInChildren(typeof(Text));
+
         GameObject outputButton2 = GameObject.Find("ChoosingPrefabButton2");
+        Text buttonText2 = (Text)outputButton2.GetComponentInChildren(typeof(Text));
 
         Text panel1DescText = (Text)GameObject.Find("TextDescPanel1").GetComponentInChildren(typeof(Text));
         Text panel2DescText = (Text)GameObject.Find("TextDescPanel2").GetComponentInChildren(typeof(Text));
 
-        for (int i = 0; i < Data.ChoosenClueRelations.Count; i++)
-        {
-            Text buttonText1 = (Text)outputButton1.GetComponentInChildren(typeof(Text));
-            buttonText1.text = Data.ChoosenClueRelations[i].Output1.Title.ToString();
-            panel1DescText.text = Data.ChoosenClueRelations[i].Output1.Desription.ToString();
+        buttonText1.text = relation.Output1.Title.ToString();
+        panel1DescText.text = relation.Output1.Desription.ToString();
 
-            Text buttonText2 = (Text)outputButton2.GetComponentInChildren(typeof(Text));
-            buttonText2.text = Data.ChoosenClueRelations[i].Output2.Title.ToString();
-            panel2DescText.text = Data.ChoosenClueRelations[i].Output2.Desription.ToString();
-        }
+        buttonText2.text = relation.Output2.Title.ToString();
+        panel2DescText.text = relation.Output2.Desription.ToString();
+
+        Button pressedOutputButton1 = outputButton1.GetComponent<Button>();
+        Button pressedOutputButton2 = outputButton2.GetComponent<Button>();
+        
+        pressedOutputButton1.onClick.AddListener(() => HandleChoosenConclusion(relation, relation.Output1));
+        pressedOutputButton2.onClick.AddListener(() => HandleChoosenConclusion(relation, relation.Output2));
+
+    }
+
+    private void HandleChoosenConclusion(Relation relation, InvestigationItem investigationItem)
+    {
+        relation.SelectedOutput = investigationItem;
+
+        GameObject graphCanvas = GameObject.Find("GraphCanvas");
+        GameObject choosingCanvas = graphCanvas.transform.Find("ChoosingCanvas").gameObject;
+        choosingCanvas.SetActive(false);
+        Awake();
     }
 
     private void DrawMotivations()

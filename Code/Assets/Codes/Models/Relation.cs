@@ -16,7 +16,7 @@ public class Relation
 
     public InvestigationItem SelectedOutput { get; set; }
 
-    public Relation(int id, InvestigationItem input1, InvestigationItem input2, InvestigationItem output1, InvestigationItem output2 = null)
+    public Relation(int id, InvestigationItem input1, InvestigationItem input2, InvestigationItem output1, InvestigationItem output2 = null, InvestigationItem SelectedOutput = null)
     {
         Id = id;
         Input1 = input1;

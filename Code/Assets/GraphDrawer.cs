@@ -117,9 +117,7 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = (ySize - 200f) + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            GameObject newConcButton = CreateNode(prefabConclusionButton, spawnPos);
-            //Vector2 anchoredPosition = new Vector2(xPosition, yPosition);
-            //GameObject circleGameObject = CreateCircle(anchoredPosition, title);    
+            GameObject newConcButton = CreateNode(prefabConclusionButton, spawnPos);   
 
             string title;
             if (Data.ChoosenClueRelations[i].Output2 == null)
@@ -129,8 +127,8 @@ public class GraphDrawer : MonoBehaviour
             else
             {
                 Button newConcButtonClick = newConcButton.GetComponent<Button>();
-                Relation relationForSchosing = Data.ChoosenClueRelations[i];
-                newConcButtonClick.onClick.AddListener(() => HandleConcButtonClick(relationForSchosing));
+                Relation relationForChoosing = Data.ChoosenClueRelations[i];
+                newConcButtonClick.onClick.AddListener(() => HandleConcButtonClick(relationForChoosing));
                 if (Data.ChoosenClueRelations[i].SelectedOutput == null)
                 {
                     title = "Válassz konklúziót!";
@@ -156,45 +154,6 @@ public class GraphDrawer : MonoBehaviour
         }
     }
 
-    private void HandleConcButtonClick(Relation relation)
-    {
-        GameObject graphCanvas = GameObject.Find("GraphCanvas");
-        GameObject choosingCanvas = graphCanvas.transform.Find("ChoosingCanvas").gameObject;
-        choosingCanvas.SetActive(true);
-
-        GameObject outputButton1 = GameObject.Find("ChoosingPrefabButton1");
-        Text buttonText1 = (Text)outputButton1.GetComponentInChildren(typeof(Text));
-
-        GameObject outputButton2 = GameObject.Find("ChoosingPrefabButton2");
-        Text buttonText2 = (Text)outputButton2.GetComponentInChildren(typeof(Text));
-
-        Text panel1DescText = (Text)GameObject.Find("TextDescPanel1").GetComponentInChildren(typeof(Text));
-        Text panel2DescText = (Text)GameObject.Find("TextDescPanel2").GetComponentInChildren(typeof(Text));
-
-        buttonText1.text = relation.Output1.Title.ToString();
-        panel1DescText.text = relation.Output1.Desription.ToString();
-
-        buttonText2.text = relation.Output2.Title.ToString();
-        panel2DescText.text = relation.Output2.Desription.ToString();
-
-        Button pressedOutputButton1 = outputButton1.GetComponent<Button>();
-        Button pressedOutputButton2 = outputButton2.GetComponent<Button>();
-        
-        pressedOutputButton1.onClick.AddListener(() => HandleChoosenConclusion(relation, relation.Output1));
-        pressedOutputButton2.onClick.AddListener(() => HandleChoosenConclusion(relation, relation.Output2));
-
-    }
-
-    private void HandleChoosenConclusion(Relation relation, InvestigationItem investigationItem)
-    {
-        relation.SelectedOutput = investigationItem;
-
-        GameObject graphCanvas = GameObject.Find("GraphCanvas");
-        GameObject choosingCanvas = graphCanvas.transform.Find("ChoosingCanvas").gameObject;
-        choosingCanvas.SetActive(false);
-        Awake();
-    }
-
     private void DrawMotivations()
     {
         float ySize = 50f;
@@ -206,8 +165,29 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = ySize + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            string title = Data.ChoosenConclusionRelations[i].Output1.Title;
+            //string title = Data.ChoosenConclusionRelations[i].Output1.Title;
             GameObject newMotivationButton = CreateNode(prefabConclusionButton, spawnPos);
+
+            string title;
+            if (Data.ChoosenConclusionRelations[i].Output2 == null)
+            {
+                title = Data.ChoosenConclusionRelations[i].Output1.Title;
+            }
+            else
+            {
+                Button newConcButtonClick = newMotivationButton.GetComponent<Button>();
+                Relation relationForChoosing = Data.ChoosenConclusionRelations[i];
+                newConcButtonClick.onClick.AddListener(() => HandleConcButtonClick(relationForChoosing));
+                if (Data.ChoosenConclusionRelations[i].SelectedOutput == null)
+                {
+                    title = "Válassz!\nMotiváció vagy ártatlan?";
+                    newMotivationButton.GetComponentInChildren<Text>().color = new Color(255, 255, 0);
+                }
+                else
+                {
+                    title = Data.ChoosenConclusionRelations[i].SelectedOutput.Title;
+                }
+            }
 
             if (newMotivationButton == null)
             {
@@ -234,13 +214,13 @@ public class GraphDrawer : MonoBehaviour
         float ySize = 50f;
         GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
 
-        for (int i = 0; i < Data.ChoosenMotivationRelations.Count; i++)
+        for (int i = 0; i < Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Count; i++)
         {
             float xPosition = 250f;
             float yPosition = ySize + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            string title = Data.ChoosenMotivationRelations[i].Output1.Title;
+            string title = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations[i].Output1.Title;
 
             GameObject newFinalDeductionButton = CreateNode(prefabConclusionButton, spawnPos);
             if (newFinalDeductionButton == null)
@@ -259,8 +239,47 @@ public class GraphDrawer : MonoBehaviour
             Text buttonText = (Text)newFinalDeductionButton.GetComponentInChildren(typeof(Text));
             buttonText.text = title;
 
-            buttonsToRelations.Add(newFinalDeductionButton, Data.ChoosenMotivationRelations[i]);
+            buttonsToRelations.Add(newFinalDeductionButton, Data.ChoosenConclusionAndMotivationToFinalDeductionRelations[i]);
         }
+    }
+
+    private void HandleConcButtonClick(Relation relation)
+    {
+        GameObject graphCanvas = GameObject.Find("GraphCanvas");
+        GameObject choosingCanvas = graphCanvas.transform.Find("ChoosingCanvas").gameObject;
+        choosingCanvas.SetActive(true);
+
+        GameObject outputButton1 = GameObject.Find("ChoosingPrefabButton1");
+        Text buttonText1 = (Text)outputButton1.GetComponentInChildren(typeof(Text));
+
+        GameObject outputButton2 = GameObject.Find("ChoosingPrefabButton2");
+        Text buttonText2 = (Text)outputButton2.GetComponentInChildren(typeof(Text));
+
+        Text panel1DescText = (Text)GameObject.Find("TextDescPanel1").GetComponentInChildren(typeof(Text));
+        Text panel2DescText = (Text)GameObject.Find("TextDescPanel2").GetComponentInChildren(typeof(Text));
+
+        buttonText1.text = relation.Output1.Title.ToString();
+        panel1DescText.text = relation.Output1.Desription.ToString();
+
+        buttonText2.text = relation.Output2.Title.ToString();
+        panel2DescText.text = relation.Output2.Desription.ToString();
+
+        Button pressedOutputButton1 = outputButton1.GetComponent<Button>();
+        Button pressedOutputButton2 = outputButton2.GetComponent<Button>();
+
+        pressedOutputButton1.onClick.AddListener(() => HandleChoosenConclusion(relation, relation.Output1));
+        pressedOutputButton2.onClick.AddListener(() => HandleChoosenConclusion(relation, relation.Output2));
+
+    }
+
+    private void HandleChoosenConclusion(Relation relation, InvestigationItem investigationItem)
+    {
+        relation.SelectedOutput = investigationItem;
+
+        GameObject graphCanvas = GameObject.Find("GraphCanvas");
+        GameObject choosingCanvas = graphCanvas.transform.Find("ChoosingCanvas").gameObject;
+        choosingCanvas.SetActive(false);
+        Awake();
     }
 
     private void DrawConclusionsToFinalDeductions()
@@ -276,9 +295,7 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = (ySize - 100f) + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            string title = Data.ChoosenConclusionToFinalDeductionRelations[i].Output1.Title;
-            //Vector2 anchoredPosition = new Vector2(xPosition, yPosition);
-            //GameObject circleGameObject = CreateCircle(anchoredPosition, title);    
+            string title = Data.ChoosenConclusionToFinalDeductionRelations[i].Output1.Title;  
 
             GameObject newConcButton = CreateNode(prefabConclusionButton, spawnPos);
 
@@ -318,7 +335,7 @@ public class GraphDrawer : MonoBehaviour
     {
         GameObject gameObject = new GameObject("dotConnection", typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
-        gameObject.GetComponent<Image>().color = new Color(1, 1, 1, .5f);
+        gameObject.GetComponent<Image>().color = new Color(1, 1, 1, .6f);
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         Vector2 dir = (dotPositionB - dotPositionA).normalized;
         float distance = Vector2.Distance(dotPositionA, dotPositionB);

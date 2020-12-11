@@ -16,7 +16,7 @@ public static class Data
 
     public static List<Relation> ConclusionRelations { get; set; } = new List<Relation>();
 
-    public static List<Relation> MotivationRelations { get; set; } = new List<Relation>();
+    public static List<Relation> ConclusionAndMotivationToFinalDeductionRelations { get; set; } = new List<Relation>();
 
     public static List<Relation> ConclusionToFinalDeductionRelations { get; set; } = new List<Relation>();
 
@@ -24,7 +24,7 @@ public static class Data
 
     public static List<Relation> ChoosenConclusionRelations { get; set; } = new List<Relation>();
 
-    public static List<Relation> ChoosenMotivationRelations { get; set; } = new List<Relation>();
+    public static List<Relation> ChoosenConclusionAndMotivationToFinalDeductionRelations { get; set; } = new List<Relation>();
 
     public static List<Relation> ChoosenConclusionToFinalDeductionRelations { get; set; } = new List<Relation>();
 

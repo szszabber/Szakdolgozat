@@ -185,14 +185,15 @@
   <ConclusionPairs>
     <ConclusionPair ID="1" input1ID="13" input2ID="14" output1ID="22" output2ID="23"/>
     
+    <!--Ezt nem kezeltük, választható motiváció, de nem különbözik az egyik input-->
     <ConclusionPair ID="3" input1ID="15" input2ID="16" output1ID="24"/>
     <ConclusionPair ID="4" input1ID="15" input2ID="17" output1ID="25"/>
   </ConclusionPairs>
-  
-  <FinalDeductionMotivationPairs>
-    <FinalDeductionGuiltyPerson ID="1" input1ID="20" input2ID="22" output1ID="26"/>
-    <FinalDeductionGuiltyPerson ID="2" input1ID="20" input2ID="24" output1ID="27"/>
-  </FinalDeductionMotivationPairs>
+
+  <FinalDeductionClueAndMotivationPairs>
+    <ClueAndMotivationPair ID="1" inputConclusionId="20" inputMotivationId="22" output1ID="26"/>
+    <ClueAndMotivationPair ID="2" inputConclusionId="20" inputMotivationId="24" output1ID="27"/>
+  </FinalDeductionClueAndMotivationPairs>
 
   <FinalDeductionConclusionPairs>
     <FinalDeductionGuiltyPerson ID="3" input1ID="18" input2ID="21" output1ID="28"/>

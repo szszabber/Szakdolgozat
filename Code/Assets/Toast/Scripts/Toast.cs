@@ -13,9 +13,9 @@ public class Toast : MonoBehaviour {
 	bool _isToastShown = false;
 
 	public static Toast Instance;
-	[SerializeField] Text toastText;
-	[SerializeField] Animator anim;
-	[SerializeField] Color[] co;
+    [SerializeField] Text toastText;
+    [SerializeField] Animator anim;
+    [SerializeField] Color[] co;
 	Image toastColorImage;
 
 	public enum ToastColor{Dark,Red,Green,Blue,Magenta,Pink}
@@ -92,9 +92,7 @@ public class Toast : MonoBehaviour {
 		if (!_isToasting) _isToasting = true;
 	}
 
-
-
-	//show/hide Toast
-	void toastShow(){anim.SetBool ("isToastUp",true);}
-	void toastHide(){anim.SetBool ("isToastUp",false);}
+    //show/hide Toast
+    void toastShow() { anim.SetBool("isToastUp", true); }
+    void toastHide() { anim.SetBool("isToastUp", false); }
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class BounceObject : MonoBehaviour
 {
@@ -16,11 +17,10 @@ public class BounceObject : MonoBehaviour
 
     void Start()
     {
-
         x = Random.Range(velocityMin, velocityMax);
         y = Random.Range(velocityMin, velocityMax);
-
     }
+
     void Update()
     {
         if (transform.localPosition.x > xMax)

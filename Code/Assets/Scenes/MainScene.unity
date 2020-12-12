@@ -2612,7 +2612,7 @@ GameObject:
   - component: {fileID: 287510395}
   - component: {fileID: 287510396}
   m_Layer: 0
-  m_Name: SceneHandler
+  m_Name: ClueHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -235,18 +235,6 @@
     
   </SherlockQuotes>
 
-  <ErrorMessages>
-    <ErrorMessage ID="1">
-      <Message>A párosításhoz nyomokat kell választani!</Message>
-    </ErrorMessage>  
     
-    <ErrorMessage ID="2">
-      <Message>Sikeres párosítás! A konklúzió felkerült a gráfra!</Message>
-    </ErrorMessage>
-    
-    <ErrorMessage ID="3">
-      <Message>A kiválasztott nyomok nem alkotnak párt!</Message>    
-    </ErrorMessage>
-  </ErrorMessages>  
 
 </DatabaseContainer> <!--Root end-->

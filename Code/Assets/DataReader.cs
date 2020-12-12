@@ -10,6 +10,26 @@ public class DataReader : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+
+        Data.Clues.Clear();
+
+        Data.Conclusions.Clear();
+
+        Data.Motivations.Clear();
+
+        Data.FinalDeductions.Clear();
+
+        Data.ClueRelations.Clear();
+
+        Data.ConclusionRelations.Clear();
+
+        Data.ConclusionAndMotivationToFinalDeductionRelations.Clear();
+
+        Data.ChoosenClueRelations.Clear();
+
+        Data.ChoosenConclusionRelations.Clear();
+
+        Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Clear();
     }
     public void Start()
     {

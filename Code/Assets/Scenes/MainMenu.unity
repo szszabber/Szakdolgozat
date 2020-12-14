@@ -191,7 +191,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "S\xDAG\xD3\n"
+  m_Text: "LE\xCDR\xC1S"
 --- !u!222 &73094085
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -649,7 +649,7 @@ GameObject:
   m_Component:
   - component: {fileID: 575366650}
   m_Layer: 5
-  m_Name: HelpMenu
+  m_Name: DescriptionMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 640677536}
   - component: {fileID: 640677535}
   m_Layer: 5
-  m_Name: HelpText
+  m_Name: DescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -746,18 +746,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Szajduk Szabolcs Tam\xE1s vagyok a PTE M\u0171szaki \xE9s Informatikai
-    Kar v\xE9gz\u0151s hallgat\xF3ja. Szakdolgozatom t\xE9m\xE1ja a Sherlock Holmes:
-    Crimes & Punishments j\xE1t\xE9k k\xF6vetkeztet\u0151 rendszer\xE9nek leprogramoz\xE1sa
-    webes alapon. \n\nA program egy k\xE9t dimenzi\xF3s, sz\xF6veges alap\xFA j\xE1t\xE9k,
-    melyben a j\xE1t\xE9kosnak a megadott nyomok alapj\xE1n el kell jutnia az \xFCgy
-    v\xE9g\xE9re, \xE9s ki kell der\xEDtenie, hogy ki volt a gyilkos. A j\xE1t\xE9k
-    elej\xE9n egy r\xF6vid le\xEDr\xE1st kap a felhaszn\xE1l\xF3 a t\xF6rt\xE9netr\u0151l,
-    ezut\xE1n el is kezd\u0151dik a kaland. Fontos a nyomok megfelel\u0151 p\xE1ros\xEDt\xE1sa,
-    \xE9s a megfelel\u0151 k\xF6vetkeztet\xE9s levon\xE1sa. Egy igazi gyilkos van,
-    de nem kiz\xE1rt, hogy a j\xE1t\xE9kos a nyomok alapj\xE1n nem j\xF3l d\xF6nt,
-    \xE9s \xE1rtatlan embert ki\xE1lt ki b\u0171n\xF6snek.\n\nJ\xF3 sz\xF3rakoz\xE1st
-    k\xEDv\xE1nok!\nSzajduk Szabolcs"
+  m_Text: 
 --- !u!222 &640677536
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -897,7 +886,7 @@ GameObject:
   - component: {fileID: 1206059142}
   - component: {fileID: 1206059141}
   m_Layer: 5
-  m_Name: HelpTitleText
+  m_Name: DescTitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -957,7 +946,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 7d2663994b039d04883e150ab6500715, type: 3}
+    m_Font: {fileID: 12800000, guid: af4e54cd6fe035c498e8e06e2b4317be, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
@@ -969,7 +958,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "S\xDAG\xD3\n"
+  m_Text: "LE\xCDR\xC1S\n"
 --- !u!222 &1206059143
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1114,6 +1103,129 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1404230453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1404230454}
+  - component: {fileID: 1404230456}
+  - component: {fileID: 1404230455}
+  m_Layer: 5
+  m_Name: MainMenuTextPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1404230454
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404230453}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1605855241}
+  - {fileID: 1498472572}
+  m_Father: {fileID: 1836628461}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.5999756, y: 152.9}
+  m_SizeDelta: {x: -1304.3286, y: -987.9072}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1404230455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404230453}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1404230456
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404230453}
+  m_CullTransparentMesh: 0
+--- !u!1 &1407588547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1407588549}
+  - component: {fileID: 1407588548}
+  m_Layer: 0
+  m_Name: MainMenuDataReader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1407588548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407588547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7585c5e6d1172974d94e2c6ff3a34dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xmlRawFile: {fileID: 4900000, guid: 9c33b7841fc61934595aa7742144c4b2, type: 3}
+  gameTitleText: {fileID: 1605855242}
+  gameSubtitleText: {fileID: 1498472573}
+  gameDescriptionText: {fileID: 640677535}
+--- !u!4 &1407588549
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407588547}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 927.94507, y: 515.5159, z: -422}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1454296608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,16 +1325,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498472571}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1836628461}
-  m_RootOrder: 3
+  m_Father: {fileID: 1404230454}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000082254, y: 137.8}
+  m_AnchoredPosition: {x: -0.59998375, y: -27.899963}
   m_SizeDelta: {x: 306.16193, y: 18.653206}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1498472573
@@ -1257,7 +1369,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "SHERLOCK HOLMES: CRIMES & PUNISHMENTS ALAPJ\xC1N"
+  m_Text: 
 --- !u!222 &1498472574
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1303,7 +1415,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -155}
+  m_AnchoredPosition: {x: 0, y: -170.8}
   m_SizeDelta: {x: 81.60417, y: 24.813683}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1508576524
@@ -1537,16 +1649,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605855240}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1836628461}
-  m_RootOrder: 2
+  m_Father: {fileID: 1404230454}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000082254, y: 167}
+  m_AnchoredPosition: {x: -0.59998375, y: 14.100037}
   m_SizeDelta: {x: 531.4859, y: 48.70279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1605855242
@@ -1581,7 +1693,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: DAVID JACKSON ESETE
+  m_Text: 
 --- !u!222 &1605855243
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1717,8 +1829,7 @@ RectTransform:
   m_Children:
   - {fileID: 1910809875}
   - {fileID: 2065277640}
-  - {fileID: 1605855241}
-  - {fileID: 1498472572}
+  - {fileID: 1404230454}
   m_Father: {fileID: 211690675}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2038,7 +2149,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -201.02, y: -33}
-  m_SizeDelta: {x: 64.00564, y: 21.661495}
+  m_SizeDelta: {x: 82.20922, y: 23.937366}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2065277641
 MonoBehaviour:
@@ -2198,7 +2309,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4b390316d9f4b754e97fc30ee8b10c7f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0

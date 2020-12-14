@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DataReader : MonoBehaviour
 {
     public TextAsset xmlRawFile;
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -31,6 +33,7 @@ public class DataReader : MonoBehaviour
 
         Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Clear();
     }
+
     public void Start()
     {
         string data = xmlRawFile.text;
@@ -52,11 +55,12 @@ public class DataReader : MonoBehaviour
         ReadFinalDeductionConclusionRelations(data);
     }
 
+
     public void ReadClues(string xmlFileAsText)
     {
         XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
 
-        IEnumerable<XElement> clues = xmlDoc.Root.Element("Clues").Elements("Clue");
+        IEnumerable<XElement> clues = xmlDoc.Root.Element("Clues").Elements("Clue").ToList();
 
         foreach (XElement clueXelement in clues)
         {

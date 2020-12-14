@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 29674277}
   - component: {fileID: 29674279}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,7 +157,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 102}
-  m_SizeDelta: {x: 890.3965, y: 332.43164}
+  m_SizeDelta: {x: 1381.8911, y: 286.5147}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &29674277
 MonoBehaviour:
@@ -179,19 +179,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
+    m_Font: {fileID: 12800000, guid: af4e54cd6fe035c498e8e06e2b4317be, type: 3}
     m_FontSize: 200
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 200
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "VESZTETT\xC9L!"
+  m_Text: 
 --- !u!222 &29674278
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 785226603}
   - component: {fileID: 785226605}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Desc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -348,10 +348,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
+    m_Font: {fileID: 12800000, guid: 4b6a879fbe3c9c7489fbd09592641e7e, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 5
     m_MaxSize: 50
     m_Alignment: 4
@@ -360,7 +360,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "LEJ\xC1RT AZ ID\u0150! A GYILKOS MEGSZ\xD6K\xD6TT!"
+  m_Text: 
 --- !u!222 &785226604
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -749,6 +749,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152451123}
   m_CullTransparentMesh: 0
+--- !u!1 &1507415888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1507415890}
+  - component: {fileID: 1507415889}
+  m_Layer: 0
+  m_Name: TimeOutSceneDataReader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1507415889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507415888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc31e0cfe93a5a498091a9af4adfe11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xmlRawFile: {fileID: 4900000, guid: 9c33b7841fc61934595aa7742144c4b2, type: 3}
+  textOne: {fileID: 29674277}
+  textTwo: {fileID: 785226603}
+--- !u!4 &1507415890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507415888}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1676731606
 GameObject:
   m_ObjectHideFlags: 0

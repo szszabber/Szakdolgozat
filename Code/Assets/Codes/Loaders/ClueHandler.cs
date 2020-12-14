@@ -109,6 +109,21 @@ public class ClueHandler : MonoBehaviour
         return rectA.Overlaps(rectB, true);
     }
 
+    public static Rect CalculateRect(RectTransform rectTransform)
+    {
+        //a recttransform 4 sarkát lekérdezem worldspace-ben
+        Vector3[] corners = new Vector3[4];
+        rectTransform.GetWorldCorners(corners);
+
+        corners = AddPaddingToRect(corners);
+
+        //kiszámítom a szélességét és magasságát
+        Vector2 size = new Vector2(corners[3].x - corners[0].x, corners[1].y - corners[0].y); //Corners[0] a bal alsó, Corners[1] a bal felső, Corners[2] a jobb felső, Corners[3] a jobb alsó sarok
+
+        //létrehozok egy Rect-et. 
+        return new Rect(corners[1], size);
+    }
+
     public static Vector3[] AddPaddingToRect(Vector3[] corners)
     {
         // Kibővítem a clueButton-ok szélességét és magasságát, hogy a generálásnál, ne kerüljenek közvetlen egymás mellé
@@ -123,21 +138,6 @@ public class ClueHandler : MonoBehaviour
         corners[3].y -= 2;
 
         return corners;
-    }
-
-    public static Rect CalculateRect(RectTransform rectTransform)
-    {
-        //a recttransform 4 sarkát lekérdezem worldspace-ben
-        Vector3[] corners = new Vector3[4];
-        rectTransform.GetWorldCorners(corners);
-
-        corners = AddPaddingToRect(corners);
-
-        //kiszámítom a szélességét és magasságát
-        Vector2 size = new Vector2(corners[3].x - corners[0].x, corners[1].y - corners[0].y); //Corners[0] a bal alsó, Corners[1] a bal felső, Corners[2] a jobb felső, Corners[3] a jobb alsó sarok
-
-        //létrehozok egy Rect-et. 
-        return new Rect(corners[1], size);
     }
 
     public GameObject GenerateNewClueButton(GameObject prefabClueButton)
@@ -345,7 +345,7 @@ public class ClueHandler : MonoBehaviour
                     if (previousClueRelation != null)
                     {
                         // Felkerül egy finalDeduction
-                        Data.ChoosenConclusionToFinalDeductionRelations.Add(conclusionAndMotivationToFinalDeductionRelations);
+                        Data.ChoosenConclusionsToFinalDeductionRelations.Add(conclusionAndMotivationToFinalDeductionRelations);
                     }
                 }
             }

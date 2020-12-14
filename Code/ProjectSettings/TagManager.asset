@@ -10,6 +10,8 @@ TagManager:
   - TextTag
   - GraphElementPanel
   - ChoosingCanvas
+  - interViewCanv
+  - clone
   layers:
   - Default
   - TransparentFX

@@ -28,6 +28,7 @@ public static class Data
 
     public static List<Relation> ChoosenConclusionsToFinalDeductionRelations { get; set; } = new List<Relation>();
 
+
     public static List<InterView> InterViews = new List<InterView>();
 
 }

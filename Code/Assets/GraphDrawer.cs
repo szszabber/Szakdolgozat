@@ -274,8 +274,36 @@ public class GraphDrawer : MonoBehaviour
 
     private void HandleChoosenConclusion(Relation relation, InvestigationItem investigationItem)
     {
+        // ugyan azt választotta, mint a múltkor?
+        if(relation.SelectedOutput == investigationItem)
+        {
+            return;
+        }
+
+        // a másikat választotta a múltkor?
+        if (relation.SelectedOutput != null && relation.SelectedOutput != investigationItem)
+        {
+            if(investigationItem is Conclusion)
+            {
+                //ClearConsequencesOfSelectedConclusion(relation);
+            }
+            else
+            {
+                //SClearConsequencesOfSelectedMotivation(relation);
+
+            }
+        }
+
         relation.SelectedOutput = investigationItem;
-        HandleConsequencesSelectedConclusion(relation);
+        if (investigationItem is Conclusion)
+        {
+            HandleConsequencesOfSelectedConclusion(relation);
+        }
+        else
+        {
+            HandleConsequencesOfSelectedMotivation(relation);
+
+        }
 
         GameObject graphCanvas = GameObject.Find("GraphCanvas");
         GameObject choosingCanvas = graphCanvas.transform.Find("ChoosingCanvas").gameObject;
@@ -283,7 +311,7 @@ public class GraphDrawer : MonoBehaviour
         Awake();
     }
 
-    private void HandleConsequencesSelectedConclusion(Relation clueRelation)
+    private void HandleConsequencesOfSelectedConclusion(Relation clueRelation)
     {
         // Meg kell nézni, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval
         Relation conclusionRelation = Data.ConclusionRelations.Find(concRel => concRel.Input1 == clueRelation.SelectedOutput || concRel.Input2 == clueRelation.SelectedOutput);
@@ -327,6 +355,22 @@ public class GraphDrawer : MonoBehaviour
             }
         }
     }
+
+    private void HandleConsequencesOfSelectedMotivation(Relation relation)
+    {
+        //Megnézem, hogy a kiválasztott motiváció kapcsolatban áll-e konklúzióval
+        Relation motivationAndConclusionRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(motAndConcRel => motAndConcRel.Input2 == relation.SelectedOutput);
+        if (motivationAndConclusionRelation != null)
+        {
+            //Megnézem, hogy a vele kapcsolatban lévő konklúzió ki van-e választva
+            Relation prevConcRelation = Data.ConclusionRelations.Find(prevConcRel => prevConcRel.SelectedOutput == motivationAndConclusionRelation.Input1);
+            if (prevConcRelation != null)
+            {
+                Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(motivationAndConclusionRelation);
+            }
+        }
+    }
+
 
     private void DrawConclusionsToFinalDeductions()
     {

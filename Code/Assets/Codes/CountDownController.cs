@@ -11,7 +11,7 @@ public class CountDownController : MonoBehaviour
     public int sec;
     int totalSeconds = 0;
     int TOTAL_SECONDS = 0;
- 
+
     void Start()
     {
         timeText.text = minutes + ":" + sec;    

@@ -247,27 +247,32 @@
   <MainSceneData>
     
     <InterView>
-      <NameText>Áldozat: DAVID JACKSON</NameText>
-      <InterViewText>David Jackson egy második világháborús veterán katon volt. Holtan találták meg a háza melletti kis félreeső kabinban. A rendőrség véleménye szerint lőtt bemeneti sebe van. Az áldozatra felöltözve, utcai öltözetben találtak rá, ezért valószínűsíthető, hogy vendége volt és ismerte a tettest. A gyilkos fegyver valószínűleg egy katonai lőfegyver volt, aminek a használatához képzettség kell, vagy nagy szerencse. Kérdés, hogy kinek volt indítéka rá, hogy végezzen vele.</InterViewText>
+      <Image>DJ1</Image>
+      <NameText>DAVID JACKSON</NameText>
+      <InterViewText>Az áldozat. David Jackson egy második világháborús veterán katon volt. Holtan találták meg a háza melletti kis félreeső kabinban. A rendőrség véleménye szerint lőtt bemeneti sebe van. Az áldozatra felöltözve, utcai öltözetben találtak rá, ezért valószínűsíthető, hogy vendége volt és ismerte a tettest. A gyilkos fegyver valószínűleg egy katonai lőfegyver volt, aminek a használatához képzettség kell, vagy nagy szerencse. Kérdés, hogy kinek volt indítéka rá, hogy végezzen vele.</InterViewText>
     </InterView>
     
     <InterView>
-      <NameText>Feleség: MRS. JACKSON</NameText>
+      <Image>MRSJ</Image>
+      <NameText>MRS. JACKSON</NameText>
       <InterViewText>Mrs. Jackson az áldozat felesége. Kezén egy katolikus rózsafüzésrt visel, mellette az asztalon egy napló van, borítóján egy madárral.  Mellette egy kertészkesztyű hever, emellett pedig egy madáreteő áll. Az udvar szépen rendezett és gondozott, de Mrs. Jackson állítása szerint férjével ketten dolgoztak rajta, nem volt kertészük. Elmondása szerint férje hajnali kettő körül nagyot kiáltott és egy puffanást hallott. Véleménye szerint férje sokszor kiabált amikor részeg volt és úgy gondolta az éjszaka is ez történhetett. Reggel holtan talált rá a kabinban. Elmondása szerint nem gyakran fogadtak vendégeket.</InterViewText>
     </InterView>
     
     <InterView>
-      <NameText>Gyanúsított: JOHN MILLER</NameText>
+      <Image>JM</Image>
+      <NameText>JOHN MILLER</NameText>
       <InterViewText>Millert a helyszínen kapták el másnap éjszaka. Fiatal fiú, aki egy kopott sapkát visel, vékony testalkattal rendelkezik és egy drága anyagból készült foltozott kabátot visel. A kabát ujjai rövidek, nem az ő mérete. A kezén sebhelyek vannak. volt nála egy zsebkendő, amin a J.M. monogram állt. A helyszínen talált noteszon pontosan ez a monogram állt. A noteszben rövidítések álltak, amiről Miller azt mondta, hogy a rövidítések elmagyarázása tovább rontatna a helyzeten. Egy gyűrű is volt a zsebében, amelyen a "Dawsontól a barátomnak és társamnak" felirat állt. Egy újságcikk azt írja, hogy a Dawson és Miller szövetkezet csődbe ment Miller apjának eltűnése után. Elmondta, hogy apja eltűnt amikor hajóútra készült Norvégia felé. Miller állítása szerint apja leveleit kereste a helyszínen.</InterViewText>
     </InterView>
     
     <InterView>
-      <NameText>Gyanúsított: JAMES RYAN</NameText>
+      <Image>JR</Image>
+      <NameText>JAMES RYAN</NameText>
       <InterViewText>Ryan nem igazán akar válaszolni a kérdésekre. Arcán egy régi sebhely van, zsebében egy zsebkendő, madaras címerrel díszítve. Nadrágján sár és növényi nyomok láthatóak. Kezei egyértelműen fizikai munkára, talán kerti munkára utalnak. A kérdésre, hogy mi tkeresett a helyszínen azt felelte, hogy egy szerszámos dobozért ment vissza. A nyomok között hevert egy levél, amiből ezt a szöveget lehetett kiolvasni: "Úgy tettem, ahogy kérted, és jól elrejtettem őket ... de kérem, hogy gondolja át". A kádában további levelek voltak az alábbi címzéssel és tartalommal: "James kedvesem, mindig olyan jó voltál velem. Nem tudom leírni ezeket az érzéseket, de feltételezem, hogy hogy bűnösek, és semmi jó nem származhat belőlük. Félek, hogy mi történhet. Attól tartok, hogy ellene megyek Istennek. Köszönöm neked...". Mrs. Jackson tagadja, hogy ismerné James Ryant. </InterViewText>
     </InterView>
     
     <InterView>
-      <NameText>Gyanúsított: DANIEL JOHNSON</NameText>
+      <Image>DJ2</Image>
+      <NameText>DANIEL JOHNSON</NameText>
       <InterViewText>David Jackson volt katonatársa. Watson kutatása után egy kocsmában találtunk rá. Rá esett a választás, mert a noteszben lévő monogram alapján ő volt az egyetlen, akinek D.J. volt a monogramja. Arany fülbevalót és olcsó ruhákat viselt. Erős kezei vannak és katonákra jellemző tetoválást viselt. Elmodása szerint mesterlövész volt, ez egyértelműen képzett fegyverhasználatra utal. Mesélt az áldozatról, hogy mindenki félt tőle, mert egyszer látták, ahogy lelő egy szerencsétlen hajótörött embert, aki partra sodródott ott, ahol éppen állomásoztak. Ez az ember az elmesélése alapján John Miller apja volt. David Jackson tagadta a történteket. Cigarettát kértem tőle, de azt mondta, hogy pár nappal ezelőtt elhagyta a dohányos tasakját mert sehol sem találja.</InterViewText>
     </InterView>
       

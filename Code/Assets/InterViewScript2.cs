@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InterViewHandler : MonoBehaviour
+public class InterViewScript2 : MonoBehaviour
 {
     public TextAsset xmlRawFile;
 
     private List<GameObject> interViewButtons = new List<GameObject>();
 
-    Text panel1Text;
-    Text panel2Text;
-
-    //string[] images = Directory.GetFiles(@"C:\Gitrepos\Szakdolgozat\Code\Assets\Background\Interviews", "*.jpg");
-
-
     public void Awake()
     {
-
         string data = xmlRawFile.text;
 
         Clear();
@@ -56,8 +47,7 @@ public class InterViewHandler : MonoBehaviour
     private void GenerateInterViewButtons()
     {
         GameObject prefabButton = GameObject.Find("InterViewPrefabButton");
-
-        float ySize = 50f;
+        float xSize = 150;
 
         for (int i = 0; i < Data.InterViews.Count; i++)
         {
@@ -65,7 +55,7 @@ public class InterViewHandler : MonoBehaviour
 
             //string[] images = Directory.GetFiles(@"C:\Gitrepos\Szakdolgozat\Code\Assets\Background\Interviews", "*.jpg");
 
-            GameObject newButton = Instantiate(prefabButton, new Vector3(-270f, (ySize - 150f) + ySize * i, 0f), Quaternion.identity) as GameObject;
+            GameObject newButton = Instantiate(prefabButton, new Vector3((xSize - 440) + xSize * i, -20, 0f), Quaternion.identity) as GameObject;
             newButton.transform.SetParent(null);
 
             if (newButton == null)
@@ -73,32 +63,42 @@ public class InterViewHandler : MonoBehaviour
                 interViewButtons.Clear();
                 GenerateInterViewButtons();
             }
+
             interViewButtons.Add(newButton);
             UnityEngine.UI.Button button = newButton.GetComponent<UnityEngine.UI.Button>();
             button.onClick.AddListener(() => HandleInterViewButtonClick(button));
 
             Text buttonText = (Text)newButton.GetComponentInChildren(typeof(Text));
-            Image buttonImage = (Image)newButton.GetComponentInChildren(typeof(Image));
+            //Image buttonImage = (Image)newButton.GetComponentInChildren(typeof(Image));
 
             buttonText.text = interView.Name;
-            //buttonImage.sprite = 
+            //buttonImage.sprite
         }
         foreach (var button in interViewButtons)
         {
             button.transform.SetParent(GameObject.FindGameObjectWithTag("interViewCanv").transform, false);
         }
+
     }
+
+    Text interVieweeNamePanel;
+    Text interVieweeTextPanel;
 
     private void HandleInterViewButtonClick(Button button)
     {
-        panel1Text = (Text)GameObject.Find("InterViewPanelTitleText").GetComponentInChildren(typeof(Text));
-        panel2Text = (Text)GameObject.Find("InterViewPanelText").GetComponentInChildren(typeof(Text));
+        GameObject mainInterviewcanvas = GameObject.Find("MainInterViewCanvas");
+        GameObject interVieweeCanvas = mainInterviewcanvas.transform.Find("InterVieweeCanvas").gameObject;
+        GameObject interViewCanvas = mainInterviewcanvas.transform.Find("InterViewCanvas").gameObject;
+        interVieweeCanvas.SetActive(true);
+        interViewCanvas.SetActive(false);
 
+        interVieweeNamePanel = (Text)GameObject.Find("InterVieweeNamePanel").GetComponentInChildren(typeof(Text));
+        interVieweeTextPanel = (Text)GameObject.Find("InterVieweeTextPanel").GetComponentInChildren(typeof(Text));
 
         Text buttonText = (Text)button.GetComponentInChildren(typeof(Text));
         InterView interView = Data.InterViews.Find(i => i.Name == buttonText.text);
 
-        panel1Text.text = interView.Name;
-        panel2Text.text = interView.Text;
+        interVieweeNamePanel.text = interView.Name;
+        interVieweeTextPanel.text = interView.Text;
     }
 }

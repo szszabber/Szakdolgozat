@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System.Runtime;
 using System.Xml.Linq;
 using System.Linq;
+using System;
 //using System;
 
 public class XMLQuotesReader : MonoBehaviour
@@ -28,7 +29,7 @@ public class XMLQuotesReader : MonoBehaviour
             "A szerelmünknek nem tudunk parancsolni, de a cselekedeteinknek igen.",
             "Teljesen fölösleges megtiltani valamit egy nőnek, mert úgyis az lesz, amit ő akar.",
             "Ha a lehetetlent kizártuk, ami marad, az az igazság, akármilyen valószínűtlen legyen is."};
-        Quote = quotes[Random.Range(0, quotes.Length)];
+        Quote = quotes[UnityEngine.Random.Range(0, quotes.Length)];
         Text.GetComponent<Text>().text = Quote.ToString();
     }
 }

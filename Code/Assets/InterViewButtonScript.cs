@@ -7,7 +7,7 @@ public class InterViewButtonScript : MonoBehaviour
 {
     public void BackToInterViews()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         //SceneManager.LoadScene(3);
     }
 }

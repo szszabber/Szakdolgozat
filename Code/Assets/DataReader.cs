@@ -55,7 +55,6 @@ public class DataReader : MonoBehaviour
         ReadFinalDeductionConclusionRelations(data);
     }
 
-
     public void ReadClues(string xmlFileAsText)
     {
         XDocument xmlDoc = XDocument.Parse(xmlFileAsText);

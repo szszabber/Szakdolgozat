@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Quote
 {
-    public int Id { get; private set; }
-
     public string Desription { get; private set; }
 
-    public Quote(int id, string desription)
+    public Quote(string desription)
     {
-        Id = id;
         Desription = desription;
     }
 }

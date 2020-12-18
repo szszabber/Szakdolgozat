@@ -12,6 +12,8 @@ public class GraphDrawer : MonoBehaviour
 {
     private RectTransform graphContainer;
 
+    GameObject dotConnection;
+
     private List<GameObject> conclusionButtons = new List<GameObject>();
     private List<GameObject> motivationButtons = new List<GameObject>();
     private List<GameObject> conclusionAndMotivationToFinalDeductionButtons = new List<GameObject>();
@@ -363,6 +365,7 @@ public class GraphDrawer : MonoBehaviour
 
     private void HandleConsequencesOfSelectedConclusion(Relation clueRelation)
     {
+        Destroy(dotConnection);
         // Meg kell nézni, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval, hogy motivációt alkosson
         Relation conclusionRelation = Data.ConclusionRelations.Find(concRel => concRel.Input1 == clueRelation.SelectedOutput || concRel.Input2 == clueRelation.SelectedOutput);
         if (conclusionRelation != null)
@@ -374,7 +377,7 @@ public class GraphDrawer : MonoBehaviour
             if (previousClueRelation != null)
             {
                 if (conclusionRelation.SelectedOutput != null)
-                {
+                {                   
                     // Azt nézem, hogy a talált motiváció kapcsolatban áll e egy konlkúzióval, ami final deductiont ad ki
                     Relation conAndMotivationRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(concAndMotRelation =>
                           concAndMotRelation.Input2 == conclusionRelation.SelectedOutput);
@@ -387,13 +390,12 @@ public class GraphDrawer : MonoBehaviour
                             Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(conAndMotivationRelation);
                         }
                     }
-                }
-
+                }    
                 Data.ChoosenConclusionRelations.Add(conclusionRelation);
             }
         }
 
-        // Megnézem, hogy a kiválasztott konkllúzió párban áll e egy másik konklúzióval, ami final deductiot ad
+        // Megnézem, hogy a kiválasztott konklúzió párban áll e egy másik konklúzióval, ami final deductiot ad
         Relation conclusionsToFinalDeductionRelation = Data.ConclusionToFinalDeductionRelations.Find(concToFinalDedRel =>
                concToFinalDedRel.Input1 == clueRelation.SelectedOutput
             || concToFinalDedRel.Input2 == clueRelation.SelectedOutput);
@@ -439,17 +441,20 @@ public class GraphDrawer : MonoBehaviour
 
     private void ClearConsequencesOfSelectedConclusion(Relation clueRelation)
     {
+        Destroy(dotConnection);
         // Meg kell nézni, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval
         Relation choosenConclusionRelation = Data.ChoosenConclusionRelations.Find(choosenConcRel =>
               choosenConcRel.Input1 == clueRelation.SelectedOutput
            || choosenConcRel.Input2 == clueRelation.SelectedOutput);
         if (choosenConclusionRelation != null)
         {
+            Destroy(dotConnection);
             Data.ChoosenConclusionRelations.Remove(choosenConclusionRelation);
             Relation conclusionAndMotivationRelation = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(concAndMotRel =>
                 concAndMotRel.Input2 == choosenConclusionRelation.SelectedOutput);
             if (conclusionAndMotivationRelation != null)
             {
+                Destroy(dotConnection);
                 Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(conclusionAndMotivationRelation);
             }
         }
@@ -458,6 +463,7 @@ public class GraphDrawer : MonoBehaviour
             choosenConcAndMotRel.Input1 == clueRelation.SelectedOutput);
         if (choosenConclusionAndMotivationRelation != null)
         {
+            Destroy(dotConnection);
             Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(choosenConclusionAndMotivationRelation);
         }
 
@@ -466,16 +472,19 @@ public class GraphDrawer : MonoBehaviour
         || choosenConcToFinalRel.Input2 == clueRelation.SelectedOutput);
         if (choosenConclusionToFinalDeductionRelation != null)
         {
+            Destroy(dotConnection);
             Data.ChoosenConclusionsToFinalDeductionRelations.Remove(choosenConclusionToFinalDeductionRelation);
         }
     }
 
     private void ClearConsequencesOfSelectedMotivation(Relation conclusionRelation)
     {
+        Destroy(dotConnection);
         Relation choosenConclusionAndMoticationToFinalDedRel = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(choosenConcAndMotToFinalRel =>
             choosenConcAndMotToFinalRel.Input2 == conclusionRelation.SelectedOutput);
         if (choosenConclusionAndMoticationToFinalDedRel != null)
         {
+            Destroy(dotConnection);
             Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(choosenConclusionAndMoticationToFinalDedRel);
         }
     }
@@ -493,17 +502,17 @@ public class GraphDrawer : MonoBehaviour
 
     private void CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB)
     {
-        GameObject gameObject = new GameObject("dotConnection", typeof(Image));
-        gameObject.transform.SetParent(graphContainer, false);
-        gameObject.GetComponent<Image>().color = new Color(255, 215, 0, .1f);
-        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+        dotConnection = new GameObject("dotConnection", typeof(Image));
+        dotConnection.transform.SetParent(graphContainer, false);
+        dotConnection.GetComponent<Image>().color = new Color(255, 215, 0, .1f);
+        RectTransform rectTransform = dotConnection.GetComponent<RectTransform>();
         Vector2 dir = (dotPositionB - dotPositionA).normalized;
         float distance = Vector2.Distance(dotPositionA, dotPositionB);
         rectTransform.sizeDelta = new Vector2(distance, 3f);
         rectTransform.anchoredPosition = dotPositionA + dir * distance * .5f;
         rectTransform.localEulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVectorFloat(dir));
 
-        connections.Add(gameObject);
+        connections.Add(dotConnection);
     }
 
     private void SetChoosingCanvas(bool activate)

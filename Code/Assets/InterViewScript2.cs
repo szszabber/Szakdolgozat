@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -47,7 +48,7 @@ public class InterViewScript2 : MonoBehaviour
     private void GenerateInterViewButtons()
     {
         GameObject prefabButton = GameObject.Find("InterViewPrefabButton");
-        float xSize = 150;
+        float xSize = 130;
 
         for (int i = 0; i < Data.InterViews.Count; i++)
         {
@@ -55,7 +56,7 @@ public class InterViewScript2 : MonoBehaviour
 
             //string[] images = Directory.GetFiles(@"C:\Gitrepos\Szakdolgozat\Code\Assets\Background\Interviews", "*.jpg");
 
-            GameObject newButton = Instantiate(prefabButton, new Vector3((xSize - 440) + xSize * i, -20, 0f), Quaternion.identity) as GameObject;
+            GameObject newButton = Instantiate(prefabButton, new Vector3((xSize - 395) + xSize * i, -20, 0f), Quaternion.identity) as GameObject;
             newButton.transform.SetParent(null);
 
             if (newButton == null)

@@ -16,7 +16,7 @@ public class CountDownController : MonoBehaviour
     {
         timeText.text = minutes + ":" + sec;    
         if (minutes > 0)
-            totalSeconds += minutes * 60;
+            totalSeconds += minutes * 59;
         if (sec > 0)
             totalSeconds += sec;
         TOTAL_SECONDS = totalSeconds;
@@ -38,7 +38,7 @@ public class CountDownController : MonoBehaviour
             sec--;
         if (sec == 0 && minutes != 0)
         {
-            sec = 60;
+            sec = 59;
             minutes--;
         }
         timeText.text = minutes + ":" + sec;

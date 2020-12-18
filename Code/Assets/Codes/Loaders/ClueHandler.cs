@@ -33,25 +33,7 @@ public class ClueHandler : MonoBehaviour
 
         selectedClue2 = null;
 
-        //Data.Clues.Clear();
-
-        //Data.Conclusions.Clear();
-
-        //Data.Motivations.Clear();
-
-        //Data.FinalDeductions.Clear();
-
-        //Data.ClueRelations.Clear();
-
-        //Data.ConclusionRelations.Clear();
-
-        //Data.MotivationRelations.Clear();
-
-        //Data.ChoosenClueRelations.Clear();
-
-        //Data.ChoosenConclusionRelations.Clear();
-
-        //Data.ChoosenMotivationRelations.Clear();
+       
     }
 
     private void GenerateClueButtons()
@@ -77,12 +59,10 @@ public class ClueHandler : MonoBehaviour
             // Ezzel itt gond volt mert valamiért megnövelte a méretet --> newButton.transform.SetParent(GameObject.FindGameObjectWithTag("cluecanv").transform, false);
             clueButtons.Add(newButton);
             UnityEngine.UI.Button button = newButton.GetComponent<UnityEngine.UI.Button>();
-            //button.onClick.AddListener(HandleClueButtonClick);
             button.onClick.AddListener(() => HandleClueButtonClick(button));
 
             Text buttonText = (Text)newButton.GetComponentInChildren(typeof(Text));
             buttonText.text = clue.Title;
-            //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().Render();
         }
 
         foreach (var button in clueButtons)
@@ -151,7 +131,7 @@ public class ClueHandler : MonoBehaviour
         RectTransform prefabRectTransform = (prefabClueButton.transform as RectTransform);
         //Rect prefabRect = prefabRectTransform.rect;
 
-        Transform clueCanvasTransform = GameObject.FindGameObjectWithTag("cluecanv").transform;
+        //Transform clueCanvasTransform = GameObject.FindGameObjectWithTag("cluecanv").transform;
         bool vanAtfedes = true;
 
         int minX = -210;
@@ -284,7 +264,7 @@ public class ClueHandler : MonoBehaviour
             // ha a clue párnak csak 1 kimenete van
             if (clueRelation.Output2 == null)
             {
-                // Megnézzük, hogy az így kapott conclusion-nek van-e conclusion-párja
+                // Megnézzük, hogy az így kapott conclusion-nek van-e conclusion-párja, amivel motivációt alkot
                 Relation conclusionRelation = Data.ConclusionRelations.Find(conRel =>
                        conRel.Input1 == clueRelation.SelectedOutput
                     || conRel.Input2 == clueRelation.SelectedOutput);

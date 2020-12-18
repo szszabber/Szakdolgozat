@@ -5,17 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GraphDrawer : MonoBehaviour
 {
-    [SerializeField]
-    private Sprite nagyitoSprite;
     private RectTransform graphContainer;
 
     private List<GameObject> conclusionButtons = new List<GameObject>();
     private List<GameObject> motivationButtons = new List<GameObject>();
-    private List<GameObject> finalDeductionButtons = new List<GameObject>();
+    private List<GameObject> conclusionAndMotivationToFinalDeductionButtons = new List<GameObject>();
     private List<GameObject> conclusionsToFinalDeductionButtons = new List<GameObject>();
 
     private List<GameObject> connections = new List<GameObject>();
@@ -24,7 +23,6 @@ public class GraphDrawer : MonoBehaviour
 
     public void Awake()
     {
-
         GameObject grapContainerGO = GameObject.Find("GraphContainer");
         if (grapContainerGO == null)
         {
@@ -39,7 +37,8 @@ public class GraphDrawer : MonoBehaviour
         connections.Clear();
         conclusionButtons.Clear();
         motivationButtons.Clear();
-        finalDeductionButtons.Clear();
+        conclusionAndMotivationToFinalDeductionButtons.Clear();
+        conclusionsToFinalDeductionButtons.Clear();
 
         ShowGraph();
     }
@@ -48,9 +47,8 @@ public class GraphDrawer : MonoBehaviour
     {
         DrawConclusions();
         DrawMotivations();
-        DrawFinalDeductions();
-        //DrawConclusionsToFinalDeductions();
-        //DrawConclusionAndMotivationToFinalDeductions();
+        DrawConclusionAndMotivationToFinalDeductions();
+        DrawConclusionsToFinalDeductions();
 
         DrawConnectionsBetweenConclusionsAndMotivations();
         DrawConnectionsBetweenConclusionAndMotivationToFinalDeductions();
@@ -75,7 +73,7 @@ public class GraphDrawer : MonoBehaviour
 
     private void DrawConnectionsBetweenConclusionAndMotivationToFinalDeductions()
     {
-        foreach (var finalDeductionButton in finalDeductionButtons)
+        foreach (var finalDeductionButton in conclusionAndMotivationToFinalDeductionButtons)
         {
             Relation relation = buttonsToRelations[finalDeductionButton];
             List<GameObject> relatedMotivationButtons = motivationButtons
@@ -91,7 +89,7 @@ public class GraphDrawer : MonoBehaviour
 
     private void DrawConnectionsBetweenConclusionsAndFinalDeductions()
     {
-        foreach (var finalDeductionButton in finalDeductionButtons)
+        foreach (var finalDeductionButton in conclusionsToFinalDeductionButtons)
         {
             Relation relation = buttonsToRelations[finalDeductionButton];
             List<GameObject> relatedConclusionButtons = conclusionButtons
@@ -107,7 +105,7 @@ public class GraphDrawer : MonoBehaviour
 
     private void DrawConclusions()
     {
-        float ySize = 50f;
+        float ySize = 60f;
 
         GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
 
@@ -129,7 +127,7 @@ public class GraphDrawer : MonoBehaviour
             {
                 Button newConcButtonClick = newConcButton.GetComponent<Button>();
                 Relation relationForChoosing = Data.ChoosenClueRelations[i];
-                newConcButtonClick.onClick.AddListener(() => HandleConcButtonClick(relationForChoosing));
+                newConcButtonClick.onClick.AddListener(() => HandleGraphButtonClick(relationForChoosing));
                 if (Data.ChoosenClueRelations[i].SelectedOutput == null)
                 {
                     title = "Válassz konklúziót!";
@@ -157,13 +155,13 @@ public class GraphDrawer : MonoBehaviour
 
     private void DrawMotivations()
     {
-        float ySize = 50f;
+        float ySize = 90f;
         GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
 
         for (int i = 0; i < Data.ChoosenConclusionRelations.Count; i++)
         {
             float xPosition = 0f;
-            float yPosition = ySize + i * ySize;
+            float yPosition = (ySize - 50) + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
             //string title = Data.ChoosenConclusionRelations[i].Output1.Title;
@@ -178,7 +176,7 @@ public class GraphDrawer : MonoBehaviour
             {
                 Button newConcButtonClick = newMotivationButton.GetComponent<Button>();
                 Relation relationForChoosing = Data.ChoosenConclusionRelations[i];
-                newConcButtonClick.onClick.AddListener(() => HandleConcButtonClick(relationForChoosing));
+                newConcButtonClick.onClick.AddListener(() => HandleGraphButtonClick(relationForChoosing));
                 if (Data.ChoosenConclusionRelations[i].SelectedOutput == null)
                 {
                     title = "Válassz!\nMotiváció vagy ártatlan?";
@@ -210,9 +208,9 @@ public class GraphDrawer : MonoBehaviour
         }
     }
 
-    private void DrawFinalDeductions()
+    private void DrawConclusionAndMotivationToFinalDeductions()
     {
-        float ySize = 50f;
+        float ySize = 90f;
         GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
 
         for (int i = 0; i < Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Count; i++)
@@ -221,9 +219,13 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = ySize + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
+            GameObject newFinalDeductionButton = CreateNode(prefabConclusionButton, spawnPos);
+
             string title = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations[i].Output1.Title;
 
-            GameObject newFinalDeductionButton = CreateNode(prefabConclusionButton, spawnPos);
+            Button newFinalDedButtonClick = newFinalDeductionButton.GetComponent<Button>();
+            newFinalDedButtonClick.onClick.AddListener(HandleConclusionAndMotivationToFinalDeductionClick);
+
             if (newFinalDeductionButton == null)
             {
                 foreach (var relation in buttonsToRelations)
@@ -233,10 +235,10 @@ public class GraphDrawer : MonoBehaviour
                         buttonsToRelations.Remove(relation.Key);
                     }
                 }
-                finalDeductionButtons.Clear();
-                DrawMotivations();
+                conclusionAndMotivationToFinalDeductionButtons.Clear();
+                DrawConclusionAndMotivationToFinalDeductions();
             }
-            finalDeductionButtons.Add(newFinalDeductionButton);
+            conclusionAndMotivationToFinalDeductionButtons.Add(newFinalDeductionButton);
             Text buttonText = (Text)newFinalDeductionButton.GetComponentInChildren(typeof(Text));
             buttonText.text = title;
 
@@ -244,11 +246,49 @@ public class GraphDrawer : MonoBehaviour
         }
     }
 
-    private void HandleConcButtonClick(Relation relation)
+    private void DrawConclusionsToFinalDeductions()
     {
-        GameObject graphCanvas = GameObject.Find("GraphCanvas");
-        GameObject choosingCanvas = graphCanvas.transform.Find("ChoosingCanvas").gameObject;
-        choosingCanvas.SetActive(true);
+        float ySize = 50f;
+
+        GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
+
+        for (int i = 0; i < Data.ChoosenConclusionsToFinalDeductionRelations.Count; i++)
+        {
+            float xPosition = 250f;
+            float yPosition = (ySize - 100f) + i * ySize;
+            Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
+
+            GameObject newFinalDeductionButton = CreateNode(prefabConclusionButton, spawnPos);
+
+            string title = Data.ChoosenConclusionsToFinalDeductionRelations[i].Output1.Title;
+
+            Button newFinalDedButtonClick = newFinalDeductionButton.GetComponent<Button>();
+            newFinalDedButtonClick.onClick.AddListener(HandleConclusionsToFinalDeductionClick);
+
+            if (newFinalDeductionButton == null)
+            {
+                foreach (var relation in buttonsToRelations)
+                {
+                    if (relation.Value.Input1 is Conclusion && relation.Value.Output1 is FinalDeduction)
+                    {
+                        buttonsToRelations.Remove(relation.Key);
+                    }
+                }
+                conclusionsToFinalDeductionButtons.Clear();
+                DrawConclusionsToFinalDeductions();
+            }
+            conclusionsToFinalDeductionButtons.Add(newFinalDeductionButton);
+            Text buttonText = (Text)newFinalDeductionButton.GetComponentInChildren(typeof(Text));
+            buttonText.text = title;
+
+            buttonsToRelations.Add(newFinalDeductionButton, Data.ChoosenConclusionsToFinalDeductionRelations[i]);
+            //buttonsToRelations[newConcButton] = Data.ChoosenClueRelations[i];
+        }
+    }
+
+    private void HandleGraphButtonClick(Relation relation)
+    {
+        SetChoosingCanvas(true);
 
         GameObject outputButton1 = GameObject.Find("ChoosingPrefabButton1");
         Text buttonText1 = (Text)outputButton1.GetComponentInChildren(typeof(Text));
@@ -268,8 +308,21 @@ public class GraphDrawer : MonoBehaviour
         Button pressedOutputButton1 = outputButton1.GetComponent<Button>();
         Button pressedOutputButton2 = outputButton2.GetComponent<Button>();
 
+        pressedOutputButton1.onClick.RemoveAllListeners();
+        pressedOutputButton2.onClick.RemoveAllListeners();
+
         pressedOutputButton1.onClick.AddListener(() => HandleChoosenConclusion(relation, relation.Output1));
         pressedOutputButton2.onClick.AddListener(() => HandleChoosenConclusion(relation, relation.Output2));
+    }
+
+    private void HandleConclusionAndMotivationToFinalDeductionClick()
+    {
+        SceneManager.LoadScene(5);
+    }
+
+    private void HandleConclusionsToFinalDeductionClick()
+    {
+        SceneManager.LoadScene(4);
     }
 
     private void HandleChoosenConclusion(Relation relation, InvestigationItem investigationItem)
@@ -277,20 +330,20 @@ public class GraphDrawer : MonoBehaviour
         // ugyan azt választotta, mint a múltkor?
         if(relation.SelectedOutput == investigationItem)
         {
+            SetChoosingCanvas(false);
             return;
         }
 
         // a másikat választotta a múltkor?
-        if (relation.SelectedOutput != null && relation.SelectedOutput != investigationItem)
+        if (relation.SelectedOutput != null)
         {
             if(investigationItem is Conclusion)
             {
-                //ClearConsequencesOfSelectedConclusion(relation);
+                ClearConsequencesOfSelectedConclusion(relation);
             }
             else
             {
-                //SClearConsequencesOfSelectedMotivation(relation);
-
+                ClearConsequencesOfSelectedMotivation(relation);
             }
         }
 
@@ -302,18 +355,15 @@ public class GraphDrawer : MonoBehaviour
         else
         {
             HandleConsequencesOfSelectedMotivation(relation);
-
         }
 
-        GameObject graphCanvas = GameObject.Find("GraphCanvas");
-        GameObject choosingCanvas = graphCanvas.transform.Find("ChoosingCanvas").gameObject;
-        choosingCanvas.SetActive(false);
+        SetChoosingCanvas(false);
         Awake();
     }
 
     private void HandleConsequencesOfSelectedConclusion(Relation clueRelation)
     {
-        // Meg kell nézni, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval
+        // Meg kell nézni, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval, hogy motivációt alkosson
         Relation conclusionRelation = Data.ConclusionRelations.Find(concRel => concRel.Input1 == clueRelation.SelectedOutput || concRel.Input2 == clueRelation.SelectedOutput);
         if (conclusionRelation != null)
         {
@@ -343,12 +393,28 @@ public class GraphDrawer : MonoBehaviour
             }
         }
 
+        // Megnézem, hogy a kiválasztott konkllúzió párban áll e egy másik konklúzióval, ami final deductiot ad
+        Relation conclusionsToFinalDeductionRelation = Data.ConclusionToFinalDeductionRelations.Find(concToFinalDedRel =>
+               concToFinalDedRel.Input1 == clueRelation.SelectedOutput
+            || concToFinalDedRel.Input2 == clueRelation.SelectedOutput);
+        if (conclusionsToFinalDeductionRelation != null)
+        {
+            Relation previousClueRelation = Data.ChoosenClueRelations.Find(prevClueRel =>
+              (prevClueRel.SelectedOutput == conclusionsToFinalDeductionRelation.Input1
+            || prevClueRel.SelectedOutput == conclusionsToFinalDeductionRelation.Input2)
+            && prevClueRel != clueRelation);
+            if (previousClueRelation != null)
+            {
+                Data.ChoosenConclusionsToFinalDeductionRelations.Add(conclusionsToFinalDeductionRelation);
+            }
+        }
+
         // Meg kell nézni, hogy a kiválasztott konklúzió kapcsolatban áll e egy motivációval
         Relation conclusionAndMotivationRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(concAndMotRel => concAndMotRel.Input1 == clueRelation.SelectedOutput);
         if (conclusionAndMotivationRelation != null)
         {
             // Megnézem, hogy a vele kapcsolatban lévő motiváció ki van e választva
-            Relation prevConclusionRelation = Data.ConclusionRelations.Find(prevConRel => prevConRel.SelectedOutput == conclusionAndMotivationRelation.Input2);
+            Relation prevConclusionRelation = Data.ChoosenConclusionRelations.Find(prevConRel => prevConRel.SelectedOutput == conclusionAndMotivationRelation.Input2);
             if (prevConclusionRelation != null)
             {
                 Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(conclusionAndMotivationRelation);
@@ -363,7 +429,7 @@ public class GraphDrawer : MonoBehaviour
         if (motivationAndConclusionRelation != null)
         {
             //Megnézem, hogy a vele kapcsolatban lévő konklúzió ki van-e választva
-            Relation prevConcRelation = Data.ConclusionRelations.Find(prevConcRel => prevConcRel.SelectedOutput == motivationAndConclusionRelation.Input1);
+            Relation prevConcRelation = Data.ChoosenConclusionRelations.Find(prevConcRel => prevConcRel.SelectedOutput == motivationAndConclusionRelation.Input1);
             if (prevConcRelation != null)
             {
                 Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(motivationAndConclusionRelation);
@@ -371,42 +437,46 @@ public class GraphDrawer : MonoBehaviour
         }
     }
 
-
-    private void DrawConclusionsToFinalDeductions()
+    private void ClearConsequencesOfSelectedConclusion(Relation clueRelation)
     {
-        float ySize = 50f;
-
-        GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
-
-        for (int i = 0; i < Data.ChoosenConclusionsToFinalDeductionRelations.Count; i++)
+        // Meg kell nézni, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval
+        Relation choosenConclusionRelation = Data.ChoosenConclusionRelations.Find(choosenConcRel =>
+              choosenConcRel.Input1 == clueRelation.SelectedOutput
+           || choosenConcRel.Input2 == clueRelation.SelectedOutput);
+        if (choosenConclusionRelation != null)
         {
-
-            float xPosition = 250f;
-            float yPosition = (ySize - 100f) + i * ySize;
-            Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
-
-            string title = Data.ChoosenConclusionsToFinalDeductionRelations[i].Output1.Title;  
-
-            GameObject newConcButton = CreateNode(prefabConclusionButton, spawnPos);
-
-            if (newConcButton == null)
+            Data.ChoosenConclusionRelations.Remove(choosenConclusionRelation);
+            Relation conclusionAndMotivationRelation = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(concAndMotRel =>
+                concAndMotRel.Input2 == choosenConclusionRelation.SelectedOutput);
+            if (conclusionAndMotivationRelation != null)
             {
-                foreach (var relation in buttonsToRelations)
-                {
-                    if (relation.Value.Input1 is Conclusion && relation.Value.Output1 is FinalDeduction)
-                    {
-                        buttonsToRelations.Remove(relation.Key);
-                    }
-                }
-                conclusionsToFinalDeductionButtons.Clear();
-                DrawConclusionsToFinalDeductions();
+                Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(conclusionAndMotivationRelation);
             }
-            conclusionsToFinalDeductionButtons.Add(newConcButton);
-            Text buttonText = (Text)newConcButton.GetComponentInChildren(typeof(Text));
-            buttonText.text = title;
+        }
 
-            buttonsToRelations.Add(newConcButton, Data.ChoosenConclusionsToFinalDeductionRelations[i]);
-            //buttonsToRelations[newConcButton] = Data.ChoosenClueRelations[i];
+        Relation choosenConclusionAndMotivationRelation = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(choosenConcAndMotRel =>
+            choosenConcAndMotRel.Input1 == clueRelation.SelectedOutput);
+        if (choosenConclusionAndMotivationRelation != null)
+        {
+            Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(choosenConclusionAndMotivationRelation);
+        }
+
+        Relation choosenConclusionToFinalDeductionRelation = Data.ChoosenConclusionsToFinalDeductionRelations.Find(choosenConcToFinalRel =>
+           choosenConcToFinalRel.Input1 == clueRelation.SelectedOutput
+        || choosenConcToFinalRel.Input2 == clueRelation.SelectedOutput);
+        if (choosenConclusionToFinalDeductionRelation != null)
+        {
+            Data.ChoosenConclusionsToFinalDeductionRelations.Remove(choosenConclusionToFinalDeductionRelation);
+        }
+    }
+
+    private void ClearConsequencesOfSelectedMotivation(Relation conclusionRelation)
+    {
+        Relation choosenConclusionAndMoticationToFinalDedRel = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(choosenConcAndMotToFinalRel =>
+            choosenConcAndMotToFinalRel.Input2 == conclusionRelation.SelectedOutput);
+        if (choosenConclusionAndMoticationToFinalDedRel != null)
+        {
+            Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(choosenConclusionAndMoticationToFinalDedRel);
         }
     }
 
@@ -436,5 +506,14 @@ public class GraphDrawer : MonoBehaviour
         rectTransform.localEulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVectorFloat(dir));
 
         connections.Add(gameObject);
+    }
+
+    private void SetChoosingCanvas(bool activate)
+    {
+        GameObject graphCanvas = GameObject.Find("GraphCanvas");
+        GameObject choosingCanvas = graphCanvas.transform.Find("ChoosingCanvas").gameObject;
+        Vector3 position = choosingCanvas.transform.position;
+        choosingCanvas.transform.position = new Vector3(position.x, position.y, -0.5f);
+        choosingCanvas.SetActive(activate);
     }
 }

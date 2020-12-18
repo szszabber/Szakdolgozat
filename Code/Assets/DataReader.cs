@@ -13,6 +13,7 @@ public class DataReader : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
 
+        //Minden alkalommal amikor a MainMenu scene betölt minden listát kiürítünk
         Data.Clues.Clear();
 
         Data.Conclusions.Clear();
@@ -32,12 +33,17 @@ public class DataReader : MonoBehaviour
         Data.ChoosenConclusionRelations.Clear();
 
         Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Clear();
+
+        Data.ChoosenConclusionsToFinalDeductionRelations.Clear();
+
+        Data.InterViews.Clear();
     }
 
     public void Start()
     {
         string data = xmlRawFile.text;
 
+        //A program indításakor beolvassuk az adatokat az xml-ből
         ReadClues(data);
 
         ReadConclusions(data);
@@ -139,7 +145,7 @@ public class DataReader : MonoBehaviour
 
             InvestigationItem selectedOutput = null;
             InvestigationItem conclusionOutput2 = null;
-            if (clueRelationXelement.Attribute("output2ID") != null)
+            if (clueRelationXelement.Attribute("output2ID") != null)    
             {
                 int conclusionOutput2Id = Convert.ToInt32(clueRelationXelement.Attribute("output2ID").Value);
                 conclusionOutput2 = Data.Conclusions.Find(conclusion => conclusion.Id == conclusionOutput2Id);

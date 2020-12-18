@@ -16,13 +16,13 @@ public class Relation
 
     public InvestigationItem SelectedOutput { get; set; }
 
-    public Relation(int id, InvestigationItem input1, InvestigationItem input2, InvestigationItem output1, InvestigationItem output2 = null, InvestigationItem SelectedOutput = null)
+    public Relation(int id, InvestigationItem input1, InvestigationItem input2, InvestigationItem output1, InvestigationItem output2 = null, InvestigationItem selectedOutput = null)
     {
         Id = id;
         Input1 = input1;
         Input2 = input2;
         Output1 = output1;
         Output2 = output2;
-        SelectedOutput = null;
+        SelectedOutput = selectedOutput;
     }
 }

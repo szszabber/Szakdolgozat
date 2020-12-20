@@ -12,6 +12,8 @@ public class InterViewScript : MonoBehaviour
 
     private List<GameObject> interViewButtons = new List<GameObject>();
 
+    public Text sourceText;
+
     public void Awake()
     {
         string data = xmlRawFile.text;
@@ -34,6 +36,7 @@ public class InterViewScript : MonoBehaviour
         XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
 
         IEnumerable<XElement> interView = xmlDoc.Root.Element("MainSceneData").Elements("InterView").ToList();
+        IEnumerable<XElement> interViewSource = xmlDoc.Root.Element("InteViewSceneData").Elements("Data").ToList();
 
         foreach (XElement interViewXelement in interView)
         {
@@ -42,6 +45,13 @@ public class InterViewScript : MonoBehaviour
             string interViewText = interViewXelement.Element("InterViewText").Value;
             InterView interViewData = new InterView(imageName, buttonText, interViewText);
             Data.InterViews.Add(interViewData);
+        }
+
+        foreach (XElement interViewSourceXelement in interViewSource)
+        {
+            string source = interViewSourceXelement.Element("Source").Value;
+
+            sourceText.text = source;
         }
     }
 

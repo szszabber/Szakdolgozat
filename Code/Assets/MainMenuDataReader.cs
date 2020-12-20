@@ -17,6 +17,10 @@ public class MainMenuDataReader : MonoBehaviour
 
     public Text gameDescriptionText;
 
+    public Text sourceText;
+
+    public Text developerText;
+
     private void Start()
     {
         string data = xmlRawFile.text;
@@ -35,10 +39,14 @@ public class MainMenuDataReader : MonoBehaviour
             string title = mainMenuXelement.Element("Title").Value;
             string subtitle = mainMenuXelement.Element("Subtitle").Value;
             string description = mainMenuXelement.Element("Description").Value;
-            
+            string source = mainMenuXelement.Element("Source").Value;
+            string developer = mainMenuXelement.Element("Developer").Value;
+
             gameTitleText.text = title;
             gameSubtitleText.text = subtitle;
             gameDescriptionText.text = description;
+            sourceText.text = source;
+            developerText.text = developer;
         }
     }
 }

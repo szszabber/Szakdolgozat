@@ -226,6 +226,8 @@
         Jó szórakozást kívánok!
         Szajduk Szabolcs
       </Description>
+      <Source>A kép forrása: Google képkereső</Source>
+      <Developer>Szakdolgozat - Szajduk Szabolcs Tamás - T5W5GU - 2020</Developer>
     </MainMenu>
   </MainMenuData>
 
@@ -235,13 +237,13 @@
     <GameStory>
       <Image>GameStory</Image>
       <Title>Gyilkosság történt!</Title>
-      <Description>Egy volt katonatisztet, David Jacksont holtan találták saját birtokán. Daniel Jackson 1910-ben született. A második világháború végén szerelt le a hadseregtől. 40 éves volt. Valószínűleg fegyverrel végeztek vele. Több gyanúsított is felmerül az eset kapcsán. Az ügy megoldásában Sherlock Holmes segíti a rendőrség munkáját.
-      </Description>
+      <Description>Egy volt katonatisztet, David Jacksont holtan találták saját birtokán. Daniel Jackson 1910-ben született. A második világháború végén szerelt le a hadseregtől. 40 éves volt. Valószínűleg fegyverrel végeztek vele. Több gyanúsított is felmerül az eset kapcsán. Az ügy megoldásában Sherlock Holmes segíti a rendőrség munkáját.</Description>
+      <Source>A kép forrása: Google képkereső</Source>
     </GameStory>
   </GameStoryData>
 
   
-  <!--Sherlock Holmes idézetek-->
+  <!--MainScene adatai-->
   <MainSceneData>
     
     <InterView>
@@ -308,12 +310,19 @@
 
   </MainSceneData>
 
+  <!--InterViewScene adatai-->
+  <InteViewSceneData>
+    <Data>
+      <Source>A kép forrása: Google képkereső</Source>
+    </Data>
+  </InteViewSceneData>
   
   <!--DefeatScene adatai-->
   <DefeatSceneData>
     <DefeatScene>
       <Title>VESZTETTÉL!</Title>
       <Description>ROSSZ EMBERT KAPTÁL EL, A GYILKOS SZABADLÁBON MARADT!</Description>
+      <Source>A kép forrása: Google képkereső</Source>
     </DefeatScene>
   </DefeatSceneData>
 
@@ -323,6 +332,7 @@
     <TimeOutScene>
       <Title>VESZTETTÉL!</Title>
       <Description>LEJÁRT AZ IDŐ! A GYILKOS MEGSZÖKÖTT!</Description>
+      <Source>A kép forrása: Google képkereső</Source>
     </TimeOutScene>
   </TimeOutSceneData>
 
@@ -332,6 +342,7 @@
     <WinScene>
       <Title>GYŐZTÉL!!</Title>
       <Description>GRATULÁLOK! ELKAPTAD A GYILKOST!</Description>
+      <Source>A kép forrása: Google képkereső</Source>
     </WinScene>
   </WinSceneData>
 

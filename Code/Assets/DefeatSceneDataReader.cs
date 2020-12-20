@@ -13,6 +13,8 @@ public class DefeatSceneDataReader : MonoBehaviour
 
     public Text textTwo;
 
+    public Text sourceText;
+
     private void Start()
     {
         string data = xmlRawFile.text;
@@ -30,8 +32,11 @@ public class DefeatSceneDataReader : MonoBehaviour
         {
             string title = defeatXelement.Element("Title").Value;
             string description = defeatXelement.Element("Description").Value;
+            string source = defeatXelement.Element("Source").Value;
+            
             textOne.text = title;
             textTwo.text = description;
+            sourceText.text = source;
         }
     }
 }

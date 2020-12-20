@@ -13,6 +13,8 @@ public class WinSceneDataReader : MonoBehaviour
 
     public Text textTwo;
 
+    public Text sourceText;
+
     private void Start()
     {
         string data = xmlRawFile.text;
@@ -30,8 +32,11 @@ public class WinSceneDataReader : MonoBehaviour
         {
             string title = winXelement.Element("Title").Value;
             string description = winXelement.Element("Description").Value;
+            string source = winXelement.Element("Source").Value;
+
             textOne.text = title;
             textTwo.text = description;
+            sourceText.text = source;
         }
     }
 }

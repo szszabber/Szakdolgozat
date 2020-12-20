@@ -547,7 +547,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Szakdolgozat - Szajduk Szabolcs Tam\xE1s - T5W5GU - 2020"
+  m_Text: 
 --- !u!222 &490790530
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1213,6 +1213,8 @@ MonoBehaviour:
   gameTitleText: {fileID: 1605855242}
   gameSubtitleText: {fileID: 1498472573}
   gameDescriptionText: {fileID: 640677535}
+  sourceText: {fileID: 1573109543}
+  developerText: {fileID: 490790529}
 --- !u!4 &1407588549
 Transform:
   m_ObjectHideFlags: 0
@@ -1358,7 +1360,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 4b6a879fbe3c9c7489fbd09592641e7e, type: 3}
+    m_Font: {fileID: 12800000, guid: 53524f9cb4d176d4baa3f179267841a9, type: 3}
     m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
@@ -1616,7 +1618,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " A k\xE9p forr\xE1sa: Google k\xE9pkeres\u0151"
+  m_Text: 
 --- !u!222 &1573109544
 CanvasRenderer:
   m_ObjectHideFlags: 0

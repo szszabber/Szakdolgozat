@@ -13,6 +13,8 @@ public class TimeOutSceneDataReader : MonoBehaviour
 
     public Text textTwo;
 
+    public Text sourceText;
+
     private void Start()
     {
         string data = xmlRawFile.text;
@@ -30,8 +32,11 @@ public class TimeOutSceneDataReader : MonoBehaviour
         {
             string title = timeOutXelement.Element("Title").Value;
             string description = timeOutXelement.Element("Description").Value;
+            string source = timeOutXelement.Element("Source").Value;
+
             textOne.text = title;
             textTwo.text = description;
+            sourceText.text = source;
         }
     }
 }

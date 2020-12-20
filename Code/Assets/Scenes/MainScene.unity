@@ -7026,7 +7026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 920972524}
-  minutes: 10
+  minutes: 20
   sec: 0
 --- !u!4 &1398108107
 Transform:
@@ -7179,6 +7179,36 @@ PrefabInstance:
       propertyPath: m_Colors.m_NormalColor.a
       value: 0.19607843
       objectReference: {fileID: 0}
+    - target: {fileID: 2178449000306234877, guid: 4a723315c1a87454f8a18e6fb2cb09d2,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178449000306234877, guid: 4a723315c1a87454f8a18e6fb2cb09d2,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178449000306234877, guid: 4a723315c1a87454f8a18e6fb2cb09d2,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178449000306234877, guid: 4a723315c1a87454f8a18e6fb2cb09d2,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178449000306234877, guid: 4a723315c1a87454f8a18e6fb2cb09d2,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178449000306234877, guid: 4a723315c1a87454f8a18e6fb2cb09d2,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.5019608
+      objectReference: {fileID: 0}
     - target: {fileID: 3552375382726498586, guid: 4a723315c1a87454f8a18e6fb2cb09d2,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -7228,6 +7258,27 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1411247346}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1411247348 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5207298600371598486, guid: 4a723315c1a87454f8a18e6fb2cb09d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1411247346}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1411247349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411247348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1442966448
 GameObject:
   m_ObjectHideFlags: 0

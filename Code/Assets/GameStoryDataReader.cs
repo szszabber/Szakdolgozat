@@ -13,6 +13,8 @@ public class GameStoryDataReader : MonoBehaviour
 
     public Text textTwo;
 
+    public Text sourceText;
+
     private void Start()
     {
         string data = xmlRawFile.text;
@@ -30,8 +32,10 @@ public class GameStoryDataReader : MonoBehaviour
         {
             string title = storyXelement.Element("Title").Value;
             string description = storyXelement.Element("Description").Value;
+            string source = storyXelement.Element("Source").Value;
             textOne.text = title;
             textTwo.text = description;
+            sourceText.text = source;
         }
     }
 }

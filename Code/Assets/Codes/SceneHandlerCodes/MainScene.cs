@@ -7,9 +7,14 @@ using System.Xml;
 
 public class MainScene : MonoBehaviour
 {
-    //Vissza gomb a főmenübe
-    public void BackToMain(){
+    public void BackToMain()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 3);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
 

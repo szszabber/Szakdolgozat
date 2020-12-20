@@ -80,47 +80,56 @@
   <Conclusions>
 
     <Conclusion ID="13">
-      <Title>Lopott katonai levelek</Title>
+      <Title>(John Miller)
+Lopott katonai levelek</Title>
       <Description>A dobozt valószínüleg a tartalma miatt lopták el. Kérdés, hogy kinek kellettek ezek a levelek?</Description>
     </Conclusion>
 
     <Conclusion ID="14">
-      <Title>Notesz és a levelek visszaszerzése</Title>
+      <Title>(John Miller)
+Notesz és a levelek visszaszerzése</Title>
       <Description>Miller a Noteszt és apja leveleit kereste. Ez igazolja, hogy mit kereshetett ott a helyszínen. De ha ő keresi akkor ellophatta?</Description>
     </Conclusion>
 
     <Conclusion ID="15">
-      <Title>Magyarázatlan jelenlét</Title>
+      <Title>(James Ryan)
+Magyarázatlan jelenlét</Title>
       <Description>Ryan cipője pontosan beleillett a lábnyomba ami az udvaron volt. Ez bizonyítja, hogy ott volt, de a Mrs. Jackson tagadja ezt.</Description>
     </Conclusion>
 
     <Conclusion ID="16">
-      <Title>Reménytelen féltékenység</Title>
+      <Title>(James Ryan)
+Reménytelen féltékenység</Title>
       <Description>Ryan szerelmes volt Mrs. Jacksonba, és a féltékenység kényszerítette ki belőle a bűnös tettet.</Description>
     </Conclusion>
 
     <Conclusion ID="17">
-      <Title>Ártalmatlan flört</Title>
+      <Title>(James Ryan)
+Ártalmatlan flört</Title>
       <Description>Ryan és Mrs. Jackson között romantikus, ám ártalmatlan levelés zajlott. Ez nem adhatott okot neki gyilkosságra.</Description>
     </Conclusion>
 
     <Conclusion ID="18">
-      <Title>A Dohányos tasak bizonyítja a bűnösséget</Title>
+      <Title>(Daniel Johnson)
+A Dohányos tasak bizonyítja a bűnösséget</Title>
       <Description>Daniel Johnson ismerte David Jacksont, és állítása szerint elhagyta a dohányos tasakját. A helyszínen talált tasakon az ő monogramja állhatott.</Description>
     </Conclusion>
 
     <Conclusion ID="19">
-      <Title>A Dohányos tasak bizonyítja a látogatást</Title>
+      <Title>(Daniel Johnson)
+A Dohányos tasak bizonyítja a látogatást</Title>
       <Description>Johnson elismerte, hogy meglátogatta David Jacksont, de ez nem feltétlen jelenti azt, hogy meggyilkolta.</Description>
     </Conclusion>
 
     <Conclusion ID="20">
-      <Title>Szerencsés lövés</Title>
+      <Title>(John Miller, James Ryan)
+Szerencsés lövés</Title>
       <Description>Megvan az esély arra, hogy az elkövető szerencsésen célzott és sütötte el a fegyvert, ezzel okozva az áldozat halálát.</Description>
     </Conclusion>
 
     <Conclusion ID="21">
-      <Title>Képzettség szükséges</Title>
+      <Title>(Daniel Johnson)
+Képzettség szükséges</Title>
       <Description>Egy fegyver használatához, és a pontos célzáshoz katonai kiképzés szükséges. Az elkövető valószínűleg egy képzett lövész volt.</Description>
     </Conclusion>
 
@@ -129,22 +138,22 @@
   <Motivations>
 
     <Motivation ID="22">
-      <Title>Miller motivációja a gyilkosságra</Title>
+      <Title>John Miller motivációja a gyilkosságra</Title>
       <Description>Millert rajta kaphatta David Jackson, hogy vissza akarja szerezni a leveleket és a noteszt. Ez lehett motiváció Millernek David Jackon megölésére.</Description>
     </Motivation>
 
     <Motivation ID="23">
-      <Title>Miller ártatlan</Title>
+      <Title>John Miller ártatlan</Title>
       <Description>Miller a körülmények áldozata. Egyáltalán nem illik a képbe, sem fizikai sem pszichológiai szempontból.</Description>
     </Motivation>
 
     <Motivation ID="24">
-      <Title>Ryan motivációja a gyilkosságra</Title>
+      <Title>James Ryan motivációja a gyilkosságra</Title>
       <Description>Ryan viszonya Mrs. Jacksonnal motivációt adott a gyilkosságra.</Description>
     </Motivation>
 
     <Motivation ID="25">
-      <Title>Ryan ártatlan</Title>
+      <Title>James Ryan ártatlan</Title>
       <Description>Ryan jelenléte a helyszínen egyértelműen a viszánya utal Mrs. Jacksonnal és, hogy esetleg kertészként dolgozott a háznál.</Description>
     </Motivation>
 

@@ -33,6 +33,8 @@ public class GraphDrawer : MonoBehaviour
 
         graphContainer = grapContainerGO.GetComponent<RectTransform>();
 
+        Destroy(dotConnection);
+
         buttonsToRelations.ToList().ForEach(c => Destroy(c.Key));
         buttonsToRelations.Clear();
 
@@ -290,6 +292,7 @@ public class GraphDrawer : MonoBehaviour
 
     private void HandleGraphButtonClick(Relation relation)
     {
+        Destroy(dotConnection);
         SetChoosingCanvas(true);
 
         GameObject outputButton1 = GameObject.Find("ChoosingPrefabButton1");
@@ -365,7 +368,6 @@ public class GraphDrawer : MonoBehaviour
 
     private void HandleConsequencesOfSelectedConclusion(Relation clueRelation)
     {
-        Destroy(dotConnection);
         // Megnézem, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval, hogy motivációt alkosson
         Relation conclusionRelation = Data.ConclusionRelations.Find(concRel => concRel.Input1 == clueRelation.SelectedOutput || concRel.Input2 == clueRelation.SelectedOutput);
         if (conclusionRelation != null)
@@ -426,7 +428,6 @@ public class GraphDrawer : MonoBehaviour
 
     private void HandleConsequencesOfSelectedMotivation(Relation relation)
     {
-        Destroy(dotConnection);
         //Megnézem, hogy a kiválasztott motiváció kapcsolatban áll-e konklúzióval
         Relation motivationAndConclusionRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(motAndConcRel => motAndConcRel.Input2 == relation.SelectedOutput);
         if (motivationAndConclusionRelation != null)
@@ -460,6 +461,7 @@ public class GraphDrawer : MonoBehaviour
             }
         }
 
+        Destroy(dotConnection);
         Relation choosenConclusionAndMotivationRelation = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(choosenConcAndMotRel =>
             choosenConcAndMotRel.Input1 == clueRelation.SelectedOutput);
         if (choosenConclusionAndMotivationRelation != null)
@@ -468,6 +470,7 @@ public class GraphDrawer : MonoBehaviour
             Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(choosenConclusionAndMotivationRelation);
         }
 
+        Destroy(dotConnection);
         Relation choosenConclusionToFinalDeductionRelation = Data.ChoosenConclusionsToFinalDeductionRelations.Find(choosenConcToFinalRel =>
            choosenConcToFinalRel.Input1 == clueRelation.SelectedOutput
         || choosenConcToFinalRel.Input2 == clueRelation.SelectedOutput);
@@ -476,6 +479,7 @@ public class GraphDrawer : MonoBehaviour
             Destroy(dotConnection);
             Data.ChoosenConclusionsToFinalDeductionRelations.Remove(choosenConclusionToFinalDeductionRelation);
         }
+        Destroy(dotConnection);
     }
 
     private void ClearConsequencesOfSelectedMotivation(Relation conclusionRelation)
@@ -488,10 +492,12 @@ public class GraphDrawer : MonoBehaviour
             Destroy(dotConnection);
             Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(choosenConclusionAndMoticationToFinalDedRel);
         }
+        Destroy(dotConnection);
     }
 
     private GameObject CreateNode(GameObject prefabConclusionButton, Vector3 spawnPos)
     {
+        Destroy(dotConnection);
         GameObject conclusionButton = Instantiate(prefabConclusionButton, spawnPos, Quaternion.identity);
         conclusionButton.transform.SetParent(GameObject.FindGameObjectWithTag("concCanv").transform, false);
 
@@ -505,7 +511,7 @@ public class GraphDrawer : MonoBehaviour
     {
         dotConnection = new GameObject("dotConnection", typeof(Image));
         dotConnection.transform.SetParent(graphContainer, false);
-        dotConnection.GetComponent<Image>().color = new Color(132, 130, 126, .1f);
+        dotConnection.GetComponent<Image>().color = new Color(132, 130, 126, .05f);
         RectTransform rectTransform = dotConnection.GetComponent<RectTransform>();
         Vector2 dir = (dotPositionB - dotPositionA).normalized;
         float distance = Vector2.Distance(dotPositionA, dotPositionB);

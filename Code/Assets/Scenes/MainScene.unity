@@ -544,8 +544,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c220dbabfb219fd48868d9634e8b22a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityMax: 0.04
-  velocityMin: -0.04
+  velocityMax: 0.06
+  velocityMin: -0.06
   xMax: 250
   yMax: 130
   xMin: -200
@@ -2365,7 +2365,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 535503258}
-  - component: {fileID: 535503257}
   - component: {fileID: 535503259}
   m_Layer: 0
   m_Name: InterViewHandler
@@ -2374,18 +2373,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &535503257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 535503256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dc222c641c7fce4dbac3b55941ba0be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &535503258
 Transform:
   m_ObjectHideFlags: 0
@@ -7642,17 +7629,17 @@ PrefabInstance:
     - target: {fileID: 1529412395998374899, guid: 3dd0e94679b72a042ac9f79c54910764,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.3679245
+      value: 0.25882354
       objectReference: {fileID: 0}
     - target: {fileID: 1529412395998374899, guid: 3dd0e94679b72a042ac9f79c54910764,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.3679245
+      value: 0.21960786
       objectReference: {fileID: 0}
     - target: {fileID: 1529412395998374899, guid: 3dd0e94679b72a042ac9f79c54910764,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.3679245
+      value: 0.14509805
       objectReference: {fileID: 0}
     - target: {fileID: 1529412395998374899, guid: 3dd0e94679b72a042ac9f79c54910764,
         type: 3}
@@ -7732,12 +7719,12 @@ PrefabInstance:
     - target: {fileID: 1529412395998374901, guid: 3dd0e94679b72a042ac9f79c54910764,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -311.8
+      value: -304
       objectReference: {fileID: 0}
     - target: {fileID: 1529412395998374901, guid: 3dd0e94679b72a042ac9f79c54910764,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -234.8
+      value: -227
       objectReference: {fileID: 0}
     - target: {fileID: 1529412395998374901, guid: 3dd0e94679b72a042ac9f79c54910764,
         type: 3}
@@ -10999,12 +10986,12 @@ PrefabInstance:
     - target: {fileID: 7122415794936253904, guid: c878399ce0f1c95469be38da9cf4d3e0,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 221.80576
+      value: 202.4892
       objectReference: {fileID: 0}
     - target: {fileID: 7122415794936253904, guid: c878399ce0f1c95469be38da9cf4d3e0,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 21.506119
+      value: 14.675701
       objectReference: {fileID: 0}
     - target: {fileID: 7122415794936253904, guid: c878399ce0f1c95469be38da9cf4d3e0,
         type: 3}

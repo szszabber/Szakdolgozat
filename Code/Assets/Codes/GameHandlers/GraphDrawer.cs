@@ -366,7 +366,7 @@ public class GraphDrawer : MonoBehaviour
     private void HandleConsequencesOfSelectedConclusion(Relation clueRelation)
     {
         Destroy(dotConnection);
-        // Meg kell nézni, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval, hogy motivációt alkosson
+        // Megnézem, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval, hogy motivációt alkosson
         Relation conclusionRelation = Data.ConclusionRelations.Find(concRel => concRel.Input1 == clueRelation.SelectedOutput || concRel.Input2 == clueRelation.SelectedOutput);
         if (conclusionRelation != null)
         {
@@ -378,7 +378,7 @@ public class GraphDrawer : MonoBehaviour
             {
                 if (conclusionRelation.SelectedOutput != null)
                 {                   
-                    // Azt nézem, hogy a talált motiváció kapcsolatban áll e egy konlkúzióval, ami final deductiont ad ki
+                    // Megnézem, hogy a talált motiváció kapcsolatban áll e egy konlkúzióval, ami final deductiont ad ki
                     Relation conAndMotivationRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(concAndMotRelation =>
                           concAndMotRelation.Input2 == conclusionRelation.SelectedOutput);
                     if (conAndMotivationRelation != null)
@@ -411,7 +411,7 @@ public class GraphDrawer : MonoBehaviour
             }
         }
 
-        // Meg kell nézni, hogy a kiválasztott konklúzió kapcsolatban áll e egy motivációval
+        // Megnézem, hogy a kiválasztott konklúzió kapcsolatban áll e egy motivációval
         Relation conclusionAndMotivationRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(concAndMotRel => concAndMotRel.Input1 == clueRelation.SelectedOutput);
         if (conclusionAndMotivationRelation != null)
         {
@@ -426,6 +426,7 @@ public class GraphDrawer : MonoBehaviour
 
     private void HandleConsequencesOfSelectedMotivation(Relation relation)
     {
+        Destroy(dotConnection);
         //Megnézem, hogy a kiválasztott motiváció kapcsolatban áll-e konklúzióval
         Relation motivationAndConclusionRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(motAndConcRel => motAndConcRel.Input2 == relation.SelectedOutput);
         if (motivationAndConclusionRelation != null)
@@ -504,7 +505,7 @@ public class GraphDrawer : MonoBehaviour
     {
         dotConnection = new GameObject("dotConnection", typeof(Image));
         dotConnection.transform.SetParent(graphContainer, false);
-        dotConnection.GetComponent<Image>().color = new Color(255, 215, 0, .1f);
+        dotConnection.GetComponent<Image>().color = new Color(132, 130, 126, .1f);
         RectTransform rectTransform = dotConnection.GetComponent<RectTransform>();
         Vector2 dir = (dotPositionB - dotPositionA).normalized;
         float distance = Vector2.Distance(dotPositionA, dotPositionB);

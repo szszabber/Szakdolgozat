@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DataReader : MonoBehaviour
 {
@@ -13,7 +12,7 @@ public class DataReader : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
 
-        //Minden alkalommal amikor a MainMenu scene betölt minden listát kiürítünk
+        // Minden alkalommal amikor a MainMenu scene betölt minden listát kiürítek
         Data.Clues.Clear();
 
         Data.Conclusions.Clear();
@@ -43,7 +42,7 @@ public class DataReader : MonoBehaviour
     {
         string data = xmlRawFile.text;
 
-        //A program indításakor beolvassuk az adatokat az xml-ből
+        //A program indításakor beolvasom az adatokat az xml-ből
         ReadClues(data);
 
         ReadConclusions(data);
@@ -145,6 +144,7 @@ public class DataReader : MonoBehaviour
 
             InvestigationItem selectedOutput = null;
             InvestigationItem conclusionOutput2 = null;
+
             if (clueRelationXelement.Attribute("output2ID") != null)    
             {
                 int conclusionOutput2Id = Convert.ToInt32(clueRelationXelement.Attribute("output2ID").Value);
@@ -179,6 +179,7 @@ public class DataReader : MonoBehaviour
 
             InvestigationItem selectedOutput = null;
             InvestigationItem motivationOutput2 = null;
+
             if (conclsionRelationXelement.Attribute("output2ID") != null)
             {
                 int motivationOutput2Id = Convert.ToInt32(conclsionRelationXelement.Attribute("output2ID").Value);

@@ -11,11 +11,6 @@ public class MainScene : MonoBehaviour
     public void BackToMain(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 3);
     }
-    //Gráf scene betöltése
-    /*public void LoadGraph()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }*/
 }
 
 

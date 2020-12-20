@@ -32,8 +32,6 @@ public class ClueHandler : MonoBehaviour
         selectedClue1 = null;
 
         selectedClue2 = null;
-
-       
     }
 
     private void GenerateClueButtons()
@@ -107,7 +105,6 @@ public class ClueHandler : MonoBehaviour
     public static Vector3[] AddPaddingToRect(Vector3[] corners)
     {
         // Kibővítem a clueButton-ok szélességét és magasságát, hogy a generálásnál, ne kerüljenek közvetlen egymás mellé
-
         corners[0].x -= 2;
         corners[0].y -= 2;
         corners[1].x -= 2;
@@ -127,11 +124,8 @@ public class ClueHandler : MonoBehaviour
         GameObject newButton = Instantiate(prefabClueButton, spawnPosition + (spawnPosition), Quaternion.identity) as GameObject;
         newButton.transform.SetParent(null);
 
-
         RectTransform prefabRectTransform = (prefabClueButton.transform as RectTransform);
-        //Rect prefabRect = prefabRectTransform.rect;
 
-        //Transform clueCanvasTransform = GameObject.FindGameObjectWithTag("cluecanv").transform;
         bool vanAtfedes = true;
 
         int minX = -210;
@@ -139,16 +133,15 @@ public class ClueHandler : MonoBehaviour
         int minY = -130;
         int maxY = 130;
 
-        // addig generálunk egy újabb pozíciót, amíg az jó helyre nem kerül
+        // addig generálok egy újabb pozíciót, amíg az jó helyre nem kerül
         int tryCount = 0;
         while (vanAtfedes && tryCount < 100000)
         {
-            float xPos = UnityEngine.Random.Range(minX, maxX);
-            float yPos = UnityEngine.Random.Range(minY, maxY);
+            float xPos = Random.Range(minX, maxX);
+            float yPos = Random.Range(minY, maxY);
             newButton.transform.position = new Vector3(xPos, yPos, 0f);
 
             int i = 0;
-            //while (i < clueCanvasTransform.childCount && !FedesbenVan(clueCanvasTransform.GetChild(i).gameObject, newButton))
             while (i < clueButtons.Count && !FedesbenVan(clueButtons[i], newButton))
             {
                 i++;
@@ -169,7 +162,6 @@ public class ClueHandler : MonoBehaviour
 
     public void HandleClueButtonClick(UnityEngine.UI.Button button)
     {
-
         // Megkeresem a képernyő alján levő panelek text komponenseit
         Text panel1TitleText = (Text)GameObject.Find("SelectedClueTitlePanel1").GetComponentInChildren(typeof(Text));
         Text panel2TitleText = (Text)GameObject.Find("SelectedClueTitlePanel2").GetComponentInChildren(typeof(Text));
@@ -209,18 +201,6 @@ public class ClueHandler : MonoBehaviour
             panel2TitleText.text = "";
             selectedButton2 = null;
         }
-        //else if(selectedClue1 != null && selectedClue2 != null)
-        //{
-        //    selectedClue1 = clue;
-        //    panel1DescText.text = clue.Desription;
-        //    panel1TitleText.text = clue.Title;
-        //    selectedButton1 = button;
-
-        //    selectedClue2 = null;
-        //    panel2DescText.text = "";
-        //    panel2TitleText.text = "";
-        //    selectedButton2 = null;
-        //}
         else
         {
             selectedClue1 = clue;
@@ -256,7 +236,7 @@ public class ClueHandler : MonoBehaviour
             return;
         }
 
-        // Megnézzük, hogy a két clue párban van-e
+        // Megnézem, hogy a két clue párban van-e
         Relation clueRelation = Data.ClueRelations.Find(crelation => crelation.Input1 == selectedClue1 || crelation.Input2 == selectedClue1);
         // ha párban van
         if (clueRelation != null && (selectedClue2 == clueRelation.Input1 || selectedClue2 == clueRelation.Input2))
@@ -264,13 +244,13 @@ public class ClueHandler : MonoBehaviour
             // ha a clue párnak csak 1 kimenete van
             if (clueRelation.Output2 == null)
             {
-                // Megnézzük, hogy az így kapott conclusion-nek van-e conclusion-párja, amivel motivációt alkot
+                // Mengnézem, hogy az így kapott conclusion-nek van-e conclusion-párja, amivel motivációt alkot
                 Relation conclusionRelation = Data.ConclusionRelations.Find(conRel =>
                        conRel.Input1 == clueRelation.SelectedOutput
                     || conRel.Input2 == clueRelation.SelectedOutput);
                 if (conclusionRelation != null)
                 {
-                    // Ha van, akkor megézzük, hogy a conclusion-pár másik tagja ki lett-e már választva
+                    // Ha van, akkor megnézem, hogy a conclusion-pár másik tagja ki lett-e már választva
                     Relation previousClueRelation = Data.ChoosenClueRelations.Find(clueRel =>
                            clueRel.SelectedOutput == conclusionRelation.Input1
                         || clueRel.SelectedOutput == conclusionRelation.Input2);
@@ -294,15 +274,15 @@ public class ClueHandler : MonoBehaviour
                     }
                 }
 
-                // Megnézzük, hogy van-e motiváció, amivel finalDeductionba mutat ez a konklúzió
-                Relation conclusionAndMotivationToFinalDeductionRelations = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(conAndMotToFinal => 
-                       conAndMotToFinal.Input1 == clueRelation.SelectedOutput 
+                // Mengnézem, hogy van-e motiváció, amivel finalDeductionba mutat ez a konklúzió
+                Relation conclusionAndMotivationToFinalDeductionRelations = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(conAndMotToFinal =>
+                       conAndMotToFinal.Input1 == clueRelation.SelectedOutput
                     || conAndMotToFinal.Input2 == clueRelation.SelectedOutput);
                 // Ha van finalDeduction hozzá
                 if (conclusionAndMotivationToFinalDeductionRelations != null)
                 {
-                    // Megnézzük, hogy van e kiválasztott motiváció hozzá
-                    Relation previousConclusionRelation = Data.ChoosenConclusionRelations.Find(conRel => 
+                    // Mengnézem, hogy van e kiválasztott motiváció hozzá
+                    Relation previousConclusionRelation = Data.ChoosenConclusionRelations.Find(conRel =>
                            conRel.SelectedOutput == conclusionAndMotivationToFinalDeductionRelations.Input2);
                     if (previousConclusionRelation != null)
                     {
@@ -311,14 +291,14 @@ public class ClueHandler : MonoBehaviour
                     }
                 }
 
-                // Megnézzük, hogy van-e korábban kiválasztott conclusion, amivel finalDeductionba mutat ez a konklúzió
+                // Mengnézem, hogy van-e korábban kiválasztott conclusion, amivel finalDeductionba mutat ez a konklúzió
                 Relation conclusionToFinalDeductionRelation = Data.ConclusionToFinalDeductionRelations.Find(concToFinalDed =>
                        concToFinalDed.Input1 == clueRelation.SelectedOutput
                     || concToFinalDed.Input2 == clueRelation.SelectedOutput);
                 // Ha van finalDeduction hozzá
                 if (conclusionAndMotivationToFinalDeductionRelations != null)
                 {
-                    // Megnézzük, hogy van e kiválasztott motiváció hozzá
+                    // Mengnézem, hogy van e kiválasztott motiváció hozzá
                     Relation previousClueRelation = Data.ChoosenClueRelations.Find(clueRel =>
                            clueRel.SelectedOutput == conclusionAndMotivationToFinalDeductionRelations.Input1
                         || clueRel.SelectedOutput == conclusionAndMotivationToFinalDeductionRelations.Input2);
@@ -333,23 +313,20 @@ public class ClueHandler : MonoBehaviour
             // Felkerül egy Conclusion
             Data.ChoosenClueRelations.Add(clueRelation);
 
-            //A sikeresen párba állított nyomok eltűnnek a képernyőről
+            // A sikeresen párba állított nyomok eltűnnek a képernyőről
             selectedButton1.gameObject.SetActive(false);
             selectedButton2.gameObject.SetActive(false);
 
-            //Toast Unity pack a pop up üzenet megjelenítésére (akkor jelenik meg, ha sikeres a párosítás)
+            // Toast Unity pack a pop up üzenet megjelenítésére (akkor jelenik meg, ha sikeres a párosítás)
             Toast.Instance.Show("Sikeres párosítás!\nA konklúzió felkerült a gráfra!", 2f, Toast.ToastColor.Green);
-
-            //GraphDrawer graphDrawer = (GraphDrawer)FindObjectOfType<GraphDrawer>();
-            //graphDrawer.Awake();
         }
         else
         {
-            //Letöltött Toast Unity pack a pop up üzenet megjelenítésére (akkor jelenik meg, ha nincs párban a két kiválasztott nyom)
+            // Letöltött Toast Unity pack a pop up üzenet megjelenítésére (akkor jelenik meg, ha nincs párban a két kiválasztott nyom)
             Toast.Instance.Show("A kiválasztott nyomok nem alkotnak párt!", 2f, Toast.ToastColor.Red);
         }
 
-        //Ha sikerül a párosítás ha nem, az elmentett gombokat, panelTexteket és nyomokat alaphelyzetbe állítom
+        // Ha sikerül a párosítás ha nem, az elmentett gombokat, panelTexteket és nyomokat alaphelyzetbe állítom
         selectedClue1 = null;
         panel1DescText.text = "";
         panel1TitleText.text = "";

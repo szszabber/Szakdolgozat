@@ -14,6 +14,16 @@ public class InterViewScript : MonoBehaviour
 
     public Text sourceText;
 
+    Text interVieweeNamePanel;
+
+    Text interVieweeTextPanel;
+
+    //
+    public ScrollRect scrollView;
+    public GameObject scrollContent;
+    public GameObject scrollItemPrefab;
+    //
+
     public void Awake()
     {
         string data = xmlRawFile.text;
@@ -63,10 +73,10 @@ public class InterViewScript : MonoBehaviour
         for (int i = 0; i < Data.InterViews.Count; i++)
         {
             InterView interView = Data.InterViews[i];
-
             //string[] images = Directory.GetFiles(@"C:\Gitrepos\Szakdolgozat\Code\Assets\Background\Interviews", "*.jpg");
 
-            GameObject newButton = Instantiate(prefabButton, new Vector3((xSize - 1000) + xSize * i, 0f, 0f), Quaternion.identity) as GameObject;
+            GameObject newButton = Instantiate(prefabButton);
+            //GameObject newButton = Instantiate(prefabButton, new Vector3((xSize - 1000) + xSize * i, 0f, 0f), Quaternion.identity) as GameObject;
             newButton.transform.SetParent(null);
 
             if (newButton == null)
@@ -87,13 +97,11 @@ public class InterViewScript : MonoBehaviour
         }
         foreach (var button in interViewButtons)
         {
-            button.transform.SetParent(GameObject.FindGameObjectWithTag("interViewCanv").transform, false);
+            //button.transform.SetParent(GameObject.FindGameObjectWithTag("interViewCanv").transform, false);
+            button.transform.SetParent(scrollContent.transform, false);
         }
 
     }
-
-    Text interVieweeNamePanel;
-    Text interVieweeTextPanel;
 
     private void HandleInterViewButtonClick(Button button)
     {

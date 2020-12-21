@@ -68,7 +68,7 @@ public class InterViewScript : MonoBehaviour
     private void GenerateInterViewButtons()
     {
         GameObject prefabButton = GameObject.Find("InterVieweePrefabButton");
-        float xSize = 330;
+        //float xSize = 330;
 
         for (int i = 0; i < Data.InterViews.Count; i++)
         {

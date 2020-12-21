@@ -52,7 +52,7 @@ public class InterViewScript2 : MonoBehaviour
     private void GenerateInterViewButtons()
     {
         GameObject prefabButton = GameObject.Find("InterViewPrefabButton");
-        float xSize = 130;
+        //float xSize = 130;
 
         for (int i = 0; i < Data.InterViews.Count; i++)
         {
@@ -84,7 +84,6 @@ public class InterViewScript2 : MonoBehaviour
         {
             //button.transform.SetParent(GameObject.FindGameObjectWithTag("interViewCanv").transform, false);
             button.transform.SetParent(scrollContent.transform, false);
-
         }
 
     }

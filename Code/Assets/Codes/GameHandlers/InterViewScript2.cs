@@ -13,7 +13,9 @@ public class InterViewScript2 : MonoBehaviour
     private List<GameObject> interViewButtons = new List<GameObject>();
 
     public ScrollRect scrollView;
+
     public GameObject scrollContent;
+
     public GameObject scrollItemPrefab;
 
     public void Awake()
@@ -37,7 +39,7 @@ public class InterViewScript2 : MonoBehaviour
     {
         XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
 
-        IEnumerable<XElement> interView = xmlDoc.Root.Element("MainSceneData").Elements("InterView").ToList();
+        IEnumerable<XElement> interView = xmlDoc.Root.Element("InteViewSceneData").Elements("InterView").ToList();
 
         foreach (XElement interViewXelement in interView)
         {

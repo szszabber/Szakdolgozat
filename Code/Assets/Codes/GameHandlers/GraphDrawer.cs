@@ -120,7 +120,7 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = (ySize - 200f) + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            GameObject newConcButton = CreateNode(prefabConclusionButton, spawnPos);   
+            GameObject newConcButton = CreateNode(prefabConclusionButton, spawnPos);
 
             string title;
             if (Data.ChoosenClueRelations[i].Output2 == null)
@@ -333,7 +333,7 @@ public class GraphDrawer : MonoBehaviour
     private void HandleChoosenConclusion(Relation relation, InvestigationItem investigationItem)
     {
         // ugyan azt választotta, mint a múltkor?
-        if(relation.SelectedOutput == investigationItem)
+        if (relation.SelectedOutput == investigationItem)
         {
             SetChoosingCanvas(false);
             return;
@@ -342,7 +342,7 @@ public class GraphDrawer : MonoBehaviour
         // a másikat választotta a múltkor?
         if (relation.SelectedOutput != null)
         {
-            if(investigationItem is Conclusion)
+            if (investigationItem is Conclusion)
             {
                 ClearConsequencesOfSelectedConclusion(relation);
             }
@@ -374,12 +374,12 @@ public class GraphDrawer : MonoBehaviour
         {
             Relation previousClueRelation = Data.ChoosenClueRelations.Find(prevClueRel =>
                    prevClueRel.SelectedOutput == conclusionRelation.Input1
-                || prevClueRel.SelectedOutput == conclusionRelation.Input2 
+                || prevClueRel.SelectedOutput == conclusionRelation.Input2
                 && prevClueRel != clueRelation);
             if (previousClueRelation != null)
             {
                 if (conclusionRelation.SelectedOutput != null)
-                {                   
+                {
                     // Megnézem, hogy a talált motiváció kapcsolatban áll e egy konlkúzióval, ami final deductiont ad ki
                     Relation conAndMotivationRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(concAndMotRelation =>
                           concAndMotRelation.Input2 == conclusionRelation.SelectedOutput);
@@ -392,7 +392,7 @@ public class GraphDrawer : MonoBehaviour
                             Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(conAndMotivationRelation);
                         }
                     }
-                }    
+                }
                 Data.ChoosenConclusionRelations.Add(conclusionRelation);
             }
         }

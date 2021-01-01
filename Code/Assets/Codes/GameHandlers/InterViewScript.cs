@@ -18,11 +18,11 @@ public class InterViewScript : MonoBehaviour
 
     Text interVieweeTextPanel;
 
-    //
     public ScrollRect scrollView;
+
     public GameObject scrollContent;
+
     public GameObject scrollItemPrefab;
-    //
 
     public void Awake()
     {
@@ -45,7 +45,7 @@ public class InterViewScript : MonoBehaviour
     {
         XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
 
-        IEnumerable<XElement> interView = xmlDoc.Root.Element("MainSceneData").Elements("InterView").ToList();
+        IEnumerable<XElement> interView = xmlDoc.Root.Element("InteViewSceneData").Elements("InterView").ToList();
         IEnumerable<XElement> interViewSource = xmlDoc.Root.Element("InteViewSceneData").Elements("Data").ToList();
 
         foreach (XElement interViewXelement in interView)

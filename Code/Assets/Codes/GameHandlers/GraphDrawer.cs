@@ -12,6 +12,8 @@ public class GraphDrawer : MonoBehaviour
 {
     private RectTransform graphContainer;
 
+    public GameObject ConclusionPrefab; 
+
     GameObject dotConnection;
 
     private List<GameObject> conclusionButtons = new List<GameObject>();
@@ -111,7 +113,7 @@ public class GraphDrawer : MonoBehaviour
     {
         float ySize = 60f;
 
-        GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
+        //GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
 
         for (int i = 0; i < Data.ChoosenClueRelations.Count; i++)
         {
@@ -120,7 +122,7 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = (ySize - 200f) + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            GameObject newConcButton = CreateNode(prefabConclusionButton, spawnPos);
+            GameObject newConcButton = CreateNode(ConclusionPrefab, spawnPos);
 
             string title;
             if (Data.ChoosenClueRelations[i].Output2 == null)
@@ -160,7 +162,7 @@ public class GraphDrawer : MonoBehaviour
     private void DrawMotivations()
     {
         float ySize = 90f;
-        GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
+        //GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
 
         for (int i = 0; i < Data.ChoosenConclusionRelations.Count; i++)
         {
@@ -169,7 +171,7 @@ public class GraphDrawer : MonoBehaviour
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
             //string title = Data.ChoosenConclusionRelations[i].Output1.Title;
-            GameObject newMotivationButton = CreateNode(prefabConclusionButton, spawnPos);
+            GameObject newMotivationButton = CreateNode(ConclusionPrefab, spawnPos);
 
             string title;
             if (Data.ChoosenConclusionRelations[i].Output2 == null)
@@ -215,7 +217,7 @@ public class GraphDrawer : MonoBehaviour
     private void DrawConclusionAndMotivationToFinalDeductions()
     {
         float ySize = 90f;
-        GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
+        //GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
 
         for (int i = 0; i < Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Count; i++)
         {
@@ -223,7 +225,7 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = ySize + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            GameObject newFinalDeductionButton = CreateNode(prefabConclusionButton, spawnPos);
+            GameObject newFinalDeductionButton = CreateNode(ConclusionPrefab, spawnPos);
 
             string title = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations[i].Output1.Title;
 
@@ -254,7 +256,7 @@ public class GraphDrawer : MonoBehaviour
     {
         float ySize = 50f;
 
-        GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
+        //GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
 
         for (int i = 0; i < Data.ChoosenConclusionsToFinalDeductionRelations.Count; i++)
         {
@@ -262,7 +264,7 @@ public class GraphDrawer : MonoBehaviour
             float yPosition = (ySize - 100f) + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            GameObject newFinalDeductionButton = CreateNode(prefabConclusionButton, spawnPos);
+            GameObject newFinalDeductionButton = CreateNode(ConclusionPrefab, spawnPos);
 
             string title = Data.ChoosenConclusionsToFinalDeductionRelations[i].Output1.Title;
 
@@ -495,10 +497,10 @@ public class GraphDrawer : MonoBehaviour
         Destroy(dotConnection);
     }
 
-    private GameObject CreateNode(GameObject prefabConclusionButton, Vector3 spawnPos)
+    private GameObject CreateNode(GameObject ConclusionPrefab, Vector3 spawnPos)
     {
         Destroy(dotConnection);
-        GameObject conclusionButton = Instantiate(prefabConclusionButton, spawnPos, Quaternion.identity);
+        GameObject conclusionButton = Instantiate(ConclusionPrefab, spawnPos, Quaternion.identity);
         conclusionButton.transform.SetParent(GameObject.FindGameObjectWithTag("concCanv").transform, false);
 
         RectTransform rectTransform = conclusionButton.GetComponent<RectTransform>();

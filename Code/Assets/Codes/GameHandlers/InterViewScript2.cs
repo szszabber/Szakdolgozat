@@ -10,6 +10,10 @@ public class InterViewScript2 : MonoBehaviour
 {
     public TextAsset xmlRawFile;
 
+    Text interVieweeNamePanel;
+
+    Text interVieweeTextPanel;
+
     private List<GameObject> interViewButtons = new List<GameObject>();
 
     public ScrollRect scrollView;
@@ -18,15 +22,18 @@ public class InterViewScript2 : MonoBehaviour
 
     public GameObject scrollItemPrefab;
 
+    public bool isGenerated = false;
+
     public void Awake()
     {
-        string data = xmlRawFile.text;
-
         Clear();
-
+        string data = xmlRawFile.text;
         ReadInterViews(data);
-
-        GenerateInterViewButtons();
+        if (isGenerated == false)
+        {
+            GenerateInterViewButtons();
+            isGenerated = true;
+        }
     }
 
     private void Clear()
@@ -54,16 +61,13 @@ public class InterViewScript2 : MonoBehaviour
     private void GenerateInterViewButtons()
     {
         GameObject prefabButton = GameObject.Find("InterViewPrefabButton");
-        //float xSize = 130;
 
         for (int i = 0; i < Data.InterViews.Count; i++)
         {
             InterView interView = Data.InterViews[i];
 
-            //string[] images = Directory.GetFiles(@"C:\Gitrepos\Szakdolgozat\Code\Assets\Background\Interviews", "*.jpg");
-
             GameObject newButton = Instantiate(prefabButton);
-            //GameObject newButton = Instantiate(prefabButton, new Vector3((xSize - 395) + xSize * i, -20, 0f), Quaternion.identity) as GameObject;
+
             newButton.transform.SetParent(null);
 
             if (newButton == null)
@@ -73,25 +77,21 @@ public class InterViewScript2 : MonoBehaviour
             }
 
             interViewButtons.Add(newButton);
+
             UnityEngine.UI.Button button = newButton.GetComponent<UnityEngine.UI.Button>();
+
             button.onClick.AddListener(() => HandleInterViewButtonClick(button));
 
             Text buttonText = (Text)newButton.GetComponentInChildren(typeof(Text));
-            //Image buttonImage = (Image)newButton.GetComponentInChildren(typeof(Image));
 
             buttonText.text = interView.Name;
-            //buttonImage.sprite
         }
         foreach (var button in interViewButtons)
         {
-            //button.transform.SetParent(GameObject.FindGameObjectWithTag("interViewCanv").transform, false);
             button.transform.SetParent(scrollContent.transform, false);
         }
 
     }
-
-    Text interVieweeNamePanel;
-    Text interVieweeTextPanel;
 
     private void HandleInterViewButtonClick(Button button)
     {

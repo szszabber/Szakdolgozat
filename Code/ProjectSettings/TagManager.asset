@@ -12,6 +12,7 @@ TagManager:
   - ChoosingCanvas
   - interViewCanv
   - clone
+  - concPrefabButton
   layers:
   - Default
   - TransparentFX

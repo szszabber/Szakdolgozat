@@ -72,7 +72,6 @@ public class InterViewScript : MonoBehaviour
     private void GenerateInterViewButtons()
     {
         GameObject prefabButton = GameObject.Find("InterVieweePrefabButton");
-        //float xSize = 330;
 
         for (int i = 0; i < Data.InterViews.Count; i++)
         {
@@ -100,7 +99,6 @@ public class InterViewScript : MonoBehaviour
         {
             button.transform.SetParent(scrollContent.transform, false);
         }
-
     }
 
     private void HandleInterViewButtonClick(Button button)

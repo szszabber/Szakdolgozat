@@ -121,8 +121,6 @@ public class GraphDrawer : MonoBehaviour
     {
         float ySize = 60f;
 
-        //GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
-
         for (int i = 0; i < Data.ChoosenClueRelations.Count; i++)
         {
 
@@ -169,16 +167,14 @@ public class GraphDrawer : MonoBehaviour
 
     private void DrawMotivations()
     {
-        float ySize = 90f;
-        //GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
+        float ySize = 150f;
 
         for (int i = 0; i < Data.ChoosenConclusionRelations.Count; i++)
         {
             float xPosition = 0f;
-            float yPosition = (ySize - 50) + i * ySize;
+            float yPosition = (ySize - 200) + i * ySize;
             Vector3 spawnPos = new Vector3(xPosition, yPosition, 0f);
 
-            //string title = Data.ChoosenConclusionRelations[i].Output1.Title;
             GameObject newMotivationButton = CreateNode(ConclusionPrefab, spawnPos);
 
             string title;
@@ -225,7 +221,6 @@ public class GraphDrawer : MonoBehaviour
     private void DrawConclusionAndMotivationToFinalDeductions()
     {
         float ySize = 90f;
-        //GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
 
         for (int i = 0; i < Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Count; i++)
         {
@@ -238,7 +233,7 @@ public class GraphDrawer : MonoBehaviour
             string title = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations[i].Output1.Title;
 
             Button newFinalDedButtonClick = newFinalDeductionButton.GetComponent<Button>();
-            newFinalDedButtonClick.onClick.AddListener(HandleConclusionAndMotivationToFinalDeductionClick);
+            newFinalDedButtonClick.onClick.AddListener(HandleConclusionAndMotivationToFinalDeductionButtonClick);
 
             if (newFinalDeductionButton == null)
             {
@@ -264,8 +259,6 @@ public class GraphDrawer : MonoBehaviour
     {
         float ySize = 50f;
 
-        //GameObject prefabConclusionButton = GameObject.Find("ConclusionPrefabButton");
-
         for (int i = 0; i < Data.ChoosenConclusionsToFinalDeductionRelations.Count; i++)
         {
             float xPosition = 250f;
@@ -277,7 +270,7 @@ public class GraphDrawer : MonoBehaviour
             string title = Data.ChoosenConclusionsToFinalDeductionRelations[i].Output1.Title;
 
             Button newFinalDedButtonClick = newFinalDeductionButton.GetComponent<Button>();
-            newFinalDedButtonClick.onClick.AddListener(HandleConclusionsToFinalDeductionClick);
+            newFinalDedButtonClick.onClick.AddListener(HandleConclusionsToFinalDeductionButtonClick);
 
             if (newFinalDeductionButton == null)
             {
@@ -329,12 +322,12 @@ public class GraphDrawer : MonoBehaviour
         pressedOutputButton2.onClick.AddListener(() => HandleChoosenConclusion(relation, relation.Output2));
     }
 
-    private void HandleConclusionAndMotivationToFinalDeductionClick()
+    private void HandleConclusionAndMotivationToFinalDeductionButtonClick()
     {
         SceneManager.LoadScene(5);
     }
 
-    private void HandleConclusionsToFinalDeductionClick()
+    private void HandleConclusionsToFinalDeductionButtonClick()
     {
         SceneManager.LoadScene(4);
     }

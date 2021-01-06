@@ -14,8 +14,6 @@ public class GraphDrawer : MonoBehaviour
 
     public GameObject ConclusionPrefab; 
 
-    GameObject dotConnection;
-
     private List<GameObject> conclusionButtons = new List<GameObject>();
     private List<GameObject> motivationButtons = new List<GameObject>();
     private List<GameObject> conclusionAndMotivationToFinalDeductionButtons = new List<GameObject>();
@@ -35,12 +33,12 @@ public class GraphDrawer : MonoBehaviour
 
         graphContainer = grapContainerGO.GetComponent<RectTransform>();
 
-        Destroy(dotConnection);
-
         buttonsToRelations.ToList().ForEach(c => Destroy(c.Key));
         buttonsToRelations.Clear();
 
+        connections.ToList().ForEach(c => Destroy(c));
         connections.Clear();
+
         conclusionButtons.Clear();
         motivationButtons.Clear();
         conclusionAndMotivationToFinalDeductionButtons.Clear();
@@ -67,7 +65,7 @@ public class GraphDrawer : MonoBehaviour
         {
             Relation relation = buttonsToRelations[motivationButton];
             List<GameObject> relatedConclusionButtons = conclusionButtons
-                .FindAll(concButton => buttonsToRelations[concButton].Output1 == relation.Input1 || buttonsToRelations[concButton].Output1 == relation.Input2)
+                .FindAll(concButton => buttonsToRelations[concButton].SelectedOutput == relation.Input1 || buttonsToRelations[concButton].SelectedOutput == relation.Input2)
                 .ToList();
 
             foreach (var conclusionButton in relatedConclusionButtons)
@@ -82,13 +80,23 @@ public class GraphDrawer : MonoBehaviour
         foreach (var finalDeductionButton in conclusionAndMotivationToFinalDeductionButtons)
         {
             Relation relation = buttonsToRelations[finalDeductionButton];
+
             List<GameObject> relatedMotivationButtons = motivationButtons
-                .FindAll(motivationButton => buttonsToRelations[motivationButton].Output1 == relation.Input1 || buttonsToRelations[motivationButton].Output1 == relation.Input2)
+                .FindAll(motivationButton => buttonsToRelations[motivationButton].SelectedOutput == relation.Input2)
                 .ToList();
 
             foreach (var motivationButton in relatedMotivationButtons)
             {
                 CreateDotConnection(motivationButton.GetComponent<RectTransform>().anchoredPosition, finalDeductionButton.GetComponent<RectTransform>().anchoredPosition);
+            }
+
+            List<GameObject> relatedConclusionButtons = conclusionButtons
+            .FindAll(conclusionButton => buttonsToRelations[conclusionButton].SelectedOutput == relation.Input1)
+            .ToList();
+
+            foreach (var conclusionButton in relatedConclusionButtons)
+            {
+                CreateDotConnection(conclusionButton.GetComponent<RectTransform>().anchoredPosition, finalDeductionButton.GetComponent<RectTransform>().anchoredPosition);
             }
         }
     }
@@ -99,7 +107,7 @@ public class GraphDrawer : MonoBehaviour
         {
             Relation relation = buttonsToRelations[finalDeductionButton];
             List<GameObject> relatedConclusionButtons = conclusionButtons
-                .FindAll(concButton => buttonsToRelations[concButton].Output1 == relation.Input1 || buttonsToRelations[concButton].Output1 == relation.Input2)
+                .FindAll(concButton => buttonsToRelations[concButton].SelectedOutput == relation.Input1 || buttonsToRelations[concButton].SelectedOutput == relation.Input2)
                 .ToList();
 
             foreach (var conclusionButton in relatedConclusionButtons)
@@ -294,7 +302,6 @@ public class GraphDrawer : MonoBehaviour
 
     private void HandleGraphButtonClick(Relation relation)
     {
-        Destroy(dotConnection);
         SetChoosingCanvas(true);
 
         GameObject outputButton1 = GameObject.Find("ChoosingPrefabButton1");
@@ -435,8 +442,8 @@ public class GraphDrawer : MonoBehaviour
         if (motivationAndConclusionRelation != null)
         {
             //Megnézem, hogy a vele kapcsolatban lévő konklúzió ki van-e választva
-            Relation prevConcRelation = Data.ChoosenConclusionRelations.Find(prevConcRel => prevConcRel.SelectedOutput == motivationAndConclusionRelation.Input1);
-            if (prevConcRelation != null)
+            Relation prevClueRelation = Data.ChoosenClueRelations.Find(prevCluRel => prevCluRel.SelectedOutput == motivationAndConclusionRelation.Input1);
+            if (prevClueRelation != null)
             {
                 Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(motivationAndConclusionRelation);
             }
@@ -445,61 +452,49 @@ public class GraphDrawer : MonoBehaviour
 
     private void ClearConsequencesOfSelectedConclusion(Relation clueRelation)
     {
-        Destroy(dotConnection);
         // Meg kell nézni, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval
         Relation choosenConclusionRelation = Data.ChoosenConclusionRelations.Find(choosenConcRel =>
               choosenConcRel.Input1 == clueRelation.SelectedOutput
            || choosenConcRel.Input2 == clueRelation.SelectedOutput);
         if (choosenConclusionRelation != null)
         {
-            Destroy(dotConnection);
             Data.ChoosenConclusionRelations.Remove(choosenConclusionRelation);
             Relation conclusionAndMotivationRelation = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(concAndMotRel =>
                 concAndMotRel.Input2 == choosenConclusionRelation.SelectedOutput);
             if (conclusionAndMotivationRelation != null)
             {
-                Destroy(dotConnection);
                 Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(conclusionAndMotivationRelation);
             }
         }
 
-        Destroy(dotConnection);
         Relation choosenConclusionAndMotivationRelation = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(choosenConcAndMotRel =>
             choosenConcAndMotRel.Input1 == clueRelation.SelectedOutput);
         if (choosenConclusionAndMotivationRelation != null)
         {
-            Destroy(dotConnection);
             Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(choosenConclusionAndMotivationRelation);
         }
 
-        Destroy(dotConnection);
         Relation choosenConclusionToFinalDeductionRelation = Data.ChoosenConclusionsToFinalDeductionRelations.Find(choosenConcToFinalRel =>
            choosenConcToFinalRel.Input1 == clueRelation.SelectedOutput
         || choosenConcToFinalRel.Input2 == clueRelation.SelectedOutput);
         if (choosenConclusionToFinalDeductionRelation != null)
         {
-            Destroy(dotConnection);
             Data.ChoosenConclusionsToFinalDeductionRelations.Remove(choosenConclusionToFinalDeductionRelation);
         }
-        Destroy(dotConnection);
     }
 
     private void ClearConsequencesOfSelectedMotivation(Relation conclusionRelation)
-    {
-        Destroy(dotConnection);
+    {    
         Relation choosenConclusionAndMoticationToFinalDedRel = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(choosenConcAndMotToFinalRel =>
             choosenConcAndMotToFinalRel.Input2 == conclusionRelation.SelectedOutput);
         if (choosenConclusionAndMoticationToFinalDedRel != null)
         {
-            Destroy(dotConnection);
             Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(choosenConclusionAndMoticationToFinalDedRel);
         }
-        Destroy(dotConnection);
     }
 
     private GameObject CreateNode(GameObject ConclusionPrefab, Vector3 spawnPos)
     {
-        Destroy(dotConnection);
         GameObject conclusionButton = Instantiate(ConclusionPrefab, spawnPos, Quaternion.identity);
         conclusionButton.transform.SetParent(GameObject.FindGameObjectWithTag("concCanv").transform, false);
 
@@ -511,7 +506,7 @@ public class GraphDrawer : MonoBehaviour
 
     private void CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB)
     {
-        dotConnection = new GameObject("dotConnection", typeof(Image));
+        GameObject dotConnection = new GameObject("dotConnection", typeof(Image));
         dotConnection.transform.SetParent(graphContainer, false);
         dotConnection.GetComponent<Image>().color = new Color(132, 130, 126, .05f);
         RectTransform rectTransform = dotConnection.GetComponent<RectTransform>();

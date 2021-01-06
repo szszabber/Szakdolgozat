@@ -26,35 +26,10 @@ public class InterViewScript2 : MonoBehaviour
 
     public void Awake()
     {
-        Clear();
-        string data = xmlRawFile.text;
-        ReadInterViews(data);
         if (isGenerated == false)
         {
             GenerateInterViewButtons();
             isGenerated = true;
-        }
-    }
-
-    private void Clear()
-    {
-        interViewButtons.Clear();
-        Data.InterViews.Clear();
-    }
-
-    private void ReadInterViews(string xmlFileAsText)
-    {
-        XDocument xmlDoc = XDocument.Parse(xmlFileAsText);
-
-        IEnumerable<XElement> interView = xmlDoc.Root.Element("InteViewSceneData").Elements("InterView").ToList();
-
-        foreach (XElement interViewXelement in interView)
-        {
-            string imageName = interViewXelement.Element("Image").Value;
-            string buttonText = interViewXelement.Element("NameText").Value;
-            string interViewText = interViewXelement.Element("InterViewText").Value;
-            InterView interViewData = new InterView(imageName, buttonText, interViewText);
-            Data.InterViews.Add(interViewData);
         }
     }
 

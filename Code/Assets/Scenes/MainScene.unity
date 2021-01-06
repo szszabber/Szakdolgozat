@@ -2406,6 +2406,7 @@ MonoBehaviour:
   scrollView: {fileID: 1162416730}
   scrollContent: {fileID: 1182569792}
   scrollItemPrefab: {fileID: 773903095}
+  isGenerated: 0
 --- !u!1 &538495370
 GameObject:
   m_ObjectHideFlags: 0
@@ -10499,7 +10500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.078431375}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.15686275}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

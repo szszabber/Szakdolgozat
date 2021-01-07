@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 
+<!--Root-->
 <DatabaseContainer>
-  <!--Root-->
 
   <!--Nyomok és következtetések-->
   <Clues>
@@ -249,39 +249,9 @@ Képzettség szükséges</Title>
 
   <!--MainScene adatai-->
   <MainSceneData>
-  
-    <SherlockQuote>
-      <SherlockQuoteDescription>Maga a hallgatás mestere, Watson, ezért olyan izgalmas magával beszélgetni.</SherlockQuoteDescription>
-    </SherlockQuote>
-
-    <SherlockQuote>
-      <SherlockQuoteDescription>Mily szörnyű a bölcsesség, ha nem lehet hasznára a bölcsnek!</SherlockQuoteDescription>
-    </SherlockQuote>
-
-    <SherlockQuote>
-      <SherlockQuoteDescription>Szarvashiba elméletet alkotni adatok nélkül. Ugyanis akkor a tényeket igazítjuk a teóriákhoz, nem pedig a teóriát a tényekhez.</SherlockQuoteDescription>
-    </SherlockQuote>
-
-    <SherlockQuote>
-      <SherlockQuoteDescription>A részletek fontosságát nem lehet eltúlozni!</SherlockQuoteDescription>
-    </SherlockQuote>
-
-    <SherlockQuote>
-      <SherlockQuoteDescription>A vaknál is vakabb az, aki nem lát a szemétől.</SherlockQuoteDescription>
-    </SherlockQuote>
-
-    <SherlockQuote>
-      <SherlockQuoteDescription>A szerelmünknek nem tudunk parancsolni, de a cselekedeteinknek igen.</SherlockQuoteDescription>
-    </SherlockQuote>
-
-    <SherlockQuote>
-      <SherlockQuoteDescription>Teljesen fölösleges megtiltani valamit egy nőnek, mert úgyis az lesz, amit ő akar.</SherlockQuoteDescription>
-    </SherlockQuote>
-
-    <SherlockQuote>
-      <SherlockQuoteDescription>Ha a lehetetlent kizártuk, ami marad, az az igazság, akármilyen valószínűtlen legyen is.</SherlockQuoteDescription>
-    </SherlockQuote>
-
+    <MainScene>
+      <Source>A kép forrása: Google képkereső</Source>
+    </MainScene>
   </MainSceneData>
 
   <!--InterViewScene adatai-->

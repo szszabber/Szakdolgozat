@@ -65,7 +65,6 @@ public class InterViewScript2 : MonoBehaviour
         {
             button.transform.SetParent(scrollContent.transform, false);
         }
-
     }
 
     private void HandleInterViewButtonClick(Button button)

@@ -12,7 +12,7 @@ public class GraphDrawer : MonoBehaviour
 {
     private RectTransform graphContainer;
 
-    public GameObject ConclusionPrefab; 
+    public GameObject ConclusionPrefab;
 
     private List<GameObject> conclusionButtons = new List<GameObject>();
     private List<GameObject> motivationButtons = new List<GameObject>();
@@ -371,25 +371,25 @@ public class GraphDrawer : MonoBehaviour
     private void HandleConsequencesOfSelectedConclusion(Relation clueRelation)
     {
         // Megnézem, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval, hogy motivációt alkosson
-        Relation conclusionRelation = Data.ConclusionRelations.Find(concRel => concRel.Input1 == clueRelation.SelectedOutput || concRel.Input2 == clueRelation.SelectedOutput);
-        if (conclusionRelation != null)
+        List<Relation> conclusionRelations = Data.ConclusionRelations.FindAll(concRel => concRel.Input1 == clueRelation.SelectedOutput || concRel.Input2 == clueRelation.SelectedOutput);
+        foreach (var conclusionRelation in conclusionRelations)
         {
-            Relation previousClueRelation = Data.ChoosenClueRelations.Find(prevClueRel =>
-                   prevClueRel.SelectedOutput == conclusionRelation.Input1
+            List<Relation> previousClueRelations = Data.ChoosenClueRelations.FindAll(prevClueRel =>
+                    prevClueRel.SelectedOutput == conclusionRelation.Input1
                 || prevClueRel.SelectedOutput == conclusionRelation.Input2
                 && prevClueRel != clueRelation);
-            if (previousClueRelation != null)
+            foreach (var previousClueRelation in previousClueRelations)
             {
                 if (conclusionRelation.SelectedOutput != null)
                 {
                     // Megnézem, hogy a talált motiváció kapcsolatban áll e egy konlkúzióval, ami final deductiont ad ki
-                    Relation conAndMotivationRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(concAndMotRelation =>
-                          concAndMotRelation.Input2 == conclusionRelation.SelectedOutput);
-                    if (conAndMotivationRelation != null)
+                    List<Relation> conAndMotivationRelations = Data.ConclusionAndMotivationToFinalDeductionRelations.FindAll(concAndMotRelation =>
+                        concAndMotRelation.Input2 == conclusionRelation.SelectedOutput);
+                    foreach (var conAndMotivationRelation in conAndMotivationRelations)
                     {
                         // Megnézem, hogy ki van-e választva hozzá a konklúzió
-                        Relation prevClueRelation = Data.ChoosenClueRelations.Find(prevClueRel => prevClueRel.SelectedOutput == conAndMotivationRelation.Input1);
-                        if (prevClueRelation != null)
+                        List<Relation> prevClueRelations = Data.ChoosenClueRelations.FindAll(prevClueRel => prevClueRel.SelectedOutput == conAndMotivationRelation.Input1);
+                        foreach (var prevClueRelation in prevClueRelations)
                         {
                             Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(conAndMotivationRelation);
                         }
@@ -400,30 +400,34 @@ public class GraphDrawer : MonoBehaviour
         }
 
         // Megnézem, hogy a kiválasztott konklúzió párban áll e egy másik konklúzióval, ami final deductiot ad
-        Relation conclusionsToFinalDeductionRelation = Data.ConclusionToFinalDeductionRelations.Find(concToFinalDedRel =>
+        List<Relation> conclusionsToFinalDeductionRelations = Data.ConclusionToFinalDeductionRelations.FindAll(concToFinalDedRel =>
                concToFinalDedRel.Input1 == clueRelation.SelectedOutput
             || concToFinalDedRel.Input2 == clueRelation.SelectedOutput);
-        if (conclusionsToFinalDeductionRelation != null)
+        foreach (var conclusionsToFinalDeductionRelation in conclusionsToFinalDeductionRelations)
         {
-            Relation previousClueRelation = Data.ChoosenClueRelations.Find(prevClueRel =>
+            List<Relation> previousClueRelations = Data.ChoosenClueRelations.FindAll(prevClueRel =>
               (prevClueRel.SelectedOutput == conclusionsToFinalDeductionRelation.Input1
             || prevClueRel.SelectedOutput == conclusionsToFinalDeductionRelation.Input2)
             && prevClueRel != clueRelation);
-            if (previousClueRelation != null)
+            foreach (var previousClueRelation in previousClueRelations)
             {
                 Data.ChoosenConclusionsToFinalDeductionRelations.Add(conclusionsToFinalDeductionRelation);
             }
         }
 
+
         // Megnézem, hogy a kiválasztott konklúzió kapcsolatban áll e egy motivációval
-        Relation conclusionAndMotivationRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(concAndMotRel => concAndMotRel.Input1 == clueRelation.SelectedOutput);
-        if (conclusionAndMotivationRelation != null)
+        List<Relation> conclusionAndMotivationToFinalDeductionRelations = Data.ConclusionAndMotivationToFinalDeductionRelations.FindAll(concAndMotRel => concAndMotRel.Input1 == clueRelation.SelectedOutput);
+        foreach (Relation conclusionAndMotivationToFinalDeductionRelation in conclusionAndMotivationToFinalDeductionRelations)
         {
-            // Megnézem, hogy a vele kapcsolatban lévő motiváció ki van e választva
-            Relation prevConclusionRelation = Data.ChoosenConclusionRelations.Find(prevConRel => prevConRel.SelectedOutput == conclusionAndMotivationRelation.Input2);
-            if (prevConclusionRelation != null)
+            if (conclusionAndMotivationToFinalDeductionRelation != null)
             {
-                Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(conclusionAndMotivationRelation);
+                // Megnézem, hogy a vele kapcsolatban lévő motiváció ki van e választva
+                List<Relation> prevConclusionRelations = Data.ChoosenConclusionRelations.FindAll(prevConRel => prevConRel.SelectedOutput == conclusionAndMotivationToFinalDeductionRelation.Input2);
+                foreach (var prevConclusionRelation in prevConclusionRelations)
+                {
+                    Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(conclusionAndMotivationToFinalDeductionRelation);
+                }
             }
         }
     }
@@ -431,12 +435,12 @@ public class GraphDrawer : MonoBehaviour
     private void HandleConsequencesOfSelectedMotivation(Relation relation)
     {
         //Megnézem, hogy a kiválasztott motiváció kapcsolatban áll-e konklúzióval
-        Relation motivationAndConclusionRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(motAndConcRel => motAndConcRel.Input2 == relation.SelectedOutput);
-        if (motivationAndConclusionRelation != null)
+        List<Relation> motivationAndConclusionRelations = Data.ConclusionAndMotivationToFinalDeductionRelations.FindAll(motAndConcRel => motAndConcRel.Input2 == relation.SelectedOutput);
+        foreach (var motivationAndConclusionRelation in motivationAndConclusionRelations)
         {
             //Megnézem, hogy a vele kapcsolatban lévő konklúzió ki van-e választva
-            Relation prevClueRelation = Data.ChoosenClueRelations.Find(prevCluRel => prevCluRel.SelectedOutput == motivationAndConclusionRelation.Input1);
-            if (prevClueRelation != null)
+            List<Relation> prevClueRelations = Data.ChoosenClueRelations.FindAll(prevCluRel => prevCluRel.SelectedOutput == motivationAndConclusionRelation.Input1);
+            foreach (var prevClueRelation in prevClueRelations)
             {
                 Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(motivationAndConclusionRelation);
             }
@@ -477,7 +481,7 @@ public class GraphDrawer : MonoBehaviour
     }
 
     private void ClearConsequencesOfSelectedMotivation(Relation conclusionRelation)
-    {    
+    {
         Relation choosenConclusionAndMoticationToFinalDedRel = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(choosenConcAndMotToFinalRel =>
             choosenConcAndMotToFinalRel.Input2 == conclusionRelation.SelectedOutput);
         if (choosenConclusionAndMoticationToFinalDedRel != null)
@@ -501,7 +505,7 @@ public class GraphDrawer : MonoBehaviour
     {
         GameObject dotConnection = new GameObject("dotConnection", typeof(Image));
         dotConnection.transform.SetParent(graphContainer, false);
-        dotConnection.GetComponent<Image>().color = new Color(132, 130, 126, .05f);
+        dotConnection.GetComponent<Image>().color = new Color(132, 130, 126, .09f);
         RectTransform rectTransform = dotConnection.GetComponent<RectTransform>();
         Vector2 dir = (dotPositionB - dotPositionA).normalized;
         float distance = Vector2.Distance(dotPositionA, dotPositionB);

@@ -236,83 +236,86 @@ public class ClueHandler : MonoBehaviour
             return;
         }
 
+
         // Megnézem, hogy a két clue párban van-e
-        List<Relation> clueRelations = Data.ClueRelations.FindAll(crelation => crelation.Input1 == selectedClue1 || crelation.Input2 == selectedClue1);
-        foreach (var clueRelation in clueRelations)
+        Relation clueRelation = Data.ClueRelations.Find(crelation => crelation.Input1 == selectedClue1 || crelation.Input2 == selectedClue1);
+
+        // ha párban van
+        if (clueRelation != null && (selectedClue2 == clueRelation.Input1 || selectedClue2 == clueRelation.Input2))
         {
-            // ha párban van
-            if (selectedClue2 == clueRelation.Input1 || selectedClue2 == clueRelation.Input2)
+            // ha a clue párnak csak 1 kimenete van
+            if (clueRelation.Output2 == null)
             {
-                // ha a clue párnak csak 1 kimenete van
-                if (clueRelation.Output2 == null)
+                // Mengnézem, hogy az így kapott conclusion-nek van-e conclusion-párja, amivel motivációt alkot
+                Relation conclusionRelation = Data.ConclusionRelations.Find(conRel =>
+                       conRel.Input1 == clueRelation.SelectedOutput
+                    || conRel.Input2 == clueRelation.SelectedOutput);
+
+                if (conclusionRelation != null)
                 {
-                    // Mengnézem, hogy az így kapott conclusion-nek van-e conclusion-párja, amivel motivációt alkot
-                    List<Relation> conclusionRelations = Data.ConclusionRelations.FindAll(conRel =>
-                           conRel.Input1 == clueRelation.SelectedOutput
-                        || conRel.Input2 == clueRelation.SelectedOutput);
-                    foreach (var conclusionRelation in conclusionRelations)
-                    {
-                        // Ha van, akkor megnézem, hogy a conclusion-pár másik tagja ki lett-e már választva
-                        List<Relation> previousClueRelations = Data.ChoosenClueRelations.FindAll(clueRel =>
-                               clueRel.SelectedOutput == conclusionRelation.Input1
-                            || clueRel.SelectedOutput == conclusionRelation.Input2);
-                        foreach (var previousClueRelation in previousClueRelations)
-                        {
-                            // Ha már a másik conclusion is ki lett választva
-                            // Felkerül egy motiváció
-                            Data.ChoosenConclusionRelations.Add(conclusionRelation);
+                    // Ha van, akkor megnézem, hogy a conclusion-pár másik tagja ki lett-e már választva
+                    Relation previousClueRelation = Data.ChoosenClueRelations.Find(clueRel =>
+                           clueRel.SelectedOutput == conclusionRelation.Input1
+                        || clueRel.SelectedOutput == conclusionRelation.Input2);
 
-                            // Megnézem, hogy van-e olyan konklúzió, ami ezzel a motivációval (conclusionPair) finalDeduction-ba megy
-                            if (conclusionRelation.SelectedOutput != null)
+                    if (previousClueRelation != null)
+                    {
+                        // Ha már a másik conclusion is ki lett választva
+                        // Felkerül egy motiváció
+                        Data.ChoosenConclusionRelations.Add(conclusionRelation);
+
+                        // Megnézem, hogy van-e olyan konklúzió, ami ezzel a motivációval (conclusionPair) finalDeduction-ba megy
+                        if (conclusionRelation.SelectedOutput != null)
+                        {
+                            Relation conclusionAndMotivationToFinalDeductionRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(conclusionAndMotivationRelation =>
+                            conclusionAndMotivationRelation.Input2 == conclusionRelation.SelectedOutput);
+
+                            if (conclusionAndMotivationToFinalDeductionRelation != null)
                             {
-                                List<Relation> conclusionAndMotivationToFinalDeductionRelations = Data.ConclusionAndMotivationToFinalDeductionRelations.FindAll(conclusionAndMotivationRelation =>
-                                conclusionAndMotivationRelation.Input2 == conclusionRelation.SelectedOutput);
-                                foreach (var conclusionAndMotivationToFinalDeductionRelation in conclusionAndMotivationToFinalDeductionRelations)
-                                {
-                                    // Felkerül egy finalDeduction
-                                    Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(conclusionAndMotivationToFinalDeductionRelation);
-                                }
+                                // Felkerül egy finalDeduction
+                                Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(conclusionAndMotivationToFinalDeductionRelation);
                             }
-                        }
-                    }
-
-                    // Mengnézem, hogy van-e motiváció, amivel finalDeductionba mutat ez a konklúzió
-                    List<Relation> prevConclusionAndMotivationToFinalDeductionRelations = Data.ConclusionAndMotivationToFinalDeductionRelations.FindAll(conAndMotToFinal =>
-                           conAndMotToFinal.Input1 == clueRelation.SelectedOutput
-                        || conAndMotToFinal.Input2 == clueRelation.SelectedOutput);
-                    foreach (var prevConclusionAndMotivationToFinalDeductionRelation in prevConclusionAndMotivationToFinalDeductionRelations)
-                    {
-                        // Ha van finalDeduction hozzá
-                        // Mengnézem, hogy van e kiválasztott motiváció hozzá
-                        List<Relation> previousConclusionRelations = Data.ChoosenConclusionRelations.FindAll(conRel =>
-                               conRel.SelectedOutput == prevConclusionAndMotivationToFinalDeductionRelation.Input2);
-                        foreach (var previousConclusionRelation in previousConclusionRelations)
-                        {
-                            // Felkerül egy finalDeduction
-                            Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(prevConclusionAndMotivationToFinalDeductionRelation);
-                        }
-                    }
-
-                    // Mengnézem, hogy van-e korábban kiválasztott conclusion, amivel finalDeductionba mutat ez a konklúzió
-                    List<Relation> conclusionToFinalDeductionRelations = Data.ConclusionToFinalDeductionRelations.FindAll(concToFinalDed =>
-                           concToFinalDed.Input1 == clueRelation.SelectedOutput
-                        || concToFinalDed.Input2 == clueRelation.SelectedOutput);
-                    foreach (var prevConclusionAndMotivationToFinalDeductionRelation in conclusionToFinalDeductionRelations)
-                    {
-                        // Mengnézem, hogy van e kiválasztott motiváció hozzá
-                        List<Relation> previousClueRelations = Data.ChoosenClueRelations.FindAll(clueRel =>
-                               clueRel.SelectedOutput == prevConclusionAndMotivationToFinalDeductionRelation.Input1
-                            || clueRel.SelectedOutput == prevConclusionAndMotivationToFinalDeductionRelation.Input2);
-                        foreach (var previousClueRelation in previousClueRelations)
-                        {
-                            // Felkerül egy finalDeduction
-                            Data.ChoosenConclusionsToFinalDeductionRelations.Add(prevConclusionAndMotivationToFinalDeductionRelation);
                         }
                     }
                 }
 
-            }
+                // Mengnézem, hogy van-e motiváció, amivel finalDeductionba mutat ez a konklúzió
+                Relation prevConclusionAndMotivationToFinalDeductionRelation = Data.ConclusionAndMotivationToFinalDeductionRelations.Find(conAndMotToFinal =>
+                       conAndMotToFinal.Input1 == clueRelation.SelectedOutput
+                    || conAndMotToFinal.Input2 == clueRelation.SelectedOutput);
+                if (prevConclusionAndMotivationToFinalDeductionRelation != null)
+                {
+                    // Ha van finalDeduction hozzá
+                    // Mengnézem, hogy van e kiválasztott motiváció hozzá
+                    Relation previousConclusionRelation = Data.ChoosenConclusionRelations.Find(conRel =>
+                           conRel.SelectedOutput == prevConclusionAndMotivationToFinalDeductionRelation.Input2);
 
+                    if (previousConclusionRelation != null)
+                    {
+                        // Felkerül egy finalDeduction
+                        Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Add(prevConclusionAndMotivationToFinalDeductionRelation);
+                    }
+                }
+
+                // Mengnézem, hogy van-e korábban kiválasztott conclusion, amivel finalDeductionba mutat ez a konklúzió
+                Relation conclusionToFinalDeductionRelation = Data.ConclusionToFinalDeductionRelations.Find(concToFinalDed =>
+                        concToFinalDed.Input1 == clueRelation.SelectedOutput
+                     || concToFinalDed.Input2 == clueRelation.SelectedOutput);
+
+                if (prevConclusionAndMotivationToFinalDeductionRelation != null)
+                {
+                    // Mengnézem, hogy van e kiválasztott motiváció hozzá
+                    Relation previousClueRelation = Data.ChoosenClueRelations.Find(clueRel =>
+                           clueRel.SelectedOutput == prevConclusionAndMotivationToFinalDeductionRelation.Input1
+                        || clueRel.SelectedOutput == prevConclusionAndMotivationToFinalDeductionRelation.Input2);
+
+                    if (previousClueRelation != null)
+                    {
+                        // Felkerül egy finalDeduction
+                        Data.ChoosenConclusionsToFinalDeductionRelations.Add(prevConclusionAndMotivationToFinalDeductionRelation);
+                    }
+                }
+            }
             // Felkerül egy Conclusion
             Data.ChoosenClueRelations.Add(clueRelation);
 
@@ -323,7 +326,7 @@ public class ClueHandler : MonoBehaviour
             // Toast Unity pack a pop up üzenet megjelenítésére (akkor jelenik meg, ha sikeres a párosítás)
             Toast.Instance.Show("Sikeres párosítás!\nA konklúzió felkerült a gráfra!", 2f, Toast.ToastColor.Green);
         }
-        if (clueRelations.Count == 0)
+        else
         {
             // Letöltött Toast Unity pack a pop up üzenet megjelenítésére (akkor jelenik meg, ha nincs párban a két kiválasztott nyom)
             Toast.Instance.Show("A kiválasztott nyomok nem alkotnak párt!", 2f, Toast.ToastColor.Red);

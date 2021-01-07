@@ -450,31 +450,32 @@ public class GraphDrawer : MonoBehaviour
     private void ClearConsequencesOfSelectedConclusion(Relation clueRelation)
     {
         // Meg kell nézni, hogy a kiválasztott konklúzió kapcsolatban áll e egy másik konklúióval
-        Relation choosenConclusionRelation = Data.ChoosenConclusionRelations.Find(choosenConcRel =>
+        List<Relation> choosenConclusionRelations = Data.ChoosenConclusionRelations.FindAll(choosenConcRel =>
               choosenConcRel.Input1 == clueRelation.SelectedOutput
            || choosenConcRel.Input2 == clueRelation.SelectedOutput);
-        if (choosenConclusionRelation != null)
+        foreach (var choosenConclusionRelation in choosenConclusionRelations)
         {
             Data.ChoosenConclusionRelations.Remove(choosenConclusionRelation);
-            Relation conclusionAndMotivationRelation = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(concAndMotRel =>
+            List<Relation> conclusionAndMotivationRelations = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.FindAll(concAndMotRel =>
                 concAndMotRel.Input2 == choosenConclusionRelation.SelectedOutput);
-            if (conclusionAndMotivationRelation != null)
+            foreach (var conclusionAndMotivationRelation in conclusionAndMotivationRelations)
             {
                 Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(conclusionAndMotivationRelation);
             }
         }
 
-        Relation choosenConclusionAndMotivationRelation = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(choosenConcAndMotRel =>
+        List<Relation> choosenConclusionAndMotivationRelations = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.FindAll(choosenConcAndMotRel =>
             choosenConcAndMotRel.Input1 == clueRelation.SelectedOutput);
-        if (choosenConclusionAndMotivationRelation != null)
+        foreach (var choosenConclusionAndMotivationRelation in choosenConclusionAndMotivationRelations)
         {
             Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(choosenConclusionAndMotivationRelation);
         }
 
-        Relation choosenConclusionToFinalDeductionRelation = Data.ChoosenConclusionsToFinalDeductionRelations.Find(choosenConcToFinalRel =>
+
+        List<Relation> choosenConclusionToFinalDeductionRelations = Data.ChoosenConclusionsToFinalDeductionRelations.FindAll(choosenConcToFinalRel =>
            choosenConcToFinalRel.Input1 == clueRelation.SelectedOutput
         || choosenConcToFinalRel.Input2 == clueRelation.SelectedOutput);
-        if (choosenConclusionToFinalDeductionRelation != null)
+        foreach (var choosenConclusionToFinalDeductionRelation in choosenConclusionToFinalDeductionRelations)
         {
             Data.ChoosenConclusionsToFinalDeductionRelations.Remove(choosenConclusionToFinalDeductionRelation);
         }
@@ -482,11 +483,11 @@ public class GraphDrawer : MonoBehaviour
 
     private void ClearConsequencesOfSelectedMotivation(Relation conclusionRelation)
     {
-        Relation choosenConclusionAndMoticationToFinalDedRel = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Find(choosenConcAndMotToFinalRel =>
+        List<Relation> choosenConclusionAndMoticationToFinalDedRels = Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.FindAll(choosenConcAndMotToFinalRel =>
             choosenConcAndMotToFinalRel.Input2 == conclusionRelation.SelectedOutput);
-        if (choosenConclusionAndMoticationToFinalDedRel != null)
+        foreach (var choosenConclusionAndMoticationToFinalDedRel in choosenConclusionAndMoticationToFinalDedRels)
         {
-            Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(choosenConclusionAndMoticationToFinalDedRel);
+                Data.ChoosenConclusionAndMotivationToFinalDeductionRelations.Remove(choosenConclusionAndMoticationToFinalDedRel);
         }
     }
 
